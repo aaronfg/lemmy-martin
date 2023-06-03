@@ -7,15 +7,10 @@
 
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { StatusBar, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { LoginStack } from './src/navigation/LoginStack';
+import { LoginScreen } from './src/screens/Login';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -23,16 +18,10 @@ function App(): JSX.Element {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <SafeAreaView style={{ backgroundColor: '#FFFFFF' }}>
-          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={{ backgroundColor: '#FFFFFF' }}>
-            <View>
-              <Text>Blah</Text>
-            </View>
-          </ScrollView>
-        </SafeAreaView>
+        <StatusBar barStyle="dark-content" backgroundColor={'#FFFFFF'} />
+        <LoginStack.Navigator>
+          <LoginStack.Screen name="Login" component={LoginScreen} />
+        </LoginStack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   );
