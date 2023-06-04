@@ -3,13 +3,13 @@ import { ScrollView, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-/** The Login screen for adding an account to the app. */
-export const LoginScreen = (): JSX.Element => {
+/** Screen for viewing a thread */
+export const ThreadScreen = (): JSX.Element => {
   return (
     <SafeAreaView>
       <ScrollView>
         <View>
-          <Text>Login Screen</Text>
+          <Text>Thread!</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
