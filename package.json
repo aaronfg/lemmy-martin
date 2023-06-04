@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "generate-docs": "typedoc --plugin typedoc-plugin-markdown",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest"
@@ -41,6 +42,8 @@
     "prettier": "^2.4.1",
     "react-test-renderer": "18.2.0",
     "ts-jest": "^29.1.0",
+    "typedoc": "^0.24.7",
+    "typedoc-plugin-markdown": "^3.15.3",
     "typescript": "4.8.4"
   }
 }
