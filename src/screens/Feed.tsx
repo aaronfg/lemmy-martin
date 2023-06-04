@@ -3,6 +3,7 @@ import { ScrollView, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getSettingsFeedSource } from '../features/settings/selectors';
+import { log } from '../logging/log';
 import { useAppSelector } from '../redux/hooks';
 
 /**
@@ -11,6 +12,8 @@ import { useAppSelector } from '../redux/hooks';
  */
 export const FeedScreen = (): JSX.Element => {
   const feedSource = useAppSelector(getSettingsFeedSource);
+  log.warn('this is debug test');
+  console.log('asd');
   return (
     <SafeAreaView>
       <ScrollView>
