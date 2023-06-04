@@ -1,5 +1,8 @@
+import { LoginResponse } from 'lemmy-js-client';
+
 /** Descriptor for the `settings` slice of our redux store */
 export interface ISettingsState {
+  login: LoginResponse;
   /** Settings for the feed screen / data */
   feed: IFeedSettings;
 }

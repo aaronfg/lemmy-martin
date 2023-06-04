@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import reduxFlipper from 'redux-flipper';
+import { lemmyReducer } from '../features/lemmy';
 import { settingsReducer } from '../features/settings';
 
 const middlewares = [
@@ -14,6 +15,7 @@ if (__DEV__) {
 /** Our redux store */
 export const store = configureStore({
   reducer: {
+    lemmy: lemmyReducer,
     settings: settingsReducer,
   },
   middleware: getDefaultMiddleware =>

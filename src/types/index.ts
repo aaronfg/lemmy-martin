@@ -1,3 +1,8 @@
+export interface IError {
+  message: string;
+  code?: number;
+}
+
 /**
  * String names for the screens.
  *
