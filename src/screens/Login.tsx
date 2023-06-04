@@ -1,5 +1,6 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
+import { Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 /** The Login screen for adding an account to the app. */
@@ -8,7 +9,7 @@ export const LoginScreen = (): JSX.Element => {
     <SafeAreaView>
       <ScrollView>
         <View>
-          <Text>Login Screen!</Text>
+          <Text>Login Screen</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

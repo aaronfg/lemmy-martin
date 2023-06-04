@@ -1,8 +1,8 @@
-/** 
- * String names for the screens. 
- * 
+/**
+ * String names for the screens.
+ *
  * Used in the stack navigators
  */
 export enum ScreenNames {
-    Login = 'Login'
+  Login = 'Login',
 }
