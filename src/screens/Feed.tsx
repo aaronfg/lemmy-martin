@@ -3,8 +3,13 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ErrorMsg } from '../components/ErrorMsg';
 import { login } from '../features/lemmy/actions';
-import { getLemmyAPILoading, getLemmyJWT } from '../features/lemmy/selectors';
+import {
+  getLemmyAPIError,
+  getLemmyAPILoading,
+  getLemmyJWT,
+} from '../features/lemmy/selectors';
 import { getSettingsFeedSource } from '../features/settings/selectors';
 import { log } from '../logging/log';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -18,6 +23,7 @@ export const FeedScreen = (): JSX.Element => {
   const feedSource = useAppSelector(getSettingsFeedSource);
   const loading = useAppSelector(getLemmyAPILoading);
   const token = useAppSelector(getLemmyJWT);
+  const error = useAppSelector(getLemmyAPIError);
 
   const dispatch = useAppDispatch();
 
@@ -68,6 +74,7 @@ export const FeedScreen = (): JSX.Element => {
               Get Communities
             </Button>
           )}
+          {error && <ErrorMsg message={error.message} />}
         </View>
       </ScrollView>
     </SafeAreaView>

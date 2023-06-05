@@ -3,11 +3,11 @@ import {
   addListener,
   createListenerMiddleware,
 } from '@reduxjs/toolkit';
-import { log } from '../../logging/log';
 import { AppStartListening } from '../../redux/listenereMiddleware';
 import { AppDispatch, RootState } from '../../redux/store';
+import { LemmyUtils } from '../../utils/LemmyUtils';
 import { login } from '../lemmy/actions';
-import { settingsAddAccount } from './actions';
+import { settingsUpdateAccounts } from './actions';
 import { getAccounts } from './selectors';
 import { IAccount } from './types';
 
@@ -24,9 +24,6 @@ export const addAppListener = addListener as TypedAddListener<
 startAppListening({
   actionCreator: login.fulfilled,
   effect: async (action, listenerApi) => {
-    //
-    log.debug('++ settings listener middleware got login fulfilled!');
-    log.debug('    action:', action);
     // login was successful. save this account
     const newAccount: IAccount = {
       username: action.meta.arg.loginForm.username_or_email,
@@ -37,9 +34,18 @@ startAppListening({
 
     const accounts = getAccounts(listenerApi.getState());
 
-    if (!accounts.has(newAccount)) {
-      log.debug('adding new account:', newAccount);
-      listenerApi.dispatch(settingsAddAccount(newAccount));
-    }
+    const updatedAccounts = LemmyUtils.getUpdatedAccounts(newAccount, accounts);
+    listenerApi.dispatch(settingsUpdateAccounts(updatedAccounts));
+
+    // if (LemmyUtils.isNewAccount(newAccount, accounts)) {
+    //   log.debug('this is a new account. updating our accounts...');
+    //   const updatedAccounts = LemmyUtils.getUpdatedAccounts(
+    //     newAccount,
+    //     accounts,
+    //   );
+    //   listenerApi.dispatch(settingsUpdateAccounts(updatedAccounts));
+    // } else {
+    //   log.debug('we already have this account.');
+    // }
   },
 });
