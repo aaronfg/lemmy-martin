@@ -31,10 +31,24 @@ export const FeedScreen = (): JSX.Element => {
     };
     try {
       // const response = await client.login(loginForm);
-      const response = await dispatch(login(loginForm));
+      const response = await dispatch(
+        login({
+          instanceUrl: 'https://lemmy.ml',
+          loginForm,
+        }),
+      );
       log.debug('response: ', response);
     } catch (error) {
       log.error(error);
+    }
+  };
+
+  const onPostsPress = async () => {
+    try {
+      //
+      // const response =
+    } catch (error) {
+      //
     }
   };
 
@@ -44,11 +58,16 @@ export const FeedScreen = (): JSX.Element => {
         <View>
           <Text>Feed</Text>
           <Text>Default Source: {feedSource}</Text>
-          {token && <Text>JWT Token: {token}</Text>}
 
           <Button mode="contained" onPress={doLogin} disabled={loading}>
             Login
           </Button>
+          {token && <Text>JWT Token: {token}</Text>}
+          {token && (
+            <Button mode="contained" onPress={onPostsPress} disabled={loading}>
+              Get Communities
+            </Button>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

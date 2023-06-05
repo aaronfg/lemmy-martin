@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import reduxFlipper from 'redux-flipper';
 import { lemmyReducer } from '../features/lemmy';
 import { settingsReducer } from '../features/settings';
+import { settingsListenerMiddleware } from '../features/settings/middleware';
 
 const middlewares = [
   /* other middlewares */
@@ -19,7 +20,9 @@ export const store = configureStore({
     settings: settingsReducer,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(middlewares),
+    getDefaultMiddleware()
+      .prepend(settingsListenerMiddleware.middleware)
+      .concat(middlewares),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

@@ -1,4 +1,4 @@
-import { LoginResponse } from 'lemmy-js-client';
+import { Login, LoginResponse } from 'lemmy-js-client';
 import { IError } from '../../types';
 
 export interface ILemmyState {
@@ -9,6 +9,11 @@ export interface ILemmyState {
 
 export interface ILoginError {
   error: string;
+}
+
+export interface ILoginParams {
+  loginForm: Login;
+  instanceUrl: string;
 }
 
 export enum LoginErrors {

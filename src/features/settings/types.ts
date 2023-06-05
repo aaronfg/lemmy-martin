@@ -1,8 +1,16 @@
-import { LoginResponse } from 'lemmy-js-client';
+export interface IAccount {
+  instance: string;
+  username: string;
+  password: string;
+  token?: string;
+}
 
 /** Descriptor for the `settings` slice of our redux store */
 export interface ISettingsState {
-  login: LoginResponse;
+  /** Lemmy accounts the user has signed in with */
+  accounts: IAccount[];
+  /** Currently selected account */
+  currentAccount?: IAccount;
   /** Settings for the feed screen / data */
   feed: IFeedSettings;
 }
