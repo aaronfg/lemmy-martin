@@ -5,7 +5,7 @@ module.exports = {
     '\\.[jt]sx?$': 'babel-jest',
   },
   collectCoverage: true,
-  coverageDirectory: '<rootDir>src/__test-coverage-result__/',
+  coverageDirectory: '<rootDir>/__test-coverage-result__/',
   coverageReporters: ['text', 'html'],
   reporters: [
     'default',
