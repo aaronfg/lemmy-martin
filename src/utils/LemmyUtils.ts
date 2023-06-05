@@ -1,5 +1,4 @@
 import { IAccount } from '../features/settings/types';
-import { log } from '../logging/log';
 
 export class LemmyUtils {
   static isNewAccount = (
@@ -22,10 +21,9 @@ export class LemmyUtils {
     accounts: Set<IAccount>,
   ): IAccount[] => {
     if (!this.isNewAccount(newAccount, accounts)) {
-      log.debug('we have this account already, just updating the token...');
       // we have this account already, just update the token
       const accountsAsArray = Array.from(accounts);
-      const existingAccounts = accountsAsArray.filter(exAccount => {
+      const possibleMatches = accountsAsArray.filter(exAccount => {
         return (
           newAccount.instance === exAccount.instance &&
           newAccount.password === exAccount.password &&
@@ -33,21 +31,21 @@ export class LemmyUtils {
         );
       });
 
-      if (existingAccounts.length === 1) {
-        const exAccount = existingAccounts[0];
+      if (possibleMatches.length === 1) {
+        const exAccount = possibleMatches[0];
         exAccount.token = newAccount.token;
 
-        const otherExistingAccounts = accountsAsArray.filter(exAccount => {
+        const otherExistingAccounts = accountsAsArray.filter(someAccount => {
           return (
-            newAccount.instance != exAccount.instance &&
-            newAccount.password != exAccount.password &&
-            newAccount.username != exAccount.username
+            newAccount.instance != someAccount.instance &&
+            newAccount.password != someAccount.password &&
+            newAccount.username != someAccount.username
           );
         });
 
         if (otherExistingAccounts.length === 1) {
+          console.log('yay it equals 1');
           const ourAcc = otherExistingAccounts[0];
-          log.debug('found our account!', ourAcc);
           let ind: number | undefined;
           accountsAsArray.forEach((acc, index) => {
             if (acc === ourAcc) {
@@ -57,18 +55,14 @@ export class LemmyUtils {
           });
           if (ind !== undefined) {
             ourAcc.token = newAccount.token;
-            log.debug('account with updated token:', ourAcc);
             accountsAsArray[ind] = ourAcc;
-            log.debug('updated accounts: ', accountsAsArray);
           }
 
           return accountsAsArray;
         }
       }
     } else {
-      log.debug('this is a new account. adding it.');
       accounts.add(newAccount);
-      log.debug('updated accounts: ', Array.from(accounts));
     }
     return Array.from(accounts);
   };
