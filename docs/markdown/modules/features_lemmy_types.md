@@ -10,6 +10,6 @@
 
 ### Interfaces
 
+- [ILemmyLoginError](../interfaces/features_lemmy_types.ILemmyLoginError.md)
+- [ILemmyLoginParams](../interfaces/features_lemmy_types.ILemmyLoginParams.md)
 - [ILemmyState](../interfaces/features_lemmy_types.ILemmyState.md)
-- [ILoginError](../interfaces/features_lemmy_types.ILoginError.md)
-- [ILoginParams](../interfaces/features_lemmy_types.ILoginParams.md)

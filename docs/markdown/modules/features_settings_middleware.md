@@ -19,6 +19,8 @@
 
 • `Const` **settingsListenerMiddleware**: `ListenerMiddlewareInstance`<`unknown`, `ThunkDispatch`<`unknown`, `unknown`, `AnyAction`\>, `unknown`\>
 
+Listener middleware related to the `settings` feature
+
 ## Functions
 
 ### addAppListener

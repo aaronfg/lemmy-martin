@@ -6,11 +6,12 @@ import {
 import { AppStartListening } from '../../redux/listenereMiddleware';
 import { AppDispatch, RootState } from '../../redux/store';
 import { LemmyUtils } from '../../utils/LemmyUtils';
-import { login } from '../lemmy/actions';
+import { lemmyLogin } from '../lemmy/actions';
 import { settingsUpdateAccounts } from './actions';
 import { getAccounts } from './selectors';
 import { IAccount } from './types';
 
+/** Listener middleware related to the `settings` feature */
 export const settingsListenerMiddleware = createListenerMiddleware();
 
 export const startAppListening =
@@ -22,7 +23,7 @@ export const addAppListener = addListener as TypedAddListener<
 >;
 
 startAppListening({
-  actionCreator: login.fulfilled,
+  actionCreator: lemmyLogin.fulfilled,
   effect: async (action, listenerApi) => {
     // login was successful. save this account
     const newAccount: IAccount = {

@@ -16,11 +16,13 @@
 
 ▸ **getLemmyAPIError**(`state`): `undefined` \| [`IError`](../interfaces/types.IError.md)
 
+Returns any error object we have in from the Lemmy API.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | `Object` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | `Object` | Our redux state |
 
 #### Returns
 

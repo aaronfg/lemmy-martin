@@ -4,6 +4,8 @@
 
 [features/lemmy/types](../modules/features_lemmy_types.md).LoginErrors
 
+Error messages related to logging in
+
 ## Table of contents
 
 ### Enumeration Members
@@ -15,3 +17,5 @@
 ### UserOrPassInvalid
 
 • **UserOrPassInvalid** = ``"couldnt_find_that_username_or_email"``
+
+A possible response if the user/pass is wrong.

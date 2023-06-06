@@ -6,20 +6,22 @@
 
 ### Functions
 
-- [login](features_lemmy_actions.md#login)
+- [lemmyLogin](features_lemmy_actions.md#lemmylogin)
 
 ## Functions
 
-### login
+### lemmyLogin
 
-▸ **login**(`arg`): `AsyncThunkAction`<`LoginResponse`, [`ILoginParams`](../interfaces/features_lemmy_types.ILoginParams.md), { `dispatch?`: `Dispatch`<`AnyAction`\> ; `extra?`: `unknown` ; `fulfilledMeta?`: `unknown` ; `pendingMeta?`: `unknown` ; `rejectValue`: [`IError`](../interfaces/types.IError.md) ; `rejectedMeta?`: `unknown` ; `serializedErrorType?`: `unknown` ; `state?`: `unknown`  }\>
+▸ **lemmyLogin**(`arg`): `AsyncThunkAction`<`LoginResponse`, [`ILemmyLoginParams`](../interfaces/features_lemmy_types.ILemmyLoginParams.md), { `dispatch?`: `Dispatch`<`AnyAction`\> ; `extra?`: `unknown` ; `fulfilledMeta?`: `unknown` ; `pendingMeta?`: `unknown` ; `rejectValue`: [`IError`](../interfaces/types.IError.md) ; `rejectedMeta?`: `unknown` ; `serializedErrorType?`: `unknown` ; `state?`: `unknown`  }\>
+
+Dispatched when a user attempts to log in.
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `arg` | [`ILoginParams`](../interfaces/features_lemmy_types.ILoginParams.md) |
+| `arg` | [`ILemmyLoginParams`](../interfaces/features_lemmy_types.ILemmyLoginParams.md) |
 
 #### Returns
 
-`AsyncThunkAction`<`LoginResponse`, [`ILoginParams`](../interfaces/features_lemmy_types.ILoginParams.md), { `dispatch?`: `Dispatch`<`AnyAction`\> ; `extra?`: `unknown` ; `fulfilledMeta?`: `unknown` ; `pendingMeta?`: `unknown` ; `rejectValue`: [`IError`](../interfaces/types.IError.md) ; `rejectedMeta?`: `unknown` ; `serializedErrorType?`: `unknown` ; `state?`: `unknown`  }\>
+`AsyncThunkAction`<`LoginResponse`, [`ILemmyLoginParams`](../interfaces/features_lemmy_types.ILemmyLoginParams.md), { `dispatch?`: `Dispatch`<`AnyAction`\> ; `extra?`: `unknown` ; `fulfilledMeta?`: `unknown` ; `pendingMeta?`: `unknown` ; `rejectValue`: [`IError`](../interfaces/types.IError.md) ; `rejectedMeta?`: `unknown` ; `serializedErrorType?`: `unknown` ; `state?`: `unknown`  }\>

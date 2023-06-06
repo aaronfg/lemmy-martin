@@ -14,8 +14,7 @@
 
 ▸ **settingsUpdateAccounts**(`payload`): `Object`
 
-Calling this redux#ActionCreator with an argument will
-return a PayloadAction of type `T` with a payload of `P`
+Dsipatched when we update the accounts that have been saved.
 
 #### Parameters
 

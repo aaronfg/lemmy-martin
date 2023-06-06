@@ -16,6 +16,8 @@
 
 ▸ **getAccounts**(`state`, `...params`): `Set`<[`IAccount`](../interfaces/features_settings_types.IAccount.md)\>
 
+Returns the saved accounts as a Set
+
 #### Parameters
 
 | Name | Type |

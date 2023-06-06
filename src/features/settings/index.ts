@@ -10,7 +10,7 @@ export const INITIAL_SETTINGS_STATE: ISettingsState = {
   },
 };
 
-/** The reducer for the `settiings` slice of our redux state */
+/** The reducer for the `settings` slice of our redux state */
 export const settingsReducer = createReducer(
   INITIAL_SETTINGS_STATE,
   builder => {

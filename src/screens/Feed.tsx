@@ -4,7 +4,7 @@ import { ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ErrorMsg } from '../components/ErrorMsg';
-import { login } from '../features/lemmy/actions';
+import { lemmyLogin } from '../features/lemmy/actions';
 import {
   getLemmyAPIError,
   getLemmyAPILoading,
@@ -38,7 +38,7 @@ export const FeedScreen = (): JSX.Element => {
     try {
       // const response = await client.login(loginForm);
       const response = await dispatch(
-        login({
+        lemmyLogin({
           instanceUrl: 'https://lemmy.ml',
           loginForm,
         }),

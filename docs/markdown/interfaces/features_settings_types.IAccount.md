@@ -4,6 +4,8 @@
 
 [features/settings/types](../modules/features_settings_types.md).IAccount
 
+Descriptor for a Lemmy account
+
 ## Table of contents
 
 ### Properties
@@ -19,11 +21,15 @@
 
 • **instance**: `string`
 
+The url of the instance this account is on
+
 ___
 
 ### password
 
 • **password**: `string`
+
+Password for the account
 
 ___
 
@@ -31,8 +37,12 @@ ___
 
 • `Optional` **token**: `string`
 
+The jwt token received after a successful login
+
 ___
 
 ### username
 
 • **username**: `string`
+
+Username / email for the account

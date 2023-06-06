@@ -1,6 +1,18 @@
 import { IAccount } from '../features/settings/types';
 
+/**
+ * Class with utility methods related to Lemmy API and accounts
+ */
 export class LemmyUtils {
+  /**
+   * Returns `true` if the `account` passed in is not already present in the
+   * Set of `accounts`.
+   *
+   * This check does not care about the {@link IAccount.token} property of the account
+   * as this check is used for updating the account with a new token upon login.
+   * @param account The account to check
+   * @param accounts The existing accounts we have saved in the redux store
+   */
   static isNewAccount = (
     account: IAccount,
     accounts: Set<IAccount>,
@@ -16,6 +28,15 @@ export class LemmyUtils {
     return matchingAccounts.length === 0;
   };
 
+  /**
+   * Will update the `accounts` passed in with the `newAccount` and return the
+   * new Set.
+   *
+   * This is used both when we have a brand new account AND also when we have a
+   * new token for an existing account.
+   * @param newAccount The new account
+   * @param accounts The existing accounts we have saved in the redux store
+   */
   static getUpdatedAccounts = (
     newAccount: IAccount,
     accounts: Set<IAccount>,
@@ -44,7 +65,6 @@ export class LemmyUtils {
         });
 
         if (otherExistingAccounts.length === 1) {
-          console.log('yay it equals 1');
           const ourAcc = otherExistingAccounts[0];
           let ind: number | undefined;
           accountsAsArray.forEach((acc, index) => {
@@ -62,6 +82,7 @@ export class LemmyUtils {
         }
       }
     } else {
+      // This is a new account. Just add it
       accounts.add(newAccount);
     }
     return Array.from(accounts);

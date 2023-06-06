@@ -4,6 +4,8 @@
 
 [features/lemmy/types](../modules/features_lemmy_types.md).ILemmyState
 
+The descriptor for the `lemmy` slice of our redux store
+
 ## Table of contents
 
 ### Properties
@@ -18,14 +20,20 @@
 
 • `Optional` **error**: [`IError`](types.IError.md)
 
+Error object for any of the API interactions
+
 ___
 
 ### loading
 
 • **loading**: `boolean`
 
+`true` if we're loading/sending data
+
 ___
 
 ### loginResponse
 
 • `Optional` **loginResponse**: `LoginResponse`
+
+The response from a successful login

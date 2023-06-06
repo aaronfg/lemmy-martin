@@ -1,7 +1,14 @@
+/**
+ * Descriptor for a Lemmy account
+ */
 export interface IAccount {
+  /** The url of the instance this account is on */
   instance: string;
+  /** Username / email for the account */
   username: string;
+  /** Password for the account */
   password: string;
+  /** The jwt token received after a successful login */
   token?: string;
 }
 

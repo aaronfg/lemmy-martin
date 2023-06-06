@@ -1,25 +1,28 @@
 import { createReducer, isAnyOf } from '@reduxjs/toolkit';
-import { login } from './actions';
+import { lemmyLogin } from './actions';
 import { ILemmyState } from './types';
 
+/** The initial state of the `lemmy` slice of our redux store */
 export const INITIAL_LEMMY_STATE: ILemmyState = {
   loading: false,
 };
 
+/** Reducer for the `lemmy` slice of our redux store */
 export const lemmyReducer = createReducer(INITIAL_LEMMY_STATE, builder => {
   builder
     //   login
-    .addCase(login.pending, state => {
+    .addCase(lemmyLogin.pending, state => {
       state.loading = true;
       state.loginResponse = undefined;
     })
-    .addCase(login.fulfilled, (state, action) => {
+    .addCase(lemmyLogin.fulfilled, (state, action) => {
       state.loginResponse = action.payload;
     })
-    .addCase(login.rejected, (state, action) => {
+    .addCase(lemmyLogin.rejected, (state, action) => {
       state.error = action.payload ?? { message: 'Someting went wrong' };
     })
-    .addMatcher(isAnyOf(login.rejected, login.fulfilled), state => {
+    // Actions that should reset the loading flag
+    .addMatcher(isAnyOf(lemmyLogin.rejected, lemmyLogin.fulfilled), state => {
       state.loading = false;
     })
     // default
