@@ -1,6 +1,5 @@
 import { Login, LoginResponse } from 'lemmy-js-client';
 import { IError } from '../../types';
-import { lemmyLogin } from './actions';
 
 /** The descriptor for the `lemmy` slice of our redux store */
 export interface ILemmyState {

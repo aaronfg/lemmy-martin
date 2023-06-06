@@ -6,7 +6,7 @@ import { ILemmyLoginParams } from './types';
 
 /**
  * Dispatched when a user attempts to log in.
- * @param loginParams The {@link ILemmyLoginParams} info
+ * @param loginParams - The {@link ILemmyLoginParams} info
  */
 export const lemmyLogin = createAsyncThunk<
   LoginResponse,

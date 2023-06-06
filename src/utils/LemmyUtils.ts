@@ -10,8 +10,8 @@ export class LemmyUtils {
    *
    * This check does not care about the {@link IAccount.token} property of the account
    * as this check is used for updating the account with a new token upon login.
-   * @param account The account to check
-   * @param accounts The existing accounts we have saved in the redux store
+   * @param account - The account to check
+   * @param accounts - The existing accounts we have saved in the redux store
    */
   static isNewAccount = (
     account: IAccount,
@@ -34,8 +34,8 @@ export class LemmyUtils {
    *
    * This is used both when we have a brand new account AND also when we have a
    * new token for an existing account.
-   * @param newAccount The new account
-   * @param accounts The existing accounts we have saved in the redux store
+   * @param newAccount - The new account
+   * @param accounts - The existing accounts we have saved in the redux store
    */
   static getUpdatedAccounts = (
     newAccount: IAccount,
