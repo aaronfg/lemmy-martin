@@ -9,6 +9,10 @@
 - [MaterialIconNames](../enums/types.MaterialIconNames.md)
 - [ScreenNames](../enums/types.ScreenNames.md)
 
+### Interfaces
+
+- [IError](../interfaces/types.IError.md)
+
 ### Variables
 
 - [TAB\_ICON\_SIZE](types.md#tab_icon_size)

@@ -10,9 +10,27 @@ Descriptor for the `settings` slice of our redux store
 
 ### Properties
 
+- [accounts](features_settings_types.ISettingsState.md#accounts)
+- [currentAccount](features_settings_types.ISettingsState.md#currentaccount)
 - [feed](features_settings_types.ISettingsState.md#feed)
 
 ## Properties
+
+### accounts
+
+• **accounts**: [`IAccount`](features_settings_types.IAccount.md)[]
+
+Lemmy accounts the user has signed in with
+
+___
+
+### currentAccount
+
+• `Optional` **currentAccount**: [`IAccount`](features_settings_types.IAccount.md)
+
+Currently selected account
+
+___
 
 ### feed
 

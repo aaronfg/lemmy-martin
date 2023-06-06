@@ -1,10 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { Middleware, configureStore } from '@reduxjs/toolkit';
 import reduxFlipper from 'redux-flipper';
 import { lemmyReducer } from '../features/lemmy';
 import { settingsReducer } from '../features/settings';
 import { settingsListenerMiddleware } from '../features/settings/middleware';
 
-const middlewares = [
+const middlewares:Middleware[] = [
   /* other middlewares */
 ];
 

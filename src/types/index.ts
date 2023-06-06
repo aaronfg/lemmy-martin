@@ -1,5 +1,8 @@
+/** Simple error descriptor */
 export interface IError {
+  /** A user-readable error message */
   message: string;
+  /** The error code */
   code?: number;
 }
 
