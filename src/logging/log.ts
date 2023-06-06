@@ -23,6 +23,8 @@ const defaultConfig = {
   enabled: true,
 };
 
+/** The default logger instance */
+/** @ignore */
 export const log = logger.createLogger<'debug' | 'info' | 'warn' | 'error'>(
   defaultConfig,
 );

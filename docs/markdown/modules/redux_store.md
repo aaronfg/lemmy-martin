@@ -29,6 +29,6 @@ ___
 
 ### store
 
-• `Const` **store**: `ToolkitStore`<`Object`, `AnyAction`, [`ThunkMiddleware`<`Object`, `AnyAction`, `undefined`\>]\>
+• `Const` **store**: `ToolkitStore`<`Object`, `AnyAction`, `MiddlewareArray`<[`ListenerMiddleware`<`unknown`, `ThunkDispatch`<`unknown`, `unknown`, `AnyAction`\>, `unknown`\>, `ThunkMiddleware`<`Object`, `AnyAction`, `undefined`\>, ...Middleware<Object, any, Dispatch<AnyAction\>\>[]]\>\>
 
 Our redux store

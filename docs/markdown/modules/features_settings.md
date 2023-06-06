@@ -26,7 +26,7 @@ The initial state for the `settings` slice of our redux state
 
 ▸ **settingsReducer**(`state`, `action`): [`ISettingsState`](../interfaces/features_settings_types.ISettingsState.md)
 
-The reducer for the `settiings` slice of our redux state
+The reducer for the `settings` slice of our redux state
 
 #### Parameters
 

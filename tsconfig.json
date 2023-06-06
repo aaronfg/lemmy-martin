@@ -1,3 +1,7 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "exclude": ["**/*__*/**"],
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    
+  }
 }

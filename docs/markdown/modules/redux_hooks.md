@@ -13,11 +13,11 @@
 
 ### useAppDispatch
 
-▸ **useAppDispatch**(): `ThunkDispatch`<`Object`, `undefined`, `AnyAction`\> & `Dispatch`<`AnyAction`\>
+▸ **useAppDispatch**(): (`action`: `Action`<``"listenerMiddleware/add"``\>) => `UnsubscribeListener` & `ThunkDispatch`<`Object`, `undefined`, `AnyAction`\> & `Dispatch`<`AnyAction`\>
 
 #### Returns
 
-`ThunkDispatch`<`Object`, `undefined`, `AnyAction`\> & `Dispatch`<`AnyAction`\>
+(`action`: `Action`<``"listenerMiddleware/add"``\>) => `UnsubscribeListener` & `ThunkDispatch`<`Object`, `undefined`, `AnyAction`\> & `Dispatch`<`AnyAction`\>
 
 ___
 

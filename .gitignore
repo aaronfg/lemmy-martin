@@ -63,4 +63,4 @@ yarn-error.log
 .metro-health-check*
 
 # jest
-/src/__test-coverage-result__
+/__test-coverage-result__/
