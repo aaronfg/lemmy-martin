@@ -1,6 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { MD3Theme, Text, useTheme } from 'react-native-paper';
 import { ICommunityListItem } from '../features/communities/types';
 
@@ -17,9 +17,16 @@ export const ListItemCommunity = (
 
   return (
     <View key={nanoid()} style={styles.container}>
-      <Text>{item.communityView.community.title}</Text>
-      <Text>{item.communityView.community.name}</Text>
-      <Text>{item.communityView.community.description}</Text>
+      {item.communityView.community.icon && (
+        <View>
+          <Image source={{ uri: item.communityView.community.icon }} />
+        </View>
+      )}
+      <View style={styles.detailsContainer}>
+        <Text style={styles.title}>{item.communityView.community.title}</Text>
+        <Text style={styles.name}>{item.communityView.community.name}</Text>
+        <Text>{item.communityView.community.description}</Text>
+      </View>
     </View>
   );
 };
@@ -28,6 +35,17 @@ const createStyleSheet = (theme: MD3Theme) => {
   return StyleSheet.create({
     container: {
       padding: 20,
+      flexDirection: 'row',
+    },
+    detailsContainer: {
+      padding: 1,
+    },
+    image: {
+      width: 100,
+      height: 100,
+    },
+    imageContainer: {
+      paddingRight: 12,
     },
     title: {
       fontWeight: 'bold',

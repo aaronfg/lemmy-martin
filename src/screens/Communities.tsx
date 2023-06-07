@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
+import { FlatList, ListRenderItemInfo } from 'react-native';
+import { Divider } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ListItemCommunity } from '../components/ListItemCommunity';
 import { communityApi } from '../features/communities/api';
 import { getCommunityListItems } from '../features/communities/selectors';
+import { ICommunityListItem } from '../features/communities/types';
 import {
   getLemmyAPIError,
   getLemmyAPILoading,
@@ -42,12 +44,17 @@ export const CommunitiesScreen = (): JSX.Element => {
     }
   };
 
+  const renderItem = (item: ListRenderItemInfo<ICommunityListItem>) => {
+    return <ListItemCommunity item={item.item} />;
+  };
+
   return (
     <SafeAreaView>
-      <View>
-        {communities &&
-          communities.map(com => <ListItemCommunity item={com} />)}
-      </View>
+      <FlatList
+        data={communities}
+        renderItem={renderItem}
+        ItemSeparatorComponent={() => <Divider />}
+      />
     </SafeAreaView>
   );
 };
