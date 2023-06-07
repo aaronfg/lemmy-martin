@@ -1,10 +1,11 @@
+import { useFocusEffect } from '@react-navigation/native';
 import { Login } from 'lemmy-js-client';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ErrorMsg } from '../components/ErrorMsg';
-import { lemmyLogin } from '../features/lemmy/actions';
+import { lemmyClearError, lemmyLogin } from '../features/lemmy/actions';
 import {
   getLemmyAPIError,
   getLemmyAPILoading,
@@ -16,7 +17,6 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 /**
  * The Login screen for adding an account to the app.
- * @module Screens
  */
 export const LoginScreen = (): JSX.Element => {
   const feedSource = useAppSelector(getSettingsFeedSource);
@@ -25,6 +25,9 @@ export const LoginScreen = (): JSX.Element => {
   const error = useAppSelector(getLemmyAPIError);
 
   const dispatch = useAppDispatch();
+  useFocusEffect(() => {
+    dispatch(lemmyClearError());
+  });
 
   const doLogin = async () => {
     // setLoading(true);

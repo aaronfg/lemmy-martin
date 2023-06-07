@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
-import { Divider } from 'react-native-paper';
+import { ActivityIndicator, Divider } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ErrorMsg } from '../components/ErrorMsg';
 import { ListItemCommunity } from '../components/ListItemCommunity';
 import { communityApi } from '../features/communities/api';
 import { getCommunityListItems } from '../features/communities/selectors';
@@ -17,7 +18,6 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 /**
  * Screen for the a list of Communities either local or across all federated instances.
- * @module Screens
  */
 export const CommunitiesScreen = (): JSX.Element => {
   // const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ export const CommunitiesScreen = (): JSX.Element => {
   const communities = useAppSelector(getCommunityListItems);
 
   const dispatch = useAppDispatch();
-
+  // dispatch(communityApi.endpoints.getCommunities.initiate());
   useEffect(() => {
     log.debug('ddid it');
     if (communities.length === 0)
@@ -50,6 +50,8 @@ export const CommunitiesScreen = (): JSX.Element => {
 
   return (
     <SafeAreaView>
+      {error && <ErrorMsg message={error.message} />}
+      {loading && <ActivityIndicator />}
       <FlatList
         data={communities}
         renderItem={renderItem}

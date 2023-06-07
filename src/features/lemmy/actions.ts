@@ -1,8 +1,10 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { LemmyHttp, LoginResponse } from 'lemmy-js-client';
 import { log } from '../../logging/log';
 import { IError } from '../../types';
 import { ILemmyLoginParams } from './types';
+
+export const lemmyClearError = createAction('lemmy/clearError');
 
 /**
  * Dispatched when a user attempts to log in.

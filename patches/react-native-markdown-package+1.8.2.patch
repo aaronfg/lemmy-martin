@@ -1,0 +1,25 @@
+diff --git a/node_modules/react-native-markdown-package/index.d.ts b/node_modules/react-native-markdown-package/index.d.ts
+new file mode 100644
+index 0000000..17cb962
+--- /dev/null
++++ b/node_modules/react-native-markdown-package/index.d.ts
+@@ -0,0 +1,18 @@
++declare module 'react-native-markdown-package' {
++    import { Component, ReactNode } from 'react'
++  
++    class Markdown extends Component<{
++      enableLightBox?: boolean
++      navigator?: unknown
++      imageParam?: unknown
++      onLink?: (url: string) => void
++      bgImage?: unknown
++      onImageOpen?: unknown
++      onImageClose?: unknown
++      rules?: unknown
++      styles: unknown
++      children: ReactNode
++    }> {}
++  
++    export = Markdown
++  }
+\ No newline at end of file

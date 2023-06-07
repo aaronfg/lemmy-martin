@@ -1,6 +1,7 @@
 import { nanoid } from '@reduxjs/toolkit';
 import React from 'react';
 import { GestureResponderEvent, Image, StyleSheet, View } from 'react-native';
+import Markdown from 'react-native-markdown-package';
 import {
   IconButton,
   MD3Theme,
@@ -38,10 +39,13 @@ export const ListItemCommunity = (
       <TouchableRipple onPress={onPress}>
         <View key={nanoid()} style={styles.container}>
           {/* Icon */}
-          {item.communityView.community.icon && (
-            <View style={styles.communityIcon}>
-              <Image source={{ uri: item.communityView.community.icon }} />
-            </View>
+          {item.communityView.community.icon ? (
+            <Image
+              source={{ uri: item.communityView.community.icon }}
+              style={styles.communityIcon}
+            />
+          ) : (
+            <View style={styles.communityIconContainer} />
           )}
           {/* Details */}
           <View style={styles.detailsContainer}>
@@ -52,9 +56,22 @@ export const ListItemCommunity = (
             {/* Name */}
             <Text style={styles.name}>{item.communityView.community.name}</Text>
             {/* Description */}
-            <Text style={styles.description}>
-              {item.communityView.community.description}
-            </Text>
+            <View style={styles.description}>
+              <Markdown
+                styles={{
+                  text: {
+                    color: theme.colors.onSurface,
+                  },
+                  autolink: {
+                    color: theme.colors.primary,
+                  },
+                  listItemNumber: {
+                    color: theme.colors.onSurface,
+                  },
+                }}>
+                {item.communityView.community.description}
+              </Markdown>
+            </View>
           </View>
         </View>
       </TouchableRipple>
@@ -80,18 +97,31 @@ const createStyleSheet = (theme: MD3Theme) => {
     communityIcon: {
       width: 30,
       height: 30,
-      backgroundColor: '#CCCCCC',
-      marginRight: 10,
+      marginRight: 12,
+      // backgroundColor: '#CCCCCC',
+    },
+    communityIconContainer: {
+      width: 30,
+      height: 30,
+      marginRight: 12,
+      // backgroundColor: 'red',
     },
     container: {
-      padding: 20,
+      padding: 12,
       flexDirection: 'row',
+      flex: 1,
     },
     description: {
-      paddingRight: 45,
+      // backgroundColor: 'gray',
+      // marginRight: 16,
+      // flexShrink: 1,
+      // overflow: 'hidden',
+      width: 300,
+      paddingRight: 8,
     },
     detailsContainer: {
-      //   paddingTop: 8,
+      // marginRight: 12,
+      // backgroundColor: 'green',
     },
     image: {
       width: 100,
@@ -109,7 +139,7 @@ const createStyleSheet = (theme: MD3Theme) => {
     subscribeIconBtn: {
       position: 'absolute',
       right: 12,
-      top: 12,
+      top: 5,
     },
     title: { fontSize: 20, fontWeight: 'bold' },
     name: {

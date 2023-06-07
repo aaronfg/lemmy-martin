@@ -7,19 +7,21 @@
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Provider } from 'react-redux';
+import { HomeTabNav } from './src/navigation/MainMenuTabNav';
+import { RootStackParamList } from './src/navigation/types';
 import { store } from './src/redux/store';
-import { CommunitiesScreen } from './src/screens/Communities';
-import { MainMenuScreen } from './src/screens/MainMenu';
+import { LoginScreen } from './src/screens/Login';
 import { LemmyDarkTheme } from './src/theme';
-import { MaterialIconNames, ScreenNames, TAB_ICON_SIZE } from './src/types';
+import { ScreenNames } from './src/types';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): JSX.Element {
   return (
@@ -31,9 +33,19 @@ function App(): JSX.Element {
               barStyle="light-content"
               backgroundColor={LemmyDarkTheme.colors.background}
             />
-            <Tab.Navigator>
-              {/* Feed */}
-              <Tab.Screen
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Tabs"
+                component={HomeTabNav}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen name={ScreenNames.Login} component={LoginScreen} />
+            </Stack.Navigator>
+            {/* <Tab.Navigator> */}
+            {/* Feed */}
+            {/* <Tab.Screen
                 name={ScreenNames.Communities}
                 component={CommunitiesScreen}
                 options={{
@@ -69,8 +81,8 @@ function App(): JSX.Element {
                   ),
                   tabBarShowLabel: false,
                 }}
-              />
-            </Tab.Navigator>
+              /> */}
+            {/* </Tab.Navigator> */}
           </NavigationContainer>
         </SafeAreaProvider>
       </PaperProvider>
