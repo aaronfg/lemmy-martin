@@ -1,8 +1,17 @@
 import { nanoid } from '@reduxjs/toolkit';
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import { MD3Theme, Text, useTheme } from 'react-native-paper';
+import { GestureResponderEvent, Image, StyleSheet, View } from 'react-native';
+import {
+  IconButton,
+  MD3Theme,
+  Text,
+  TouchableRipple,
+  useTheme,
+} from 'react-native-paper';
+import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ICommunityListItem } from '../features/communities/types';
+import { log } from '../logging/log';
+import { MaterialIconNames } from '../types';
 
 export interface IListItemCommunityProps {
   item: ICommunityListItem;
@@ -15,30 +24,74 @@ export const ListItemCommunity = (
   const theme = useTheme();
   const styles = createStyleSheet(theme);
 
+  const onPress = (event: GestureResponderEvent) => {
+    log.debug('item press:', event);
+  };
+
+  const onSubscribePress = () => {
+    log.debug('icon press');
+  };
+
+  log.debug('icon: ' + item.communityView.community.icon);
   return (
-    <View key={nanoid()} style={styles.container}>
-      {item.communityView.community.icon && (
-        <View>
-          <Image source={{ uri: item.communityView.community.icon }} />
+    <View style={styles.outerContainer}>
+      <TouchableRipple onPress={onPress}>
+        <View key={nanoid()} style={styles.container}>
+          {/* Icon */}
+          {item.communityView.community.icon && (
+            <View style={styles.communityIcon}>
+              <Image source={{ uri: item.communityView.community.icon }} />
+            </View>
+          )}
+          {/* Details */}
+          <View style={styles.detailsContainer}>
+            {/* Title */}
+            <Text style={styles.title}>
+              {item.communityView.community.title}
+            </Text>
+            {/* Name */}
+            <Text style={styles.name}>{item.communityView.community.name}</Text>
+            {/* Description */}
+            <Text style={styles.description}>
+              {item.communityView.community.description}
+            </Text>
+          </View>
         </View>
-      )}
-      <View style={styles.detailsContainer}>
-        <Text style={styles.title}>{item.communityView.community.title}</Text>
-        <Text style={styles.name}>{item.communityView.community.name}</Text>
-        <Text>{item.communityView.community.description}</Text>
-      </View>
+      </TouchableRipple>
+      {/* Sub/UnSubscribe */}
+      <IconButton
+        style={styles.subscribeIconBtn}
+        onPress={onSubscribePress}
+        icon={() => (
+          <IconMaterial
+            name={MaterialIconNames.PlusCircleOutline}
+            color={theme.colors.primary}
+            size={24}
+            style={styles.subscribeIcon}
+          />
+        )}
+      />
     </View>
   );
 };
 
 const createStyleSheet = (theme: MD3Theme) => {
   return StyleSheet.create({
+    communityIcon: {
+      width: 30,
+      height: 30,
+      backgroundColor: '#CCCCCC',
+      marginRight: 10,
+    },
     container: {
       padding: 20,
       flexDirection: 'row',
     },
+    description: {
+      paddingRight: 45,
+    },
     detailsContainer: {
-      padding: 1,
+      //   paddingTop: 8,
     },
     image: {
       width: 100,
@@ -47,11 +100,21 @@ const createStyleSheet = (theme: MD3Theme) => {
     imageContainer: {
       paddingRight: 12,
     },
-    title: {
-      fontWeight: 'bold',
+    outerContainer: {
+      // backgroundColor: 'yellow',
     },
+    subscribeIcon: {
+      color: theme.colors.primary,
+    },
+    subscribeIconBtn: {
+      position: 'absolute',
+      right: 12,
+      top: 12,
+    },
+    title: { fontSize: 20, fontWeight: 'bold' },
     name: {
-      color: theme.colors.onSurfaceDisabled,
+      color: theme.colors.secondary,
+      paddingBottom: 8,
     },
   });
 };

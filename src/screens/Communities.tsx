@@ -53,7 +53,7 @@ export const CommunitiesScreen = (): JSX.Element => {
       <FlatList
         data={communities}
         renderItem={renderItem}
-        ItemSeparatorComponent={() => <Divider />}
+        ItemSeparatorComponent={() => <Divider leftInset={true} />}
       />
     </SafeAreaView>
   );

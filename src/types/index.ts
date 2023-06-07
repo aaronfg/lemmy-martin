@@ -22,6 +22,8 @@ export enum ScreenNames {
 export enum MaterialIconNames {
   Home = 'home',
   Menu = 'menu',
+  MinusCircleOutline = 'minus-circle-outline',
+  PlusCircleOutline = 'plus-circle-outline',
 }
 
 /** Size for the tab icons in the bottom tab navigator */
