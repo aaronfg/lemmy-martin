@@ -11,6 +11,7 @@ import {
 export enum LemmyMartinBrandingColors {
   primary = '#63da9e',
   secondaryDark = '#797979',
+  tertiary = '#2b2732',
 }
 
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
@@ -45,5 +46,6 @@ export const LemmyDarkTheme = {
     ...CombinedDarkTheme.colors,
     primary: LemmyMartinBrandingColors.primary,
     secondary: LemmyMartinBrandingColors.secondaryDark,
+    tertiary: LemmyMartinBrandingColors.tertiary,
   },
 };

@@ -68,6 +68,10 @@ export const ListItemCommunity = (
                   listItemNumber: {
                     color: theme.colors.onSurface,
                   },
+                  view: {
+                    width: '90%',
+                    // flexWrap: 'wrap'
+                  },
                 }}>
                 {item.communityView.community.description}
               </Markdown>
@@ -108,6 +112,7 @@ const createStyleSheet = (theme: MD3Theme) => {
     },
     container: {
       padding: 12,
+      paddingTop: 14,
       flexDirection: 'row',
       flex: 1,
     },
@@ -116,7 +121,8 @@ const createStyleSheet = (theme: MD3Theme) => {
       // marginRight: 16,
       // flexShrink: 1,
       // overflow: 'hidden',
-      width: 300,
+      // width: 300,
+      flexWrap: 'wrap',
       paddingRight: 8,
     },
     detailsContainer: {
@@ -139,7 +145,7 @@ const createStyleSheet = (theme: MD3Theme) => {
     subscribeIconBtn: {
       position: 'absolute',
       right: 12,
-      top: 5,
+      top: 7,
     },
     title: { fontSize: 20, fontWeight: 'bold' },
     name: {

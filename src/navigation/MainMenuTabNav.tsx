@@ -15,6 +15,7 @@ export const HomeTabNav = (): JSX.Element => {
         name={ScreenNames.Communities}
         component={CommunitiesScreen}
         options={{
+          headerShown: false,
           tabBarIcon: props => (
             <MaterialIcon
               name={MaterialIconNames.Home}

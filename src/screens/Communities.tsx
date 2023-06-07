@@ -4,6 +4,7 @@ import { ActivityIndicator, Divider } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ErrorMsg } from '../components/ErrorMsg';
 import { ListItemCommunity } from '../components/ListItemCommunity';
+import { CommunityListHeader } from '../components/communities/CommunityListHeader';
 import { communityApi } from '../features/communities/api';
 import { getCommunityListItems } from '../features/communities/selectors';
 import { ICommunityListItem } from '../features/communities/types';
@@ -32,7 +33,7 @@ export const CommunitiesScreen = (): JSX.Element => {
   useEffect(() => {
     log.debug('ddid it');
     if (communities.length === 0)
-      dispatch(communityApi.endpoints.getCommunities.initiate());
+      dispatch(communityApi.endpoints.getCommunities.initiate({}));
   }, []);
 
   const onPostsPress = async () => {
@@ -55,7 +56,8 @@ export const CommunitiesScreen = (): JSX.Element => {
       <FlatList
         data={communities}
         renderItem={renderItem}
-        ItemSeparatorComponent={() => <Divider leftInset={true} />}
+        ListHeaderComponent={() => <CommunityListHeader />}
+        ItemSeparatorComponent={() => <Divider />}
       />
     </SafeAreaView>
   );
