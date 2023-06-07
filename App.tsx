@@ -14,7 +14,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Provider } from 'react-redux';
 import { store } from './src/redux/store';
-import { FeedScreen } from './src/screens/Feed';
+import { CommunitiesScreen } from './src/screens/Communities';
 import { MainMenuScreen } from './src/screens/MainMenu';
 import { LemmyDarkTheme } from './src/theme';
 import { MaterialIconNames, ScreenNames, TAB_ICON_SIZE } from './src/types';
@@ -34,8 +34,8 @@ function App(): JSX.Element {
             <Tab.Navigator>
               {/* Feed */}
               <Tab.Screen
-                name={ScreenNames.Feed}
-                component={FeedScreen}
+                name={ScreenNames.Communities}
+                component={CommunitiesScreen}
                 options={{
                   tabBarIcon: props => (
                     <Icon

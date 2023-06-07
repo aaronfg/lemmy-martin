@@ -20,6 +20,7 @@ export interface ISettingsState {
   currentAccount?: IAccount;
   /** Settings for the feed screen / data */
   feed: IFeedSettings;
+  defaultInstance: string;
 }
 
 /**

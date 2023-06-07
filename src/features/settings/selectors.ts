@@ -12,6 +12,9 @@ export const getSettingsCurrentAccount = (state: RootState) =>
 export const getSettingsFeedSource = (state: RootState) =>
   state.settings.feed.source;
 
+export const getSettingsDefaultInstance = (state: RootState) =>
+  state.settings.defaultInstance;
+
 /** Returns the saved accounts as a Set */
 export const getAccounts = createSelector(
   getSettingsAccounts,

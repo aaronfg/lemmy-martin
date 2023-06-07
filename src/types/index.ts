@@ -12,7 +12,8 @@ export interface IError {
  * Used in the stack navigators.
  */
 export enum ScreenNames {
-  Feed = 'feed',
+  Communities = 'Communities',
+  Feed = 'Feed',
   Login = 'Login',
   MainMenu = 'MainMenu',
 }
