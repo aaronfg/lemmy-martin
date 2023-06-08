@@ -3,10 +3,15 @@ import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Divider, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ErrorMsg } from '../components/ErrorMsg';
+import { ListFooterLoading } from '../components/ListFooterLoading';
 import { ListItemCommunity } from '../components/ListItemCommunity';
 import { CommunityListHeader } from '../components/communities/CommunityListHeader';
+import { communitiesPageUpdated } from '../features/communities/actions';
 import { communityApi } from '../features/communities/api';
-import { getCommunityListItems } from '../features/communities/selectors';
+import {
+  getCommunitesListPage,
+  getCommunityListItems,
+} from '../features/communities/selectors';
 import { ICommunityListItem } from '../features/communities/types';
 import {
   getLemmyAPIError,
@@ -27,15 +32,17 @@ export const CommunitiesScreen = (): JSX.Element => {
   const token = useAppSelector(getLemmyJWT);
   const error = useAppSelector(getLemmyAPIError);
   const communities = useAppSelector(getCommunityListItems);
+  const listPage = useAppSelector(getCommunitesListPage);
 
   const dispatch = useAppDispatch();
 
   const styles = createStyleSheet();
   // dispatch(communityApi.endpoints.getCommunities.initiate());
   useEffect(() => {
-    log.debug('ddid it');
     if (communities.length === 0)
-      dispatch(communityApi.endpoints.getCommunities.initiate({ page: 2 }));
+      dispatch(
+        communityApi.endpoints.getCommunities.initiate({ page: listPage }),
+      );
   }, []);
 
   const onPostsPress = async () => {
@@ -52,6 +59,12 @@ export const CommunitiesScreen = (): JSX.Element => {
     // return <Text>ite</Text>;
   };
 
+  const onListEndReached = (info: { distanceFromEnd: number }) => {
+    //
+    log.debug(`currentPage: ${listPage} + next page: ${listPage + 1}`);
+    dispatch(communitiesPageUpdated(listPage + 1));
+  };
+
   return (
     <SafeAreaView style={styles.safe}>
       {error && <ErrorMsg message={error.message} />}
@@ -59,19 +72,25 @@ export const CommunitiesScreen = (): JSX.Element => {
       <FlatList
         style={styles.list}
         data={communities}
-        ListEmptyComponent={() =>
-          loading ? (
+        onEndReachedThreshold={0.5}
+        onEndReached={onListEndReached}
+        refreshing={loading}
+        ListEmptyComponent={
+          () => (
+            // loading ? (
             <View style={styles.loadingContainer}>
               <Text>Loading Communities...</Text>
               <ActivityIndicator />
             </View>
-          ) : (
-            <View />
           )
+          // ) : (
+          //   <View />
+          // )
         }
         renderItem={renderItem}
         ListHeaderComponent={() => <CommunityListHeader />}
         ItemSeparatorComponent={() => <Divider />}
+        ListFooterComponent={() => <ListFooterLoading />}
       />
     </SafeAreaView>
   );
@@ -87,7 +106,6 @@ const createStyleSheet = () => {
       height: '100%',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'pink',
     },
     safe: {
       flex: 1,

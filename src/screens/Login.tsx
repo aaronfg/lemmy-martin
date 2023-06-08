@@ -30,15 +30,11 @@ export const LoginScreen = (): JSX.Element => {
   });
 
   const doLogin = async () => {
-    // setLoading(true);
-    // const baseUrl = 'https://lemmy.ml';
-    // const client: LemmyHttp = new LemmyHttp(baseUrl);
     const loginForm: Login = {
       username_or_email: 'subtex108@protonmail.com',
       password: '6$)9C3a$VTd+Q%V^',
     };
     try {
-      // const response = await client.login(loginForm);
       const response = await dispatch(
         lemmyLogin({
           instanceUrl: 'https://lemmy.ml',

@@ -21,12 +21,10 @@ const getCommunityAPICommunities = createSelector(
 
 export const getCommunityListItems = createSelector(
   getCommunityAPICommunities,
-  comAPI => {
+  communities => {
     const items: ICommunityListItem[] = [];
-    if (comAPI) {
-      comAPI.communities.map(comm => {
-        console.log('Community: ' + comm.community.title);
-
+    if (communities) {
+      communities.map(comm => {
         let shortDescription = '';
         shortDescription = LemmyUtils.getShortDescription(
           comm.community.description ?? '',

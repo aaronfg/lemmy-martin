@@ -11,7 +11,6 @@ import {
 } from 'react-native-paper';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ICommunityListItem } from '../features/communities/types';
-import { log } from '../logging/log';
 import { MaterialIconNames, UnicodeText } from '../types';
 
 export interface IListItemCommunityProps {
@@ -26,18 +25,16 @@ export const ListItemCommunity = (
   const styles = createStyleSheet(theme);
 
   const onPress = (event: GestureResponderEvent) => {
-    log.debug('item press:', event);
+    // log.debug('item press:', event);
   };
 
   const onSubscribePress = () => {
-    log.debug('icon press');
+    // log.debug('icon press');
   };
 
   // const iconName = item.communityView.subscribed
   //   ? MaterialIconNames.CheckCircleOutline
   //   : MaterialIconNames.PlusCircleOutline;
-
-  log.debug('Lemmy? ' + item.communityView.community.name === 'lemmy');
 
   const iconName =
     item.communityView.community.name === 'lemmy'

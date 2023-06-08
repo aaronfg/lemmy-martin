@@ -4,7 +4,7 @@ import { communitiesReducer } from '../features/communities';
 import { communityApi } from '../features/communities/api';
 import { lemmyReducer } from '../features/lemmy';
 import { settingsReducer } from '../features/settings';
-import { settingsListenerMiddleware } from '../features/settings/middleware';
+import { appListenerMiddleware } from './listenerMiddleware';
 
 const middlewares: Middleware[] = [
   /* other middlewares */
@@ -25,7 +25,7 @@ export const store = configureStore({
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware()
-      .prepend(settingsListenerMiddleware.middleware)
+      .prepend(appListenerMiddleware.middleware)
       .concat(middlewares)
       .concat(communityApi.middleware),
 });
