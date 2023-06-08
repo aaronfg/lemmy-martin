@@ -100,18 +100,15 @@ export class LemmyUtils {
 
   static getDescriptionFirstParagraph = (description: string): string => {
     const pIndex = description.indexOf('\n');
-    return description.substring(0, pIndex);
+    return pIndex !== -1 ? description.substring(0, pIndex) : description;
   };
 
   static getShortDescription = (description: string): string => {
     if (this.getDescriptionHasMultiParagraphs(description)) {
-      console.log('\thas multiplke paragraphs');
       return this.getDescriptionFirstParagraph(description);
     } else if (this.isDescriptionLong(description)) {
-      console.log('\tnot multi-paragraphs but is too long');
       return description.substring(0, COMMUNITY_MAX_DESCRIPTION_LENGTH);
     }
-    console.log('\tnothing too long or multiple paragraphs');
     return description;
   };
 }
