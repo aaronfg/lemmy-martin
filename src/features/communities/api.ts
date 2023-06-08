@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query';
 import { ListCommunities, ListCommunitiesResponse } from 'lemmy-js-client';
+import { APIUtils } from '../../utils/APIUtils';
 import { LemmyAPIMethods } from '../lemmy/types';
 
 /** The RTK Query api for community related api calls */
@@ -10,8 +11,8 @@ export const communityApi = createApi({
   }),
   endpoints: builder => ({
     getCommunities: builder.query<ListCommunitiesResponse, ListCommunities>({
-      query: () => ({
-        url: 'community/list',
+      query: args => ({
+        url: `community/list?${APIUtils.getQueryParamsFromObj(args)}`,
         method: LemmyAPIMethods.ListCommunities,
       }),
     }),

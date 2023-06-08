@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FlatList, ListRenderItemInfo } from 'react-native';
+import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Divider, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ErrorMsg } from '../components/ErrorMsg';
@@ -29,6 +29,8 @@ export const CommunitiesScreen = (): JSX.Element => {
   const communities = useAppSelector(getCommunityListItems);
 
   const dispatch = useAppDispatch();
+
+  const styles = createStyleSheet();
   // dispatch(communityApi.endpoints.getCommunities.initiate());
   useEffect(() => {
     log.debug('ddid it');
@@ -51,16 +53,45 @@ export const CommunitiesScreen = (): JSX.Element => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.safe}>
       {error && <ErrorMsg message={error.message} />}
-      {loading && <ActivityIndicator />}
+
       <FlatList
+        style={styles.list}
         data={communities}
-        ListEmptyComponent={() => <Text>Empty</Text>}
+        ListEmptyComponent={() =>
+          loading ? (
+            <View style={styles.loadingContainer}>
+              <Text>Loading Communities...</Text>
+              <ActivityIndicator />
+            </View>
+          ) : (
+            <View />
+          )
+        }
         renderItem={renderItem}
         ListHeaderComponent={() => <CommunityListHeader />}
         ItemSeparatorComponent={() => <Divider />}
       />
     </SafeAreaView>
   );
+};
+
+const createStyleSheet = () => {
+  return StyleSheet.create({
+    list: {
+      flex: 1,
+    },
+    loadingContainer: {
+      flex: 1,
+      height: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'pink',
+    },
+    safe: {
+      flex: 1,
+      // backgroundColor: 'green',
+    },
+  });
 };

@@ -12,7 +12,7 @@ import {
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ICommunityListItem } from '../features/communities/types';
 import { log } from '../logging/log';
-import { MaterialIconNames } from '../types';
+import { MaterialIconNames, UnicodeText } from '../types';
 
 export interface IListItemCommunityProps {
   item: ICommunityListItem;
@@ -33,7 +33,26 @@ export const ListItemCommunity = (
     log.debug('icon press');
   };
 
-  log.debug('icon: ' + item.communityView.community.icon);
+  // const iconName = item.communityView.subscribed
+  //   ? MaterialIconNames.CheckCircleOutline
+  //   : MaterialIconNames.PlusCircleOutline;
+
+  log.debug('Lemmy? ' + item.communityView.community.name === 'lemmy');
+
+  const iconName =
+    item.communityView.community.name === 'lemmy'
+      ? MaterialIconNames.CheckCircleOutline
+      : MaterialIconNames.PlusCircleOutline;
+
+  // const iconColor = item.communityView.subscribed
+  //   ? theme.colors.primary
+  //   : theme.colors.onSurface;
+
+  const iconColor =
+    iconName === MaterialIconNames.CheckCircleOutline
+      ? theme.colors.primary
+      : theme.colors.onSurface;
+
   return (
     <View style={styles.outerContainer}>
       <TouchableRipple onPress={onPress}>
@@ -54,7 +73,13 @@ export const ListItemCommunity = (
               {item.communityView.community.title}
             </Text>
             {/* Name */}
-            <Text style={styles.name}>{item.communityView.community.name}</Text>
+            <Text style={styles.name}>
+              /c/{item.communityView.community.name}{' '}
+              <Text style={styles.name}>
+                {UnicodeText.Bullet} {item.communityView.counts.subscribers}{' '}
+                Subscribers
+              </Text>
+            </Text>
             {/* Description */}
             <View style={styles.description}>
               <Markdown
@@ -84,8 +109,8 @@ export const ListItemCommunity = (
         onPress={onSubscribePress}
         icon={() => (
           <IconMaterial
-            name={MaterialIconNames.PlusCircleOutline}
-            color={theme.colors.primary}
+            name={iconName}
+            color={iconColor}
             size={24}
             style={styles.subscribeIcon}
           />
@@ -139,7 +164,7 @@ const createStyleSheet = (theme: MD3Theme) => {
       // backgroundColor: 'yellow',
     },
     subscribeIcon: {
-      color: theme.colors.primary,
+      // color: theme.colors.primary,
     },
     subscribeIconBtn: {
       position: 'absolute',
@@ -149,7 +174,7 @@ const createStyleSheet = (theme: MD3Theme) => {
     title: { fontSize: 20, fontWeight: 'bold' },
     name: {
       color: theme.colors.secondary,
-      paddingBottom: 8,
+      // paddingBottom: 4,
     },
   });
 };

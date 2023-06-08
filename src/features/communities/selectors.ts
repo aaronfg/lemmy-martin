@@ -1,6 +1,5 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
-import { log } from '../../logging/log';
 import { RootState } from '../../redux/store';
 import { LemmyUtils } from '../../utils/LemmyUtils';
 import { communityApi } from './api';
@@ -14,9 +13,10 @@ export const getCommunityListItems = createSelector(
   getCommunityAPICommunities,
   comAPI => {
     const items: ICommunityListItem[] = [];
-    log.debug('api comms:', comAPI);
     if (comAPI) {
       comAPI.communities.map(comm => {
+        console.log('Community: ' + comm.community.title);
+
         let shortDescription = '';
         shortDescription = LemmyUtils.getShortDescription(
           comm.community.description ?? '',

@@ -20,6 +20,7 @@ export enum ScreenNames {
 
 /** Names of icons in the Material Design icon set */
 export enum MaterialIconNames {
+  CheckCircleOutline = 'check-circle-outline',
   Home = 'home',
   Menu = 'menu',
   MinusCircleOutline = 'minus-circle-outline',
@@ -28,3 +29,7 @@ export enum MaterialIconNames {
 
 /** Size for the tab icons in the bottom tab navigator */
 export const TAB_ICON_SIZE = 40;
+
+export enum UnicodeText {
+  Bullet = '\u2022',
+}
