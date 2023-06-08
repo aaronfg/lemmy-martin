@@ -70,10 +70,9 @@ export const ListItemCommunity = (
                   },
                   view: {
                     width: '90%',
-                    // flexWrap: 'wrap'
                   },
                 }}>
-                {item.communityView.community.description}
+                {item.shortDescription}
               </Markdown>
             </View>
           </View>

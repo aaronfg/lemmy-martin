@@ -1,5 +1,7 @@
 import { IAccount } from '../features/settings/types';
 
+const COMMUNITY_MAX_DESCRIPTION_LENGTH = 200;
+
 /**
  * Class with utility methods related to Lemmy API and accounts
  */
@@ -86,5 +88,30 @@ export class LemmyUtils {
       accounts.add(newAccount);
     }
     return Array.from(accounts);
+  };
+
+  static isDescriptionLong = (description: string): boolean => {
+    return description.length > COMMUNITY_MAX_DESCRIPTION_LENGTH;
+  };
+
+  static getDescriptionHasMultiParagraphs = (description: string): boolean => {
+    return description.indexOf('\n') !== -1;
+  };
+
+  static getDescriptionFirstParagraph = (description: string): string => {
+    const pIndex = description.indexOf('\n');
+    return description.substring(0, pIndex);
+  };
+
+  static getShortDescription = (description: string): string => {
+    if (this.getDescriptionHasMultiParagraphs(description)) {
+      console.log('\thas multiplke paragraphs');
+      return this.getDescriptionFirstParagraph(description);
+    } else if (this.isDescriptionLong(description)) {
+      console.log('\tnot multi-paragraphs but is too long');
+      return description.substring(0, COMMUNITY_MAX_DESCRIPTION_LENGTH);
+    }
+    console.log('\tnothing too long or multiple paragraphs');
+    return description;
   };
 }

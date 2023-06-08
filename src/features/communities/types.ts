@@ -8,4 +8,5 @@ export interface ICommunitesState {
 export interface ICommunityListItem {
   id: string;
   communityView: CommunityView;
+  shortDescription: string;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
-import { ActivityIndicator, Divider } from 'react-native-paper';
+import { ActivityIndicator, Divider, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ErrorMsg } from '../components/ErrorMsg';
 import { ListItemCommunity } from '../components/ListItemCommunity';
@@ -47,6 +47,7 @@ export const CommunitiesScreen = (): JSX.Element => {
 
   const renderItem = (item: ListRenderItemInfo<ICommunityListItem>) => {
     return <ListItemCommunity item={item.item} />;
+    // return <Text>ite</Text>;
   };
 
   return (
@@ -55,6 +56,7 @@ export const CommunitiesScreen = (): JSX.Element => {
       {loading && <ActivityIndicator />}
       <FlatList
         data={communities}
+        ListEmptyComponent={() => <Text>Empty</Text>}
         renderItem={renderItem}
         ListHeaderComponent={() => <CommunityListHeader />}
         ItemSeparatorComponent={() => <Divider />}
