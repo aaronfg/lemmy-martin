@@ -107,7 +107,7 @@ export class LemmyUtils {
     if (this.getDescriptionHasMultiParagraphs(description)) {
       return this.getDescriptionFirstParagraph(description);
     } else if (this.isDescriptionLong(description)) {
-      return description.substring(0, COMMUNITY_MAX_DESCRIPTION_LENGTH);
+      return description.substring(0, COMMUNITY_MAX_DESCRIPTION_LENGTH) + '...';
     }
     return description;
   };

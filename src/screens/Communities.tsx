@@ -35,7 +35,7 @@ export const CommunitiesScreen = (): JSX.Element => {
   useEffect(() => {
     log.debug('ddid it');
     if (communities.length === 0)
-      dispatch(communityApi.endpoints.getCommunities.initiate({}));
+      dispatch(communityApi.endpoints.getCommunities.initiate({ page: 2 }));
   }, []);
 
   const onPostsPress = async () => {

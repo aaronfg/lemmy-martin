@@ -1,5 +1,6 @@
 import { Middleware, configureStore } from '@reduxjs/toolkit';
 import reduxFlipper from 'redux-flipper';
+import { communitiesReducer } from '../features/communities';
 import { communityApi } from '../features/communities/api';
 import { lemmyReducer } from '../features/lemmy';
 import { settingsReducer } from '../features/settings';
@@ -19,6 +20,7 @@ export const store = configureStore({
   reducer: {
     lemmy: lemmyReducer,
     settings: settingsReducer,
+    communites: communitiesReducer,
     [communityApi.reducerPath]: communityApi.reducer,
   },
   middleware: getDefaultMiddleware =>

@@ -5,9 +5,19 @@ import { LemmyUtils } from '../../utils/LemmyUtils';
 import { communityApi } from './api';
 import { ICommunityListItem } from './types';
 
+export const getCommunitesListPage = (state: RootState) =>
+  state.communites.listPage;
+
 /** Gets the Communities returned from the {@link communityApi.getCommunities} endpoint */
-export const getCommunityAPICommunities = (state: RootState) =>
+export const getCommunityAPICommunitiesRaw = (state: RootState) =>
   communityApi.endpoints.getCommunities.select({})(state).data;
+
+const getCommunityAPICommunities = createSelector(
+  [(state: RootState) => state, getCommunitesListPage],
+  (state, page) => {
+    return communityApi.endpoints.getCommunities.select({ page })(state).data;
+  },
+);
 
 export const getCommunityListItems = createSelector(
   getCommunityAPICommunities,
