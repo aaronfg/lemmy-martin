@@ -3,7 +3,8 @@ import {
   addListener,
   createListenerMiddleware,
 } from '@reduxjs/toolkit';
-import { AppStartListening } from '../../redux/listenereMiddleware';
+
+import { AppStartListening } from '../../redux/listenerMiddleware';
 import { AppDispatch, RootState } from '../../redux/store';
 import { LemmyUtils } from '../../utils/LemmyUtils';
 import { lemmyLogin } from '../lemmy/actions';

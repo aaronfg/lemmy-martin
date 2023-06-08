@@ -8,6 +8,7 @@ export const INITIAL_SETTINGS_STATE: ISettingsState = {
   feed: {
     source: FeedSource.Local,
   },
+  defaultInstance: 'https://lemmy.ml/',
 };
 
 /** The reducer for the `settings` slice of our redux state */

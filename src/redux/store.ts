@@ -1,10 +1,12 @@
 import { Middleware, configureStore } from '@reduxjs/toolkit';
 import reduxFlipper from 'redux-flipper';
+import { communitiesReducer } from '../features/communities';
+import { communityApi } from '../features/communities/api';
 import { lemmyReducer } from '../features/lemmy';
 import { settingsReducer } from '../features/settings';
-import { settingsListenerMiddleware } from '../features/settings/middleware';
+import { appListenerMiddleware } from './listenerMiddleware';
 
-const middlewares:Middleware[] = [
+const middlewares: Middleware[] = [
   /* other middlewares */
 ];
 
@@ -18,11 +20,14 @@ export const store = configureStore({
   reducer: {
     lemmy: lemmyReducer,
     settings: settingsReducer,
+    communites: communitiesReducer,
+    [communityApi.reducerPath]: communityApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware()
-      .prepend(settingsListenerMiddleware.middleware)
-      .concat(middlewares),
+      .prepend(appListenerMiddleware.middleware)
+      .concat(middlewares)
+      .concat(communityApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

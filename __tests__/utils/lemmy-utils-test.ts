@@ -4,6 +4,10 @@ import {
   mockTestAccount2,
   mockTestAccount3,
 } from '../../__mocks__/accounts';
+import {
+  mockCommunityLongDescription,
+  mockCommunityLongDescriptionNoNewLines,
+} from '../../__mocks__/communities';
 import { IAccount } from '../../src/features/settings/types';
 import { LemmyUtils } from '../../src/utils/LemmyUtils';
 
@@ -63,28 +67,6 @@ describe('LemmyUtils Tests', () => {
       );
 
       expect(updatedAccounts.length).toEqual(3);
-      //   expect(updatedAccounts).toMatchInlineSnapshot(`
-      //     [
-      //       {
-      //         "instance": "https://someinstance.com",
-      //         "password": "pass1",
-      //         "token": "12345abcd",
-      //         "username": "account 1",
-      //       },
-      //       {
-      //         "instance": "https://someinstance.com",
-      //         "password": "pass2",
-      //         "token": "rewr12345abcd",
-      //         "username": "account 2",
-      //       },
-      //       {
-      //         "instance": "https://someinstance3.com",
-      //         "password": "pass3",
-      //         "token": "hjkhjk5656756733",
-      //         "username": "account 3",
-      //       },
-      //     ]
-      //   `);
     });
 
     test('getUpdatedAccounts() with same account returns existing array', () => {
@@ -120,6 +102,75 @@ describe('LemmyUtils Tests', () => {
 
       expect(originalToken === newToken).toEqual(false);
       expect(newToken).toEqual(mockTestAccount1DifferentToken.token);
+    });
+  });
+
+  describe('isDescriptionLong()', () => {
+    test('isDescriptionLong() with long string returns true', () => {
+      expect(
+        LemmyUtils.isDescriptionLong(mockCommunityLongDescription),
+      ).toEqual(true);
+    });
+
+    test('isDescriptionLong() with short string returns false', () => {
+      expect(
+        LemmyUtils.isDescriptionLong('This is a short description'),
+      ).toEqual(false);
+    });
+  });
+
+  describe('getDescriptionHasMultiParagraphs()', () => {
+    test('getDescriptionHasMultiParagraphs() with multi-paragraph desc returns true', () => {
+      expect(
+        LemmyUtils.getDescriptionHasMultiParagraphs(
+          mockCommunityLongDescription,
+        ),
+      ).toEqual(true);
+    });
+    test('getDescriptionHasMultiParagraphs() with no-paragraph desc returns false', () => {
+      expect(
+        LemmyUtils.getDescriptionHasMultiParagraphs(
+          'This is a sentence with no newline breaks',
+        ),
+      ).toEqual(false);
+    });
+  });
+
+  describe('getDescriptionFirstParagraph()', () => {
+    test('getDescriptionFirstParagraph() returns correct paragraph', () => {
+      expect(
+        LemmyUtils.getDescriptionFirstParagraph(mockCommunityLongDescription),
+      ).toMatchInlineSnapshot(
+        `""A loosely moderated place to ask open ended questions"`,
+      );
+    });
+
+    test('getDescriptionFirstParagraph() returns correct paragraph for non-paragraph desc', () => {
+      const desc = 'This is a sentence with no newline breaks';
+      expect(LemmyUtils.getDescriptionFirstParagraph(desc)).toEqual(desc);
+    });
+  });
+
+  describe('getShortDescription()', () => {
+    test('getShortDescription() for multi-paragraph returns first paragraph', () => {
+      expect(
+        LemmyUtils.getShortDescription(mockCommunityLongDescription),
+      ).toMatchInlineSnapshot(
+        `""A loosely moderated place to ask open ended questions"`,
+      );
+    });
+
+    test('getShortDescription() for non-multi-paragraph short desc returns first paragraph', () => {
+      const desc = 'This is a short sentence with no newline breaks';
+      expect(LemmyUtils.getShortDescription(desc)).toEqual(desc);
+    });
+
+    test('getShortDescription() for non-multi-paragraph long desc returns correct substring', () => {
+      expect(
+        LemmyUtils.getShortDescription(mockCommunityLongDescriptionNoNewLines),
+      ).toMatchInlineSnapshot(
+        `""A loosely moderated place to ask open ended questions  If your post is  1. Open ended  2. Not offensive 3. Not regarding lemmy support (c/lemmy_support) 4. not ad nauseam inducing (please make sure i"`,
+      );
     });
   });
 });

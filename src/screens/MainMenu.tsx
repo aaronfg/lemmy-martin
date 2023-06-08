@@ -1,77 +1,50 @@
-import React, { useState } from 'react';
-import { ScrollView, View } from 'react-native';
-import {
-  Button,
-  Checkbox,
-  Divider,
-  Menu,
-  ProgressBar,
-  SegmentedButtons,
-  Switch,
-  Text,
-} from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { List } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LemmyDarkTheme } from '../theme';
+import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 /** Screen for the main menu */
 export const MainMenuScreen = (): JSX.Element => {
-  const [menuVisible, setMenuVisible] = useState(false);
-  const [segValue, setSegValue] = useState('');
+  const navigation = useNavigation();
+  const styles = createStyleSheet();
 
-  const openMenu = () => setMenuVisible(true);
-  const closeMenu = () => setMenuVisible(false);
+  const onAddAccountPress = () => {
+    // navigation.navigate(ScreenNames.Login);
+  };
 
   return (
     <SafeAreaView>
       <ScrollView>
-        <View>
-          <Text>Main Menu</Text>
-          <Button
-            mode="contained"
-            onPress={() => {
-              //
-            }}>
-            This is a button
-          </Button>
-          <Checkbox.Item label="This is checked" status="checked" />
-          <Checkbox.Item label="This is unchecked" status="unchecked" />
-          <View style={{ width: 50, marginBottom: 20 }}>
-            <Menu
-              visible={menuVisible}
-              onDismiss={closeMenu}
-              anchor={
-                <Button mode="contained" onPress={openMenu}>
-                  M
-                </Button>
-              }>
-              <Menu.Item onPress={() => {}} title="Item 1" />
-              <Menu.Item onPress={() => {}} title="Item 2" />
-              <Divider />
-              <Menu.Item onPress={() => {}} title="Item 3" />
-            </Menu>
-          </View>
-          <ProgressBar indeterminate={true} />
-          <SegmentedButtons
-            style={{ marginVertical: 20 }}
-            value={segValue}
-            onValueChange={setSegValue}
-            buttons={[
-              {
-                value: 'All',
-                label: 'All',
-                checkedColor: LemmyDarkTheme.colors.primary,
-              },
-              {
-                value: 'Local',
-                label: 'Local',
-                checkedColor: LemmyDarkTheme.colors.primary,
-              },
-            ]}
+        <View style={styles.container}>
+          <List.Item
+            title="Add Account"
+            onPress={onAddAccountPress}
+            left={props => (
+              <MaterialIcon
+                name="plus"
+                {...props}
+                style={styles.icon}
+                size={20}
+              />
+            )}
           />
-          <Switch value={true} />
-          <Switch value={false} />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
+};
+
+const createStyleSheet = () => {
+  return StyleSheet.create({
+    container: {
+      paddingHorizontal: 12,
+      paddingTop: 20,
+    },
+    icon: {
+      padding: 2,
+      // backgroundColor: 'red',
+    },
+  });
 };

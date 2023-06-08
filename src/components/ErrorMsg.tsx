@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { IError } from '../types';
 
@@ -11,12 +11,25 @@ export interface IErrorMsgProps {
 
 /**
  * A simple component that can display an error message and code
- * @param props The {@link IError} to display
+ * @param props - The {@link IError} to display
  */
 export const ErrorMsg = (props: IError): JSX.Element => {
+  const styles = createStyleSheet();
   return (
-    <View>
-      <Text>{props.message}</Text>
+    <View style={styles.container}>
+      <Text style={styles.message}>{props.message}</Text>
     </View>
   );
+};
+
+const createStyleSheet = () => {
+  return StyleSheet.create({
+    container: {
+      backgroundColor: '#FF0000',
+      padding: 14,
+    },
+    message: {
+      color: '#FFFFFF',
+    },
+  });
 };

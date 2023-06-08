@@ -30,3 +30,11 @@ export enum LoginErrors {
   /** A possible response if the user/pass is wrong. */
   UserOrPassInvalid = 'couldnt_find_that_username_or_email',
 }
+
+export enum LemmyAPIPaths {
+  ListCommunities = '/community/list',
+}
+export enum LemmyAPIMethods {
+  ListCommunities = 'GET',
+}
+export const LEMMY_API_PATH = 'api/v3/';
