@@ -4,6 +4,7 @@ import { CommunitiesScreen } from '../screens/Communities';
 import { LoginScreen } from '../screens/Login';
 import { LemmyDarkTheme } from '../theme';
 import { MaterialIconNames, ScreenNames, TAB_ICON_SIZE } from '../types';
+import { CommunityListHeader } from '../components/communities/CommunityListHeader';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +16,8 @@ export const HomeTabNav = (): JSX.Element => {
         name={ScreenNames.Communities}
         component={CommunitiesScreen}
         options={{
-          headerShown: false,
+          // headerShown: false,
+          header: (props) => <CommunityListHeader />,
           tabBarIcon: props => (
             <MaterialIcon
               name={MaterialIconNames.Home}

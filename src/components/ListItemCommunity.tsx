@@ -123,7 +123,8 @@ const createStyleSheet = (theme: MD3Theme) => {
       width: 30,
       height: 30,
       marginRight: 12,
-      // backgroundColor: '#CCCCCC',
+      marginTop: 6,
+      backgroundColor: '#CCCCCC',
     },
     communityIconContainer: {
       width: 30,
@@ -134,7 +135,9 @@ const createStyleSheet = (theme: MD3Theme) => {
     container: {
       padding: 12,
       paddingTop: 14,
+      paddingRight: 120,
       flexDirection: 'row',
+      // flexWrap: 'wrap',
       flex: 1,
     },
     description: {
@@ -154,9 +157,6 @@ const createStyleSheet = (theme: MD3Theme) => {
       width: 100,
       height: 100,
     },
-    imageContainer: {
-      paddingRight: 12,
-    },
     outerContainer: {
       // backgroundColor: 'yellow',
     },
@@ -168,7 +168,11 @@ const createStyleSheet = (theme: MD3Theme) => {
       right: 12,
       top: 7,
     },
-    title: { fontSize: 20, fontWeight: 'bold' },
+    title: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      // backgroundColor: 'gray',
+    },
     name: {
       color: theme.colors.secondary,
       // paddingBottom: 4,

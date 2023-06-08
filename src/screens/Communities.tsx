@@ -5,7 +5,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ErrorMsg } from '../components/ErrorMsg';
 import { ListFooterLoading } from '../components/ListFooterLoading';
 import { ListItemCommunity } from '../components/ListItemCommunity';
-import { CommunityListHeader } from '../components/communities/CommunityListHeader';
 import { communitiesPageUpdated } from '../features/communities/actions';
 import { communityApi } from '../features/communities/api';
 import {
@@ -88,7 +87,7 @@ export const CommunitiesScreen = (): JSX.Element => {
           // )
         }
         renderItem={renderItem}
-        ListHeaderComponent={() => <CommunityListHeader />}
+        // ListHeaderComponent={() => <CommunityListHeader />}
         ItemSeparatorComponent={() => <Divider />}
         ListFooterComponent={() => <ListFooterLoading />}
       />
