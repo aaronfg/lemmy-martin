@@ -33,3 +33,8 @@ export const TAB_ICON_SIZE = 40;
 export enum UnicodeText {
   Bullet = '\u2022',
 }
+
+export enum ScreenMargin {
+  Horizontal = 20,
+  Vertical = 20,
+}
