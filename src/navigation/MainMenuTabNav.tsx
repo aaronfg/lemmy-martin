@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { CommunityListHeader } from '../components/communities/CommunityListHeader';
 import { CommunitiesScreen } from '../screens/Communities';
-import { LoginScreen } from '../screens/Login';
+import { MainMenuScreen } from '../screens/MainMenu';
 import { LemmyDarkTheme } from '../theme';
 import { MaterialIconNames, ScreenNames, TAB_ICON_SIZE } from '../types';
-import { CommunityListHeader } from '../components/communities/CommunityListHeader';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +17,7 @@ export const HomeTabNav = (): JSX.Element => {
         component={CommunitiesScreen}
         options={{
           // headerShown: false,
-          header: (props) => <CommunityListHeader />,
+          header: props => <CommunityListHeader />,
           tabBarIcon: props => (
             <MaterialIcon
               name={MaterialIconNames.Home}
@@ -33,8 +33,8 @@ export const HomeTabNav = (): JSX.Element => {
         }}
       />
       <Tab.Screen
-        name={ScreenNames.Login}
-        component={LoginScreen}
+        name={ScreenNames.MainMenu}
+        component={MainMenuScreen}
         options={{
           headerShown: false,
           tabBarIcon: props => (

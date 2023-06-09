@@ -6,6 +6,7 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
+  View,
 } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -32,7 +33,7 @@ export const LoginScreen = (): JSX.Element => {
   const orientation = useOrientation();
   log.debug(`isLandscape: ${orientation.isLandscape}`);
 
-  const styles = createStyleSheet();
+  const styles = createStyleSheet(orientation.isLandscape);
 
   const dispatch = useAppDispatch();
   useFocusEffect(() => {
@@ -67,59 +68,77 @@ export const LoginScreen = (): JSX.Element => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.safe}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <KeyboardAvoidingView
-          style={styles.container}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <Text style={styles.title}>Login</Text>
-          {/* Username */}
-          <TextInput
-            label="Username or Email"
-            mode="outlined"
-            style={styles.txtInput}
-          />
-          {/* Passwords */}
-          <TextInput label="Password" mode="outlined" style={styles.txtInput} />
-          {/* Instance */}
-          <TextInput
-            label="Instance Url"
-            mode="outlined"
-            style={styles.txtInput}
-          />
-          {/* Login Button */}
-          <Button
-            mode="contained"
-            onPress={doLogin}
-            disabled={loading}
-            style={styles.loginBtn}>
-            Login
-          </Button>
-          {token && <Text>JWT Token: {token}</Text>}
-          {token && (
-            <Button mode="contained" onPress={onPostsPress} disabled={loading}>
-              Get Communities
+        <View style={styles.content}>
+          <KeyboardAvoidingView
+            style={styles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <Text style={styles.title}>Login</Text>
+            {/* Username */}
+            <TextInput
+              label="Username or Email"
+              mode="outlined"
+              style={styles.txtInput}
+            />
+            {/* Passwords */}
+            <TextInput
+              label="Password"
+              mode="outlined"
+              style={styles.txtInput}
+            />
+            {/* Instance */}
+            <TextInput
+              label="Instance Url"
+              mode="outlined"
+              style={styles.txtInput}
+            />
+            {/* Login Button */}
+            <Button
+              mode="contained"
+              onPress={doLogin}
+              disabled={loading}
+              style={styles.loginBtn}>
+              Login
             </Button>
-          )}
-          {error && <ErrorMsg message={error.message} />}
-        </KeyboardAvoidingView>
+            {token && <Text>JWT Token: {token}</Text>}
+            {token && (
+              <Button
+                mode="contained"
+                onPress={onPostsPress}
+                disabled={loading}>
+                Get Communities
+              </Button>
+            )}
+            {error && <ErrorMsg message={error.message} />}
+          </KeyboardAvoidingView>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-const createStyleSheet = () => {
+const createStyleSheet = (isLandscape: boolean) => {
   return StyleSheet.create({
     container: {
-      // padding: 12,
+      minWidth: isLandscape ? '60%' : '100%',
+    },
+    content: {
+      flex: 1,
+      width: '100%',
+      justifyContent: 'center',
     },
     loginBtn: {
       marginTop: 18,
       width: '50%',
       alignSelf: 'center',
     },
+    safe: {
+      flex: 1,
+    },
     scrollContent: {
       padding: ScreenMargin.Horizontal,
+      flex: 1,
     },
     title: {
       fontSize: 20,

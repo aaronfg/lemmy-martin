@@ -1,17 +1,21 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { List } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { RootStackParamList } from '../navigation/types';
+import { ScreenNames } from '../types';
 
 /** Screen for the main menu */
 export const MainMenuScreen = (): JSX.Element => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const styles = createStyleSheet();
 
   const onAddAccountPress = () => {
-    // navigation.navigate(ScreenNames.Login);
+    navigation.navigate(ScreenNames.Login);
   };
 
   return (
