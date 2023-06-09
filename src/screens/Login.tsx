@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { Login } from 'lemmy-js-client';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -17,6 +17,7 @@ import {
   getLemmyAPILoading,
   getLemmyJWT,
 } from '../features/lemmy/selectors';
+import { getSettingsDefaultInstance } from '../features/settings/selectors';
 import { useOrientation } from '../hooks';
 import { log } from '../logging/log';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -26,9 +27,14 @@ import { ScreenMargin } from '../types';
  * The Login screen for adding an account to the app.
  */
 export const LoginScreen = (): JSX.Element => {
+  const defaultInstance = useAppSelector(getSettingsDefaultInstance);
   const loading = useAppSelector(getLemmyAPILoading);
   const token = useAppSelector(getLemmyJWT);
   const error = useAppSelector(getLemmyAPIError);
+
+  const [username, setUsername] = useState<string | undefined>(undefined);
+  const [pw, setPW] = useState<string | undefined>(undefined);
+  const [instance, setInstance] = useState<string | undefined>(defaultInstance);
 
   const orientation = useOrientation();
   log.debug(`isLandscape: ${orientation.isLandscape}`);
@@ -67,6 +73,10 @@ export const LoginScreen = (): JSX.Element => {
     }
   };
 
+  const onChipPress = (url: string) => {
+    setInstance(url);
+  };
+
   return (
     <SafeAreaView style={styles.safe}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -86,13 +96,16 @@ export const LoginScreen = (): JSX.Element => {
               label="Password"
               mode="outlined"
               style={styles.txtInput}
+              secureTextEntry={true}
             />
             {/* Instance */}
             <TextInput
               label="Instance Url"
               mode="outlined"
+              placeholder={instance}
               style={styles.txtInput}
             />
+
             {/* Login Button */}
             <Button
               mode="contained"
@@ -101,15 +114,7 @@ export const LoginScreen = (): JSX.Element => {
               style={styles.loginBtn}>
               Login
             </Button>
-            {token && <Text>JWT Token: {token}</Text>}
-            {token && (
-              <Button
-                mode="contained"
-                onPress={onPostsPress}
-                disabled={loading}>
-                Get Communities
-              </Button>
-            )}
+
             {error && <ErrorMsg message={error.message} />}
           </KeyboardAvoidingView>
         </View>
@@ -120,6 +125,13 @@ export const LoginScreen = (): JSX.Element => {
 
 const createStyleSheet = (isLandscape: boolean) => {
   return StyleSheet.create({
+    chipContainer: {
+      // marginHorizontal: ScreenMargin.Horizontal,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      marginTop: 8,
+    },
     container: {
       minWidth: isLandscape ? '60%' : '100%',
     },
