@@ -77,6 +77,8 @@ export const LoginScreen = (): JSX.Element => {
     setInstance(url);
   };
 
+  const formIsValid = !!username && !!pw && !!instance;
+
   return (
     <SafeAreaView style={styles.safe}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -110,7 +112,7 @@ export const LoginScreen = (): JSX.Element => {
             <Button
               mode="contained"
               onPress={doLogin}
-              disabled={loading}
+              disabled={loading || !formIsValid}
               style={styles.loginBtn}>
               Login
             </Button>

@@ -11,6 +11,17 @@ export interface ILemmyState {
   loginResponse?: LoginResponse;
 }
 
+export interface ILemmyInstance {
+  /**
+   * The instance name not formatted as a url. ie `'lemmy.ml'`
+   */
+  name: string;
+  /**
+   * The instance formatted as a url. ie `'https://lemmy.ml'`
+   */
+  href: string;
+}
+
 /** The error object returned if the {@link lemmyLogin} action fails */
 export interface ILemmyLoginError {
   /** The error message */

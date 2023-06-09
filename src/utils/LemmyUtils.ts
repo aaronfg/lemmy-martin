@@ -1,3 +1,4 @@
+import { ILemmyInstance } from '../features/lemmy/types';
 import { IAccount } from '../features/settings/types';
 
 const COMMUNITY_MAX_DESCRIPTION_LENGTH = 200;
@@ -110,5 +111,14 @@ export class LemmyUtils {
       return description.substring(0, COMMUNITY_MAX_DESCRIPTION_LENGTH) + '...';
     }
     return description;
+  };
+
+  /**  */
+  static createILemmyInstance = (instance: string): ILemmyInstance => {
+    const instanceUrl = new URL(instance);
+    return {
+      name: instanceUrl.host,
+      href: instanceUrl.href,
+    };
   };
 }
