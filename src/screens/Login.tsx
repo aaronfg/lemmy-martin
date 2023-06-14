@@ -46,35 +46,36 @@ export const LoginScreen = (): JSX.Element => {
     dispatch(lemmyClearError());
   });
 
+  const onUserChanged = (text: string) => {
+    setUsername(text.trim());
+  };
+
+  const onPWChanged = (text: string) => {
+    setPW(text.trim());
+  };
+
+  const onInstanceChanged = (text: string) => {
+    setInstance(text.trim());
+  };
+
   const doLogin = async () => {
-    const loginForm: Login = {
-      username_or_email: 'subtex108@protonmail.com',
-      password: '6$)9C3a$VTd+Q%V^',
-    };
-    try {
-      const response = await dispatch(
-        lemmyLogin({
-          instanceUrl: 'https://lemmy.ml',
-          loginForm,
-        }),
-      );
-      log.debug('response: ', response);
-    } catch (error) {
-      log.error(error);
+    if (username && pw && instance){
+      const loginForm: Login = {
+        username_or_email: username,
+        password: pw,
+      };
+      try {
+        const response = await dispatch(
+          lemmyLogin({
+            instanceUrl: 'https://lemmy.ml',
+            loginForm,
+          }),
+        );
+        log.debug('response: ', response);
+      } catch (error) {
+        log.error(error);
+      }
     }
-  };
-
-  const onPostsPress = async () => {
-    try {
-      //
-      // const response =
-    } catch (error) {
-      //
-    }
-  };
-
-  const onChipPress = (url: string) => {
-    setInstance(url);
   };
 
   const formIsValid = !!username && !!pw && !!instance;
@@ -92,6 +93,7 @@ export const LoginScreen = (): JSX.Element => {
               label="Username or Email"
               mode="outlined"
               style={styles.txtInput}
+              onChangeText={onUserChanged}
             />
             {/* Passwords */}
             <TextInput
@@ -99,6 +101,7 @@ export const LoginScreen = (): JSX.Element => {
               mode="outlined"
               style={styles.txtInput}
               secureTextEntry={true}
+              onChangeText={onPWChanged}
             />
             {/* Instance */}
             <TextInput
@@ -106,6 +109,7 @@ export const LoginScreen = (): JSX.Element => {
               mode="outlined"
               placeholder={instance}
               style={styles.txtInput}
+              onChangeText={onInstanceChanged}
             />
 
             {/* Login Button */}
