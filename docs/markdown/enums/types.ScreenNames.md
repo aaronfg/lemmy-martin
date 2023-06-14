@@ -12,15 +12,22 @@ Used in the stack navigators.
 
 ### Enumeration Members
 
+- [Communities](types.ScreenNames.md#communities)
 - [Feed](types.ScreenNames.md#feed)
 - [Login](types.ScreenNames.md#login)
 - [MainMenu](types.ScreenNames.md#mainmenu)
 
 ## Enumeration Members
 
+### Communities
+
+• **Communities** = ``"Communities"``
+
+___
+
 ### Feed
 
-• **Feed** = ``"feed"``
+• **Feed** = ``"Feed"``
 
 ___
 

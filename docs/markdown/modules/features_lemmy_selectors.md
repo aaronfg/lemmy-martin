@@ -6,11 +6,29 @@
 
 ### Functions
 
+- [getLemmyAPIBaseUrl](features_lemmy_selectors.md#getlemmyapibaseurl)
 - [getLemmyAPIError](features_lemmy_selectors.md#getlemmyapierror)
 - [getLemmyAPILoading](features_lemmy_selectors.md#getlemmyapiloading)
 - [getLemmyJWT](features_lemmy_selectors.md#getlemmyjwt)
 
 ## Functions
+
+### getLemmyAPIBaseUrl
+
+▸ **getLemmyAPIBaseUrl**(`state`, `...params`): `URL`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `Object` |
+| `...params` | [] |
+
+#### Returns
+
+`URL`
+
+___
 
 ### getLemmyAPIError
 

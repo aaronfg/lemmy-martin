@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   CommunityView,
   ListCommunities,
@@ -18,6 +18,7 @@ export const communityApi = createApi({
       query: args => ({
         url: `community/list?${APIUtils.getQueryParamsFromObj(args)}`,
         method: LemmyAPIMethods.ListCommunities,
+        timeout: 5000,
       }),
       transformResponse: (response: ListCommunitiesResponse) =>
         response.communities,
@@ -36,12 +37,4 @@ export const communityApi = createApi({
   }),
 });
 
-// export const pokemonApi = createApi({
-//   reducerPath: 'pokemonApi',
-//   baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/' }),
-//   endpoints: builder => ({
-//     getPokemonByName: builder.query<string, string>({
-//       query: name => `pokemon/${name}`,
-//     }),
-//   }),
-// });
+export const { useGetCommunitiesQuery } = communityApi;

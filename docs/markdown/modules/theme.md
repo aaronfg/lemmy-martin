@@ -149,7 +149,7 @@ Dark theme for the app
 | `animation` | { `defaultAnimationDuration?`: `number` ; `scale`: `number`  } |
 | `animation.defaultAnimationDuration?` | `number` |
 | `animation.scale` | `number` |
-| `colors` | { `backdrop`: `string` ; `background`: `string` ; `border`: `string` ; `card`: `string` ; `elevation`: `MD3ElevationColors` ; `error`: `string` ; `errorContainer`: `string` ; `inverseOnSurface`: `string` ; `inversePrimary`: `string` ; `inverseSurface`: `string` ; `notification`: `string` ; `onBackground`: `string` ; `onError`: `string` ; `onErrorContainer`: `string` ; `onPrimary`: `string` ; `onPrimaryContainer`: `string` ; `onSecondary`: `string` ; `onSecondaryContainer`: `string` ; `onSurface`: `string` ; `onSurfaceDisabled`: `string` ; `onSurfaceVariant`: `string` ; `onTertiary`: `string` ; `onTertiaryContainer`: `string` ; `outline`: `string` ; `outlineVariant`: `string` ; `primary`: [`LemmyMartinBrandingColors`](../enums/theme.LemmyMartinBrandingColors.md) = LemmyMartinBrandingColors.primary; `primaryContainer`: `string` ; `scrim`: `string` ; `secondary`: [`LemmyMartinBrandingColors`](../enums/theme.LemmyMartinBrandingColors.md) = LemmyMartinBrandingColors.secondaryDark; `secondaryContainer`: `string` ; `shadow`: `string` ; `surface`: `string` ; `surfaceDisabled`: `string` ; `surfaceVariant`: `string` ; `tertiary`: `string` ; `tertiaryContainer`: `string` ; `text`: `string`  } |
+| `colors` | { `backdrop`: `string` ; `background`: `string` ; `border`: `string` ; `card`: `string` ; `elevation`: `MD3ElevationColors` ; `error`: `string` ; `errorContainer`: `string` ; `inverseOnSurface`: `string` ; `inversePrimary`: `string` ; `inverseSurface`: `string` ; `notification`: `string` ; `onBackground`: `string` ; `onError`: `string` ; `onErrorContainer`: `string` ; `onPrimary`: `string` ; `onPrimaryContainer`: `string` ; `onSecondary`: `string` ; `onSecondaryContainer`: `string` ; `onSurface`: `string` ; `onSurfaceDisabled`: `string` ; `onSurfaceVariant`: `string` ; `onTertiary`: `string` ; `onTertiaryContainer`: `string` ; `outline`: `string` ; `outlineVariant`: `string` ; `primary`: [`LemmyMartinBrandingColors`](../enums/theme.LemmyMartinBrandingColors.md) = LemmyMartinBrandingColors.primary; `primaryContainer`: `string` ; `scrim`: `string` ; `secondary`: [`LemmyMartinBrandingColors`](../enums/theme.LemmyMartinBrandingColors.md) = LemmyMartinBrandingColors.secondaryDark; `secondaryContainer`: `string` ; `shadow`: `string` ; `surface`: `string` ; `surfaceDisabled`: `string` ; `surfaceVariant`: `string` ; `tertiary`: [`LemmyMartinBrandingColors`](../enums/theme.LemmyMartinBrandingColors.md) = LemmyMartinBrandingColors.tertiary; `tertiaryContainer`: `string` ; `text`: `string`  } |
 | `colors.backdrop` | `string` |
 | `colors.background` | `string` |
 | `colors.border` | `string` |
@@ -184,7 +184,7 @@ Dark theme for the app
 | `colors.surface` | `string` |
 | `colors.surfaceDisabled` | `string` |
 | `colors.surfaceVariant` | `string` |
-| `colors.tertiary` | `string` |
+| `colors.tertiary` | [`LemmyMartinBrandingColors`](../enums/theme.LemmyMartinBrandingColors.md) |
 | `colors.tertiaryContainer` | `string` |
 | `colors.text` | `string` |
 | `dark` | `boolean` |

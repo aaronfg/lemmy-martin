@@ -17,7 +17,7 @@ Simple error descriptor
 
 ### code
 
-• `Optional` **code**: `number`
+• `Optional` **code**: `string` \| `number`
 
 The error code
 

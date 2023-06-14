@@ -27,9 +27,6 @@ export enum MaterialIconNames {
   PlusCircleOutline = 'plus-circle-outline',
 }
 
-/** Size for the tab icons in the bottom tab navigator */
-export const TAB_ICON_SIZE = 40;
-
 export enum UnicodeText {
   Bullet = '\u2022',
 }
@@ -38,3 +35,9 @@ export enum ScreenMargin {
   Horizontal = 20,
   Vertical = 20,
 }
+
+/** Size for the tab icons in the bottom tab navigator */
+export const TAB_ICON_SIZE = 40;
+
+/** Default timeout for api calls in milliseconds */
+export const DEFAULT_API_TIMEOUT = 5000;

@@ -14,7 +14,12 @@ Class with utility methods related to Lemmy API and accounts
 
 ### Methods
 
+- [createILemmyInstance](utils_LemmyUtils.LemmyUtils.md#createilemmyinstance)
+- [getDescriptionFirstParagraph](utils_LemmyUtils.LemmyUtils.md#getdescriptionfirstparagraph)
+- [getDescriptionHasMultiParagraphs](utils_LemmyUtils.LemmyUtils.md#getdescriptionhasmultiparagraphs)
+- [getShortDescription](utils_LemmyUtils.LemmyUtils.md#getshortdescription)
 - [getUpdatedAccounts](utils_LemmyUtils.LemmyUtils.md#getupdatedaccounts)
+- [isDescriptionLong](utils_LemmyUtils.LemmyUtils.md#isdescriptionlong)
 - [isNewAccount](utils_LemmyUtils.LemmyUtils.md#isnewaccount)
 
 ## Constructors
@@ -24,6 +29,70 @@ Class with utility methods related to Lemmy API and accounts
 • **new LemmyUtils**()
 
 ## Methods
+
+### createILemmyInstance
+
+▸ `Static` **createILemmyInstance**(`instance`): [`ILemmyInstance`](../interfaces/features_lemmy_types.ILemmyInstance.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `instance` | `string` |
+
+#### Returns
+
+[`ILemmyInstance`](../interfaces/features_lemmy_types.ILemmyInstance.md)
+
+___
+
+### getDescriptionFirstParagraph
+
+▸ `Static` **getDescriptionFirstParagraph**(`description`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `description` | `string` |
+
+#### Returns
+
+`string`
+
+___
+
+### getDescriptionHasMultiParagraphs
+
+▸ `Static` **getDescriptionHasMultiParagraphs**(`description`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `description` | `string` |
+
+#### Returns
+
+`boolean`
+
+___
+
+### getShortDescription
+
+▸ `Static` **getShortDescription**(`description`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `description` | `string` |
+
+#### Returns
+
+`string`
+
+___
 
 ### getUpdatedAccounts
 
@@ -45,6 +114,22 @@ new token for an existing account.
 #### Returns
 
 [`IAccount`](../interfaces/features_settings_types.IAccount.md)[]
+
+___
+
+### isDescriptionLong
+
+▸ `Static` **isDescriptionLong**(`description`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `description` | `string` |
+
+#### Returns
+
+`boolean`
 
 ___
 

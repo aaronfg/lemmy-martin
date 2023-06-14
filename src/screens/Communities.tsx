@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Divider, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,7 +6,7 @@ import { ErrorMsg } from '../components/ErrorMsg';
 import { ListFooterLoading } from '../components/ListFooterLoading';
 import { ListItemCommunity } from '../components/ListItemCommunity';
 import { communitiesPageUpdated } from '../features/communities/actions';
-import { communityApi } from '../features/communities/api';
+import { useGetCommunitiesQuery } from '../features/communities/api';
 import {
   getCommunitesListPage,
   getCommunityListItems,
@@ -37,14 +37,16 @@ export const CommunitiesScreen = (): JSX.Element => {
 
   const styles = createStyleSheet();
   // dispatch(communityApi.endpoints.getCommunities.initiate());
-  useEffect(() => {
-    if (communities.length === 0)
-      dispatch(
-        communityApi.endpoints.getCommunities.initiate({ page: listPage }),
-      );
-  }, []);
+  // useEffect(() => {
+  //   if (communities.length === 0)
+  //     dispatch(
+  //       communityApi.endpoints.getCommunities.initiate({ page: listPage }),
+  //     );
+  // }, []);
 
-  const onPostsPress = async () => {
+  const communitiesHook = useGetCommunitiesQuery({});
+
+  const onPostsPress = async () => { 
     try {
       //
       // const response =

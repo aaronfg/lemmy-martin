@@ -14,6 +14,8 @@
 
 ▸ **LoginScreen**(): `Element`
 
+The Login screen for adding an account to the app.
+
 #### Returns
 
 `Element`

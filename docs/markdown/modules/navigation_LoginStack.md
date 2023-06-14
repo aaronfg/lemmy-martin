@@ -4,14 +4,16 @@
 
 ## Table of contents
 
-### Variables
+### Functions
 
 - [LoginStack](navigation_LoginStack.md#loginstack)
 
-## Variables
+## Functions
 
 ### LoginStack
 
-• `Const` **LoginStack**: `TypedNavigator`<`ParamListBase`, `StackNavigationState`<`ParamListBase`\>, `NativeStackNavigationOptions`, `NativeStackNavigationEventMap`, (`__namedParameters`: `NativeStackNavigatorProps`) => `JSX.Element`\>
+▸ **LoginStack**(): `Element`
 
-The Stack Navigator for the Login
+#### Returns
+
+`Element`

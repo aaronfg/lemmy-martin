@@ -12,6 +12,7 @@ Descriptor for the `settings` slice of our redux store
 
 - [accounts](features_settings_types.ISettingsState.md#accounts)
 - [currentAccount](features_settings_types.ISettingsState.md#currentaccount)
+- [defaultInstance](features_settings_types.ISettingsState.md#defaultinstance)
 - [feed](features_settings_types.ISettingsState.md#feed)
 
 ## Properties
@@ -29,6 +30,12 @@ ___
 • `Optional` **currentAccount**: [`IAccount`](features_settings_types.IAccount.md)
 
 Currently selected account
+
+___
+
+### defaultInstance
+
+• **defaultInstance**: `string`
 
 ___
 

@@ -6,9 +6,34 @@
 
 ### Functions
 
+- [lemmyClearError](features_lemmy_actions.md#lemmyclearerror)
 - [lemmyLogin](features_lemmy_actions.md#lemmylogin)
 
 ## Functions
+
+### lemmyClearError
+
+▸ **lemmyClearError**(`noArgument`): `Object`
+
+Calling this redux#ActionCreator will
+return a PayloadAction of type `T` with a payload of `undefined`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `noArgument` | `void` |
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `payload` | `undefined` |
+| `type` | ``"lemmy/clearError"`` |
+
+___
 
 ### lemmyLogin
 
