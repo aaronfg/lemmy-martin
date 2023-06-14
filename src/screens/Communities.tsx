@@ -12,11 +12,7 @@ import {
   getCommunityListItems,
 } from '../features/communities/selectors';
 import { ICommunityListItem } from '../features/communities/types';
-import {
-  getLemmyAPIError,
-  getLemmyAPILoading,
-  getLemmyJWT,
-} from '../features/lemmy/selectors';
+import { getLemmyAPIError, getLemmyJWT } from '../features/lemmy/selectors';
 import { getSettingsFeedSource } from '../features/settings/selectors';
 import { log } from '../logging/log';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -27,7 +23,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 export const CommunitiesScreen = (): JSX.Element => {
   // const [loading, setLoading] = useState(false);
   const feedSource = useAppSelector(getSettingsFeedSource);
-  const loading = useAppSelector(getLemmyAPILoading);
+  // const loading = useAppSelector(getLemmyAPILoading);
   const token = useAppSelector(getLemmyJWT);
   const error = useAppSelector(getLemmyAPIError);
   const communities = useAppSelector(getCommunityListItems);
@@ -44,9 +40,9 @@ export const CommunitiesScreen = (): JSX.Element => {
   //     );
   // }, []);
 
-  const communitiesHook = useGetCommunitiesQuery({});
+  const { isLoading } = useGetCommunitiesQuery({ page: listPage });
 
-  const onPostsPress = async () => { 
+  const onPostsPress = async () => {
     try {
       //
       // const response =
@@ -75,7 +71,7 @@ export const CommunitiesScreen = (): JSX.Element => {
         data={communities}
         onEndReachedThreshold={0.5}
         onEndReached={onListEndReached}
-        refreshing={loading}
+        refreshing={isLoading}
         ListEmptyComponent={
           () => (
             // loading ? (

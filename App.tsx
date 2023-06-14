@@ -12,6 +12,7 @@ import { StatusBar } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
+import { navigationRef } from './src/navigation';
 import { HomeTabNav } from './src/navigation/MainMenuTabNav';
 import { RootStackParamList } from './src/navigation/types';
 import { store } from './src/redux/store';
@@ -26,7 +27,7 @@ function App(): JSX.Element {
     <Provider store={store}>
       <PaperProvider theme={LemmyDarkTheme}>
         <SafeAreaProvider>
-          <NavigationContainer theme={LemmyDarkTheme}>
+          <NavigationContainer theme={LemmyDarkTheme} ref={navigationRef}>
             <StatusBar
               barStyle="light-content"
               backgroundColor={LemmyDarkTheme.colors.background}

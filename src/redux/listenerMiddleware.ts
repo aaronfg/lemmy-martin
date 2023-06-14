@@ -8,10 +8,14 @@ import {
 import { communitiesPageUpdated } from '../features/communities/actions';
 import { communityApi } from '../features/communities/api';
 import { lemmyLogin } from '../features/lemmy/actions';
-import { settingsUpdateAccounts } from '../features/settings/actions';
+import {
+  settingsCurrentAccountChanged,
+  settingsUpdateAccounts,
+} from '../features/settings/actions';
 import { getAccounts } from '../features/settings/selectors';
 import { IAccount } from '../features/settings/types';
 import { log } from '../logging/log';
+import { navigationRef } from '../navigation';
 import { LemmyUtils } from '../utils/LemmyUtils';
 import type { AppDispatch, RootState } from './store';
 
@@ -43,6 +47,8 @@ startAppListening({
 
     const updatedAccounts = LemmyUtils.getUpdatedAccounts(newAccount, accounts);
     listenerApi.dispatch(settingsUpdateAccounts(updatedAccounts));
+    listenerApi.dispatch(settingsCurrentAccountChanged(newAccount));
+    navigationRef.goBack();
   },
 });
 

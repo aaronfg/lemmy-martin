@@ -8,7 +8,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { Button, Text, TextInput } from 'react-native-paper';
+import { ActivityIndicator, Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ErrorMsg } from '../components/ErrorMsg';
 import { lemmyClearError, lemmyLogin } from '../features/lemmy/actions';
@@ -32,8 +32,8 @@ export const LoginScreen = (): JSX.Element => {
   const token = useAppSelector(getLemmyJWT);
   const error = useAppSelector(getLemmyAPIError);
 
-  const [username, setUsername] = useState<string | undefined>(undefined);
-  const [pw, setPW] = useState<string | undefined>(undefined);
+  const [username, setUsername] = useState<string | undefined>('subtex');
+  const [pw, setPW] = useState<string | undefined>(undefined); // ]S\]B/%fL-54/eSX
   const [instance, setInstance] = useState<string | undefined>(defaultInstance);
 
   const orientation = useOrientation();
@@ -55,11 +55,15 @@ export const LoginScreen = (): JSX.Element => {
   };
 
   const onInstanceChanged = (text: string) => {
-    setInstance(text.trim());
+    const textTrimmed = text.trim();
+    const finalText = textTrimmed.endsWith('/')
+      ? textTrimmed.substring(0, textTrimmed.length - 1)
+      : textTrimmed;
+    setInstance(finalText);
   };
 
   const doLogin = async () => {
-    if (username && pw && instance){
+    if (username && pw && instance) {
       const loginForm: Login = {
         username_or_email: username,
         password: pw,
@@ -67,7 +71,7 @@ export const LoginScreen = (): JSX.Element => {
       try {
         const response = await dispatch(
           lemmyLogin({
-            instanceUrl: 'https://lemmy.ml',
+            instanceUrl: instance,
             loginForm,
           }),
         );
@@ -123,6 +127,7 @@ export const LoginScreen = (): JSX.Element => {
 
             {error && <ErrorMsg message={error.message} />}
           </KeyboardAvoidingView>
+          {loading && <ActivityIndicator />}
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -8,3 +8,7 @@ import { IAccount } from './types';
 export const settingsUpdateAccounts = createAction<IAccount[]>(
   'settings/updateAccounts',
 );
+
+export const settingsCurrentAccountChanged = createAction<IAccount>(
+  'settings/currentAccountChanged',
+);
