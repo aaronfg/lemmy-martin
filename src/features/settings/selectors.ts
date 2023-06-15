@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 import { RootState } from '../../redux/store';
+import { LemmyUtils } from '../../utils/LemmyUtils';
+import { ILemmyInstance } from '../lemmy/types';
 
 /** Returns the accounts in our `settings` slice */
 const getSettingsAccounts = (state: RootState) => state.settings.accounts;
@@ -7,6 +9,9 @@ const getSettingsAccounts = (state: RootState) => state.settings.accounts;
 /** Returns the currently selected account (if there is one) */
 export const getSettingsCurrentAccount = (state: RootState) =>
   state.settings.currentAccount;
+
+export const getSettingsCurrentAccountToken = (state: RootState) =>
+  state.settings.currentAccount?.token;
 
 /** Returns the feed source of our `settings` slice */
 export const getSettingsFeedSource = (state: RootState) =>
@@ -21,5 +26,18 @@ export const getAccounts = createSelector(
   settingsAccounts => {
     const accountsSet = new Set(settingsAccounts);
     return accountsSet;
+  },
+);
+
+export const getCurrentInstance = createSelector(
+  getSettingsCurrentAccount,
+  getSettingsDefaultInstance,
+  (currentAccount, defaultInstance): ILemmyInstance => {
+    const accountInstance = currentAccount?.instance;
+    if (accountInstance) {
+      const inst = LemmyUtils.createILemmyInstance(accountInstance);
+      return inst;
+    }
+    return LemmyUtils.createILemmyInstance(defaultInstance);
   },
 );

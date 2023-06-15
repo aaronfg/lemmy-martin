@@ -12,8 +12,11 @@ import {
   getCommunityListItems,
 } from '../features/communities/selectors';
 import { ICommunityListItem } from '../features/communities/types';
-import { getLemmyAPIError, getLemmyJWT } from '../features/lemmy/selectors';
-import { getSettingsFeedSource } from '../features/settings/selectors';
+import { getLemmyAPIError } from '../features/lemmy/selectors';
+import {
+  getSettingsCurrentAccountToken,
+  getSettingsFeedSource,
+} from '../features/settings/selectors';
 import { log } from '../logging/log';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
@@ -21,26 +24,23 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
  * Screen for the a list of Communities either local or across all federated instances.
  */
 export const CommunitiesScreen = (): JSX.Element => {
-  // const [loading, setLoading] = useState(false);
+  // selectors
   const feedSource = useAppSelector(getSettingsFeedSource);
-  // const loading = useAppSelector(getLemmyAPILoading);
-  const token = useAppSelector(getLemmyJWT);
+  const authToken = useAppSelector(getSettingsCurrentAccountToken);
   const error = useAppSelector(getLemmyAPIError);
   const communities = useAppSelector(getCommunityListItems);
   const listPage = useAppSelector(getCommunitesListPage);
 
+  // hooks
   const dispatch = useAppDispatch();
 
   const styles = createStyleSheet();
-  // dispatch(communityApi.endpoints.getCommunities.initiate());
-  // useEffect(() => {
-  //   if (communities.length === 0)
-  //     dispatch(
-  //       communityApi.endpoints.getCommunities.initiate({ page: listPage }),
-  //     );
-  // }, []);
 
-  const { isLoading } = useGetCommunitiesQuery({ page: listPage });
+  // Load the communities
+  const { isLoading } = useGetCommunitiesQuery({
+    page: listPage,
+    auth: authToken,
+  });
 
   const onPostsPress = async () => {
     try {
@@ -64,7 +64,7 @@ export const CommunitiesScreen = (): JSX.Element => {
 
   return (
     <SafeAreaView style={styles.safe}>
-      {error && <ErrorMsg message={error.message} />}
+      {error && <ErrorMsg error={error} />}
 
       <FlatList
         style={styles.list}

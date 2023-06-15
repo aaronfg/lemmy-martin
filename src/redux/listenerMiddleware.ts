@@ -12,7 +12,10 @@ import {
   settingsCurrentAccountChanged,
   settingsUpdateAccounts,
 } from '../features/settings/actions';
-import { getAccounts } from '../features/settings/selectors';
+import {
+  getAccounts,
+  getSettingsCurrentAccountToken,
+} from '../features/settings/selectors';
 import { IAccount } from '../features/settings/types';
 import { log } from '../logging/log';
 import { navigationRef } from '../navigation';
@@ -57,9 +60,12 @@ startAppListening({
   effect: async (action, listenerApi) => {
     // grab new communites list data based on the new page
     log.debug('dispatching page ' + action.payload);
-    // listenerApi.dispatch(communitiesTest());
+    const authToken = getSettingsCurrentAccountToken(listenerApi.getState());
     listenerApi.dispatch(
-      communityApi.endpoints.getCommunities.initiate({ page: action.payload }),
+      communityApi.endpoints.getCommunities.initiate({
+        page: action.payload,
+        auth: authToken,
+      }),
     );
   },
 });

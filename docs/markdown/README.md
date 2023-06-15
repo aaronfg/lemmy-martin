@@ -30,6 +30,7 @@ LemmyMartin
 - [features/user/types](modules/features_user_types.md)
 - [hooks](modules/hooks.md)
 - [logging/log](modules/logging_log.md)
+- [navigation](modules/navigation.md)
 - [navigation/LoginStack](modules/navigation_LoginStack.md)
 - [navigation/MainMenuTabNav](modules/navigation_MainMenuTabNav.md)
 - [navigation/types](modules/navigation_types.md)

@@ -3,7 +3,9 @@ export class APIUtils {
     const params = new URLSearchParams();
 
     for (const [key, value] of Object.entries(obj)) {
-      params.append(key, value.toString());
+      if (value !== undefined) {
+        params.append(key, value.toString());
+      }
     }
     return params.toString();
   };

@@ -8,6 +8,7 @@
 
 - [getAccounts](features_settings_selectors.md#getaccounts)
 - [getSettingsCurrentAccount](features_settings_selectors.md#getsettingscurrentaccount)
+- [getSettingsCurrentAccountToken](features_settings_selectors.md#getsettingscurrentaccounttoken)
 - [getSettingsDefaultInstance](features_settings_selectors.md#getsettingsdefaultinstance)
 - [getSettingsFeedSource](features_settings_selectors.md#getsettingsfeedsource)
 
@@ -47,6 +48,22 @@ Returns the currently selected account (if there is one)
 #### Returns
 
 `undefined` \| [`IAccount`](../interfaces/features_settings_types.IAccount.md)
+
+___
+
+### getSettingsCurrentAccountToken
+
+▸ **getSettingsCurrentAccountToken**(`state`): `undefined` \| `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `Object` |
+
+#### Returns
+
+`undefined` \| `string`
 
 ___
 

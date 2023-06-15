@@ -12,6 +12,7 @@ The descriptor for the `lemmy` slice of our redux store
 
 - [error](features_lemmy_types.ILemmyState.md#error)
 - [loading](features_lemmy_types.ILemmyState.md#loading)
+- [loginError](features_lemmy_types.ILemmyState.md#loginerror)
 - [loginResponse](features_lemmy_types.ILemmyState.md#loginresponse)
 
 ## Properties
@@ -29,6 +30,12 @@ ___
 • **loading**: `boolean`
 
 `true` if we're loading/sending data
+
+___
+
+### loginError
+
+• `Optional` **loginError**: [`IError`](types.IError.md)
 
 ___
 

@@ -20,7 +20,7 @@ export const lemmyReducer = createReducer(INITIAL_LEMMY_STATE, builder => {
       state.loginResponse = action.payload;
     })
     .addCase(lemmyLogin.rejected, (state, action) => {
-      state.error = action.payload ?? { message: 'Someting went wrong' };
+      state.loginError = action.payload ?? { message: 'Someting went wrong' };
     })
     // lemmyClearError
     .addCase(lemmyClearError, state => {

@@ -8,12 +8,14 @@
 
 - [LemmyAPIMethods](../enums/features_lemmy_types.LemmyAPIMethods.md)
 - [LemmyAPIPaths](../enums/features_lemmy_types.LemmyAPIPaths.md)
-- [LoginErrors](../enums/features_lemmy_types.LoginErrors.md)
+- [LemmyErrorMsgs](../enums/features_lemmy_types.LemmyErrorMsgs.md)
+- [LemmyLoginErrors](../enums/features_lemmy_types.LemmyLoginErrors.md)
 
 ### Interfaces
 
 - [ILemmyInstance](../interfaces/features_lemmy_types.ILemmyInstance.md)
 - [ILemmyLoginError](../interfaces/features_lemmy_types.ILemmyLoginError.md)
+- [ILemmyLoginErrorResponse](../interfaces/features_lemmy_types.ILemmyLoginErrorResponse.md)
 - [ILemmyLoginParams](../interfaces/features_lemmy_types.ILemmyLoginParams.md)
 - [ILemmyState](../interfaces/features_lemmy_types.ILemmyState.md)
 

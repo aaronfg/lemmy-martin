@@ -45,9 +45,9 @@ function App(): JSX.Element {
               <Stack.Screen
                 name={ScreenNames.Login}
                 component={LoginScreen}
-                options={{
-                  presentation: 'fullScreenModal',
-                }}
+                // options={{
+                //   presentation: 'fullScreenModal',
+                // }}
               />
             </Stack.Navigator>
             {/* <Tab.Navigator> */}

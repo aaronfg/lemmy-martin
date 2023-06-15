@@ -11,7 +11,7 @@ export const INITIAL_SETTINGS_STATE: ISettingsState = {
   feed: {
     source: FeedSource.Local,
   },
-  defaultInstance: 'https://sopuli.xyz',
+  defaultInstance: 'https://lemmy.ml', // https://sopuli.xyz
 };
 
 /** The reducer for the `settings` slice of our redux state */

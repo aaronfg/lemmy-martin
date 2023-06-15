@@ -17,6 +17,7 @@ Class with utility methods related to Lemmy API and accounts
 - [createILemmyInstance](utils_LemmyUtils.LemmyUtils.md#createilemmyinstance)
 - [getDescriptionFirstParagraph](utils_LemmyUtils.LemmyUtils.md#getdescriptionfirstparagraph)
 - [getDescriptionHasMultiParagraphs](utils_LemmyUtils.LemmyUtils.md#getdescriptionhasmultiparagraphs)
+- [getFriendlyErrorMsg](utils_LemmyUtils.LemmyUtils.md#getfriendlyerrormsg)
 - [getShortDescription](utils_LemmyUtils.LemmyUtils.md#getshortdescription)
 - [getUpdatedAccounts](utils_LemmyUtils.LemmyUtils.md#getupdatedaccounts)
 - [isDescriptionLong](utils_LemmyUtils.LemmyUtils.md#isdescriptionlong)
@@ -34,11 +35,14 @@ Class with utility methods related to Lemmy API and accounts
 
 ▸ `Static` **createILemmyInstance**(`instance`): [`ILemmyInstance`](../interfaces/features_lemmy_types.ILemmyInstance.md)
 
+Creates an features/lemmy/types#ILemmyInstance from
+the `instance` string passed in
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `instance` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `instance` | `string` | The string to base the logic on |
 
 #### Returns
 
@@ -50,11 +54,14 @@ ___
 
 ▸ `Static` **getDescriptionFirstParagraph**(`description`): `string`
 
+Returns the first paragraph of a Community's `description`
+passed in.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `description` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `description` | `string` | The Community description to test |
 
 #### Returns
 
@@ -66,11 +73,16 @@ ___
 
 ▸ `Static` **getDescriptionHasMultiParagraphs**(`description`): `boolean`
 
+Returns `true` if the `description` has multiple paragraphs.
+
+This is used in conjunction with [getDescriptionFirstParagraph](utils_LemmyUtils.LemmyUtils.md#getdescriptionfirstparagraph)
+to get a shorter, list-friendly description.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `description` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `description` | `string` | The Community description to test |
 
 #### Returns
 
@@ -78,15 +90,36 @@ ___
 
 ___
 
+### getFriendlyErrorMsg
+
+▸ `Static` **getFriendlyErrorMsg**(`error`): `string`
+
+Returns a user-friendly error message given the API-provided `error`
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `error` | `string` | The error string to base the frfiendly message on |
+
+#### Returns
+
+`string`
+
+___
+
 ### getShortDescription
 
 ▸ `Static` **getShortDescription**(`description`): `string`
 
+Truncates the `description` to a shorter manageable length
+for use in the screens/Communities#Communities screen
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `description` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `description` | `string` | The Community description to truncate |
 
 #### Returns
 
@@ -121,11 +154,17 @@ ___
 
 ▸ `Static` **isDescriptionLong**(`description`): `boolean`
 
+Returns `true` if the provided `description` is longer than
+the `COMMUNITY_MAX_DESCRIPTION_LENGTH`.
+
+Used in the Communities Screen to truncate the Community
+description text in the list.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `description` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `description` | `string` | The Community description to test |
 
 #### Returns
 

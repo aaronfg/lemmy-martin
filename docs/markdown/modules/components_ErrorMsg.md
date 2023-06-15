@@ -24,7 +24,7 @@ A simple component that can display an error message and code
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `props` | [`IError`](../interfaces/types.IError.md) | The [IError](../interfaces/types.IError.md) to display |
+| `props` | [`IErrorMsgProps`](../interfaces/components_ErrorMsg.IErrorMsgProps.md) | The [IError](../interfaces/types.IError.md) to display |
 
 #### Returns
 

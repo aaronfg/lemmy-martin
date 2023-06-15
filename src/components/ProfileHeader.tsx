@@ -9,7 +9,7 @@ import { LemmyUtils } from '../utils/LemmyUtils';
 
 export const ProfileHeader = (): JSX.Element => {
   const currentAccount = useAppSelector(getSettingsCurrentAccount);
-  const [instance, setInstance] = useState(currentAccount?.instance);
+  const [isClosed, setIsClosed] = useState(true);
   const theme = useTheme();
   const styles = createStyleSheet(theme);
   const lemmyInstance = useMemo(() => {

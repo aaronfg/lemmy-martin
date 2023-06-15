@@ -1,7 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
 import React from 'react';
 import { GestureResponderEvent, Image, StyleSheet, View } from 'react-native';
-import Markdown from 'react-native-markdown-package';
 import {
   IconButton,
   MD3Theme,
@@ -12,6 +11,7 @@ import {
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ICommunityListItem } from '../features/communities/types';
 import { MaterialIconNames, UnicodeText } from '../types';
+import { TextMarkdown } from './TextMarkdown';
 
 export interface IListItemCommunityProps {
   item: ICommunityListItem;
@@ -32,23 +32,25 @@ export const ListItemCommunity = (
     // log.debug('icon press');
   };
 
-  // const iconName = item.communityView.subscribed
-  //   ? MaterialIconNames.CheckCircleOutline
-  //   : MaterialIconNames.PlusCircleOutline;
-
   const iconName =
-    item.communityView.community.name === 'lemmy'
+    item.communityView.subscribed === 'Subscribed'
       ? MaterialIconNames.CheckCircleOutline
       : MaterialIconNames.PlusCircleOutline;
 
-  // const iconColor = item.communityView.subscribed
-  //   ? theme.colors.primary
-  //   : theme.colors.onSurface;
+  // const iconName =
+  //   item.communityView.community.name === 'lemmy'
+  //     ? MaterialIconNames.CheckCircleOutline
+  //     : MaterialIconNames.PlusCircleOutline;
 
   const iconColor =
-    iconName === MaterialIconNames.CheckCircleOutline
+    item.communityView.subscribed === 'Subscribed'
       ? theme.colors.primary
       : theme.colors.onSurface;
+
+  // const iconColor =
+  //   iconName === MaterialIconNames.CheckCircleOutline
+  //     ? theme.colors.primary
+  //     : theme.colors.onSurface;
 
   return (
     <View style={styles.outerContainer}>
@@ -79,23 +81,7 @@ export const ListItemCommunity = (
             </Text>
             {/* Description */}
             <View style={styles.description}>
-              <Markdown
-                styles={{
-                  text: {
-                    color: theme.colors.onSurface,
-                  },
-                  autolink: {
-                    color: theme.colors.primary,
-                  },
-                  listItemNumber: {
-                    color: theme.colors.onSurface,
-                  },
-                  view: {
-                    width: '90%',
-                  },
-                }}>
-                {item.shortDescription}
-              </Markdown>
+              <TextMarkdown theme={theme}>{item.shortDescription}</TextMarkdown>
             </View>
           </View>
         </View>

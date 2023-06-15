@@ -169,7 +169,7 @@ describe('LemmyUtils Tests', () => {
       expect(
         LemmyUtils.getShortDescription(mockCommunityLongDescriptionNoNewLines),
       ).toMatchInlineSnapshot(
-        `""A loosely moderated place to ask open ended questions  If your post is  1. Open ended  2. Not offensive 3. Not regarding lemmy support (c/lemmy_support) 4. not ad nauseam inducing (please make sure i"`,
+        `""A loosely moderated place to ask open ended questions  If your post is  1. Open ended  2. Not offensive 3. Not regarding lemmy support (c/lemmy_support) 4. not ad nauseam inducing (please make sure i..."`,
       );
     });
   });

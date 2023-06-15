@@ -6,18 +6,19 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  View,
 } from 'react-native';
 import { ActivityIndicator, Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ErrorMsg } from '../components/ErrorMsg';
 import { lemmyClearError, lemmyLogin } from '../features/lemmy/actions';
 import {
-  getLemmyAPIError,
   getLemmyAPILoading,
-  getLemmyJWT,
+  getLemmyLoginError,
 } from '../features/lemmy/selectors';
-import { getSettingsDefaultInstance } from '../features/settings/selectors';
+import {
+  getSettingsCurrentAccountToken,
+  getSettingsDefaultInstance,
+} from '../features/settings/selectors';
 import { useOrientation } from '../hooks';
 import { log } from '../logging/log';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -27,17 +28,17 @@ import { ScreenMargin } from '../types';
  * The Login screen for adding an account to the app.
  */
 export const LoginScreen = (): JSX.Element => {
+  // selectors
   const defaultInstance = useAppSelector(getSettingsDefaultInstance);
   const loading = useAppSelector(getLemmyAPILoading);
-  const token = useAppSelector(getLemmyJWT);
-  const error = useAppSelector(getLemmyAPIError);
-
+  const token = useAppSelector(getSettingsCurrentAccountToken);
+  const error = useAppSelector(getLemmyLoginError);
+  // local state
   const [username, setUsername] = useState<string | undefined>('subtex');
-  const [pw, setPW] = useState<string | undefined>(undefined); // ]S\]B/%fL-54/eSX
+  const [pw, setPW] = useState<string | undefined>(undefined);
   const [instance, setInstance] = useState<string | undefined>(defaultInstance);
 
   const orientation = useOrientation();
-  log.debug(`isLandscape: ${orientation.isLandscape}`);
 
   const styles = createStyleSheet(orientation.isLandscape);
 
@@ -86,49 +87,57 @@ export const LoginScreen = (): JSX.Element => {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.content}>
-          <KeyboardAvoidingView
-            style={styles.container}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <Text style={styles.title}>Login</Text>
-            {/* Username */}
-            <TextInput
-              label="Username or Email"
-              mode="outlined"
-              style={styles.txtInput}
-              onChangeText={onUserChanged}
-            />
-            {/* Passwords */}
-            <TextInput
-              label="Password"
-              mode="outlined"
-              style={styles.txtInput}
-              secureTextEntry={true}
-              onChangeText={onPWChanged}
-            />
-            {/* Instance */}
-            <TextInput
-              label="Instance Url"
-              mode="outlined"
-              placeholder={instance}
-              style={styles.txtInput}
-              onChangeText={onInstanceChanged}
-            />
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="always">
+        {/* <View style={styles.content}> */}
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <Text style={styles.title}>Login</Text>
+          {/* Username */}
+          <TextInput
+            label="Username or Email"
+            mode="outlined"
+            style={styles.txtInput}
+            onChangeText={onUserChanged}
+          />
+          {/* Passwords */}
+          <TextInput
+            label="Password"
+            mode="outlined"
+            style={styles.txtInput}
+            secureTextEntry={true}
+            onChangeText={onPWChanged}
+            blurOnSubmit={true}
+          />
+          {/* Instance */}
+          <TextInput
+            label="Instance Url"
+            mode="outlined"
+            placeholder={instance}
+            style={styles.txtInput}
+            onChangeText={onInstanceChanged}
+          />
 
-            {/* Login Button */}
-            <Button
-              mode="contained"
-              onPress={doLogin}
-              disabled={loading || !formIsValid}
-              style={styles.loginBtn}>
-              Login
-            </Button>
+          {/* Login Button */}
+          <Button
+            mode="contained"
+            onPress={doLogin}
+            disabled={loading || !formIsValid}
+            style={styles.loginBtn}>
+            Login
+          </Button>
 
-            {error && <ErrorMsg message={error.message} />}
-          </KeyboardAvoidingView>
+          {error && (
+            <ErrorMsg
+              error={{ message: error.message }}
+              containerStyle={styles.errorContainer}
+            />
+          )}
           {loading && <ActivityIndicator />}
-        </View>
+        </KeyboardAvoidingView>
+        {/* </View> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -145,11 +154,16 @@ const createStyleSheet = (isLandscape: boolean) => {
     },
     container: {
       minWidth: isLandscape ? '60%' : '100%',
+      flex: 1,
     },
     content: {
-      flex: 1,
+      // flex: 1,
       width: '100%',
       justifyContent: 'center',
+      backgroundColor: 'pink',
+    },
+    errorContainer: {
+      marginVertical: 20,
     },
     loginBtn: {
       marginTop: 18,

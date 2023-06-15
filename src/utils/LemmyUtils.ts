@@ -1,4 +1,8 @@
-import { ILemmyInstance } from '../features/lemmy/types';
+import {
+  ILemmyInstance,
+  LemmyErrorMsgs,
+  LemmyLoginErrors,
+} from '../features/lemmy/types';
 import { IAccount } from '../features/settings/types';
 
 const COMMUNITY_MAX_DESCRIPTION_LENGTH = 200;
@@ -91,19 +95,45 @@ export class LemmyUtils {
     return Array.from(accounts);
   };
 
+  /**
+   * Returns `true` if the provided `description` is longer than
+   * the `COMMUNITY_MAX_DESCRIPTION_LENGTH`.
+   *
+   * Used in the Communities Screen to truncate the Community
+   * description text in the list.
+   * @param description - The Community description to test
+   */
   static isDescriptionLong = (description: string): boolean => {
     return description.length > COMMUNITY_MAX_DESCRIPTION_LENGTH;
   };
 
+  /**
+   * Returns `true` if the `description` has multiple paragraphs.
+   *
+   * This is used in conjunction with {@link LemmyUtils.getDescriptionFirstParagraph}
+   * to get a shorter, list-friendly description.
+   * @param description - The Community description to test
+   */
   static getDescriptionHasMultiParagraphs = (description: string): boolean => {
     return description.indexOf('\n') !== -1;
   };
 
+  /**
+   * Returns the first paragraph of a Community's `description`
+   * passed in.
+   * @param description - The Community description to test
+   */
   static getDescriptionFirstParagraph = (description: string): string => {
     const pIndex = description.indexOf('\n');
     return pIndex !== -1 ? description.substring(0, pIndex) : description;
   };
 
+  /**
+   * Truncates the `description` to a shorter manageable length
+   * for use in the {@link screens/Communities#Communities} screen
+   * @param description - The Community description to truncate
+   * @returns
+   */
   static getShortDescription = (description: string): string => {
     if (this.getDescriptionHasMultiParagraphs(description)) {
       return this.getDescriptionFirstParagraph(description);
@@ -113,12 +143,34 @@ export class LemmyUtils {
     return description;
   };
 
-  /**  */
+  /**
+   * Creates an {@link features/lemmy/types#ILemmyInstance} from
+   * the `instance` string passed in
+   * @param instance - The string to base the logic on
+   */
   static createILemmyInstance = (instance: string): ILemmyInstance => {
     const instanceUrl = new URL(instance);
     return {
       name: instanceUrl.host,
       href: instanceUrl.href,
     };
+  };
+
+  /**
+   * Returns a user-friendly error message given the API-provided `error`
+   * @param error - The error string to base the frfiendly message on
+   */
+  static getFriendlyErrorMsg = (error: string): string => {
+    let msg: string;
+
+    switch (error) {
+      case LemmyLoginErrors.UserOrPassInvalid:
+        msg = LemmyErrorMsgs.UserOrPassInvalid;
+        break;
+      default:
+        msg = error;
+    }
+
+    return msg;
   };
 }
