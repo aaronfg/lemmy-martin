@@ -2,22 +2,27 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { nanoid } from '@reduxjs/toolkit';
 import React, { useMemo } from 'react';
-import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { List } from 'react-native-paper';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { settingsCurrentAccountChanged } from '../../features/settings/actions';
 import { getAccounts } from '../../features/settings/selectors';
+import { IAccount } from '../../features/settings/types';
 import { RootStackParamList } from '../../navigation/types';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { ScreenNames } from '../../types';
 
-export const ProfileChooser = (props: {
-  onLayout?: ((event: LayoutChangeEvent) => void) | undefined;
-}): React.ReactNode => {
+export const ProfileChooser = (): React.ReactNode => {
   const accounts = useAppSelector(getAccounts);
+  const dispatch = useAppDispatch();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const styles = createStyleSheet();
+
+  const onAccountPress = (account: IAccount) => {
+    dispatch(settingsCurrentAccountChanged(account));
+  };
 
   const getAccountListItems = useMemo(() => {
     const accountsArray = Array.from(accounts);
@@ -27,7 +32,9 @@ export const ProfileChooser = (props: {
       const item = (
         <List.Item
           key={nanoid()}
+          left={() => <View style={styles.accountItem} />}
           title={`${acc.username}@${instanceUrl.host}`}
+          onPress={() => onAccountPress(acc)}
         />
       );
       items.push(item);
@@ -55,8 +62,14 @@ export const ProfileChooser = (props: {
 
 const createStyleSheet = () => {
   return StyleSheet.create({
+    accountItem: {
+      marginLeft: 12,
+      width: 20,
+      height: 20,
+      backgroundColor: 'pink',
+    },
     icon: {
-      padding: 2,
+      marginLeft: 12,
       // backgroundColor: 'red',
     },
   });

@@ -31,7 +31,7 @@ export const ProfileHeader = (): JSX.Element => {
   const chevronIcon = isClosed ? 'menu-down' : 'menu-up';
 
   const contentHeight = useMemo<number>(() => {
-    return accounts.size * 50 + 50;
+    return accounts.size * 54 + 54;
   }, [accounts]);
 
   const contentHeightShared = useSharedValue(contentHeight);
