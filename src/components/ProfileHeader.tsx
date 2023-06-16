@@ -13,22 +13,32 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getSettingsCurrentAccount } from '../features/settings/selectors';
+import {
+  getAccounts,
+  getSettingsCurrentAccount,
+} from '../features/settings/selectors';
 import { useAppSelector } from '../redux/hooks';
 import { LemmyUtils } from '../utils/LemmyUtils';
+import { ProfileChooser } from './profile/ProfileChooser';
 
 export const ProfileHeader = (): JSX.Element => {
   const currentAccount = useAppSelector(getSettingsCurrentAccount);
+  const accounts = useAppSelector(getAccounts);
   const [isClosed, setIsClosed] = useState(true);
   const theme = useTheme();
-  const contentHeight = useSharedValue(0);
   const styles = createStyleSheet(theme);
 
   const chevronIcon = isClosed ? 'menu-down' : 'menu-up';
 
+  const contentHeight = useMemo<number>(() => {
+    return accounts.size * 50 + 50;
+  }, [accounts]);
+
+  const contentHeightShared = useSharedValue(contentHeight);
+
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      height: withTiming(contentHeight.value),
+      height: withTiming(contentHeightShared.value),
     };
   });
 
@@ -41,7 +51,7 @@ export const ProfileHeader = (): JSX.Element => {
 
   const onPress = () => {
     setIsClosed(!isClosed);
-    contentHeight.value = isClosed ? 50 : 0;
+    contentHeightShared.value = isClosed ? contentHeight : 0;
   };
 
   return (
@@ -53,12 +63,10 @@ export const ProfileHeader = (): JSX.Element => {
               icon={() => <MaterialIcon name="account" size={25} />}
               size={30}
             />
-            {/* {currentAccount && lemmyInstance && ( */}
-            {true && (
+            {currentAccount && lemmyInstance && (
               <View style={styles.nameContainer}>
                 <Text style={styles.username}>
-                  subtex@lemmy.ml
-                  {/* {currentAccount.username}@{lemmyInstance.name} */}
+                  {currentAccount.username}@{lemmyInstance.name}
                 </Text>
               </View>
             )}
@@ -73,7 +81,7 @@ export const ProfileHeader = (): JSX.Element => {
       </TouchableRipple>
       {/* content */}
       <Animated.View style={[styles.menuContainer, animatedStyles]}>
-        <Text>This is the slide out</Text>
+        <ProfileChooser />
       </Animated.View>
     </View>
   );
@@ -97,6 +105,7 @@ const createStyleSheet = (theme: MD3Theme) => {
     },
     menuContainer: {
       backgroundColor: 'black',
+      overflow: 'hidden',
     },
     nameContainer: {
       paddingLeft: 12,

@@ -2,9 +2,8 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { List } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RootStackParamList } from '../navigation/types';
 import { ScreenNames } from '../types';
 
@@ -22,7 +21,8 @@ export const MainMenuScreen = (): JSX.Element => {
     <SafeAreaView>
       <ScrollView>
         <View style={styles.container}>
-          <List.Item
+          <Text>Main Menu</Text>
+          {/* <List.Item
             title="Add Account"
             onPress={onAddAccountPress}
             left={props => (
@@ -33,7 +33,7 @@ export const MainMenuScreen = (): JSX.Element => {
                 size={20}
               />
             )}
-          />
+          /> */}
         </View>
       </ScrollView>
     </SafeAreaView>
