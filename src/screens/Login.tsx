@@ -35,7 +35,7 @@ export const LoginScreen = (): JSX.Element => {
   const error = useAppSelector(getLemmyLoginError);
   // local state
   const [username, setUsername] = useState<string | undefined>('subtex');
-  const [pw, setPW] = useState<string | undefined>(undefined);
+  const [pw, setPW] = useState<string | undefined>(undefined); // ]S\]B/%fL-54/eSX  | 6$)9C3a$VTd+Q%V^
   const [instance, setInstance] = useState<string | undefined>(defaultInstance);
 
   const orientation = useOrientation();
@@ -70,13 +70,12 @@ export const LoginScreen = (): JSX.Element => {
         password: pw,
       };
       try {
-        const response = await dispatch(
+        await dispatch(
           lemmyLogin({
             instanceUrl: instance,
             loginForm,
           }),
         );
-        log.debug('response: ', response);
       } catch (error) {
         log.error(error);
       }
@@ -90,7 +89,6 @@ export const LoginScreen = (): JSX.Element => {
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="always">
-        {/* <View style={styles.content}> */}
         <KeyboardAvoidingView
           style={styles.container}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -137,7 +135,6 @@ export const LoginScreen = (): JSX.Element => {
           )}
           {loading && <ActivityIndicator />}
         </KeyboardAvoidingView>
-        {/* </View> */}
       </ScrollView>
     </SafeAreaView>
   );

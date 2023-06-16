@@ -1,4 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { lemmyLogin } from '../lemmy/actions';
 import { communitiesPageUpdated } from './actions';
 import { communityApi } from './api';
 import { ICommunitesState } from './types';
@@ -15,6 +16,9 @@ export const communitiesReducer = createReducer(
       // communitiesPageUpdated
       .addCase(communitiesPageUpdated, (state, action) => {
         state.listPage = action.payload;
+      })
+      .addCase(lemmyLogin.fulfilled, state => {
+        state.listPage = INITIAL_COMMUNITIES_STATE.listPage;
       })
       // communityApi.endpoints.getCommunities pending
       .addMatcher(

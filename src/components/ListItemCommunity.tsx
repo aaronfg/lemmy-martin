@@ -11,6 +11,7 @@ import {
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ICommunityListItem } from '../features/communities/types';
 import { MaterialIconNames, UnicodeText } from '../types';
+import { LemmyUtils } from '../utils/LemmyUtils';
 import { TextMarkdown } from './TextMarkdown';
 
 export interface IListItemCommunityProps {
@@ -52,6 +53,10 @@ export const ListItemCommunity = (
   //     ? theme.colors.primary
   //     : theme.colors.onSurface;
 
+  const communityInstance = LemmyUtils.createILemmyInstance(
+    item.communityView.community.actor_id,
+  );
+
   return (
     <View style={styles.outerContainer}>
       <TouchableRipple onPress={onPress}>
@@ -73,7 +78,7 @@ export const ListItemCommunity = (
             </Text>
             {/* Name */}
             <Text style={styles.name}>
-              /c/{item.communityView.community.name}{' '}
+              !{item.communityView.community.name}@{communityInstance.name}{' '}
               <Text style={styles.name}>
                 {UnicodeText.Bullet} {item.communityView.counts.subscribers}{' '}
                 Subscribers

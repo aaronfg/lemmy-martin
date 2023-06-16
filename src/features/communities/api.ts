@@ -7,9 +7,14 @@ import {
 import { APIUtils } from '../../utils/APIUtils';
 import { LemmyAPIMethods } from '../lemmy/types';
 
+export enum CommunityApiTagTypes {
+  Community = 'Community',
+}
+
 /** The RTK Query api for community related api calls */
 export const communityApi = createApi({
   reducerPath: 'communitiesApi',
+  tagTypes: [CommunityApiTagTypes.Community],
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://lemmy.ml/api/v3/',
   }),
@@ -20,6 +25,7 @@ export const communityApi = createApi({
         method: LemmyAPIMethods.ListCommunities,
         timeout: 5000,
       }),
+      providesTags: [CommunityApiTagTypes.Community],
       transformResponse: (response: ListCommunitiesResponse) =>
         response.communities,
       serializeQueryArgs: ({ endpointName }) => {

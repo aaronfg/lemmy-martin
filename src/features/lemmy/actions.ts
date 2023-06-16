@@ -21,7 +21,7 @@ export const lemmyLogin = createAsyncThunk<
   const client: LemmyHttp = new LemmyHttp(params.instanceUrl);
   try {
     const response = await client.login(params.loginForm);
-    log.debug('response: ', response);
+    log.debug('lemmyLogin response: ', response);
     return response;
   } catch (error) {
     log.error('login err:', error);

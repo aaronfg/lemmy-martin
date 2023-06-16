@@ -37,9 +37,11 @@ export const CommunitiesScreen = (): JSX.Element => {
   const styles = createStyleSheet();
 
   // Load the communities
+  log.debug('Screen. auth: ' + authToken);
   const { isLoading } = useGetCommunitiesQuery({
     page: listPage,
     auth: authToken,
+    sort: 'Active',
   });
 
   const onPostsPress = async () => {
@@ -57,8 +59,7 @@ export const CommunitiesScreen = (): JSX.Element => {
   };
 
   const onListEndReached = (info: { distanceFromEnd: number }) => {
-    //
-    log.debug(`currentPage: ${listPage} + next page: ${listPage + 1}`);
+    log.debug('onListEndReached(). dispatching communitiesPageUpdated()');
     dispatch(communitiesPageUpdated(listPage + 1));
   };
 

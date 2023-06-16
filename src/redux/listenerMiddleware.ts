@@ -59,13 +59,33 @@ startAppListening({
   actionCreator: communitiesPageUpdated,
   effect: async (action, listenerApi) => {
     // grab new communites list data based on the new page
-    log.debug('dispatching page ' + action.payload);
     const authToken = getSettingsCurrentAccountToken(listenerApi.getState());
+    log.debug('dispatching page ' + action.payload + '\tauth: ' + authToken);
     listenerApi.dispatch(
       communityApi.endpoints.getCommunities.initiate({
         page: action.payload,
         auth: authToken,
+        sort: 'Active',
       }),
+    );
+  },
+});
+
+startAppListening({
+  actionCreator: settingsCurrentAccountChanged,
+  effect: (action, listenerApi) => {
+    const authToken = getSettingsCurrentAccountToken(listenerApi.getState());
+    log.debug('settingsUpdateAccounts listener \tauth: ' + authToken);
+    // re-fetch communities
+    listenerApi.dispatch(
+      communityApi.endpoints.getCommunities.initiate(
+        {
+          page: 1,
+          auth: authToken,
+          sort: 'Active',
+        },
+        { forceRefetch: true },
+      ),
     );
   },
 });

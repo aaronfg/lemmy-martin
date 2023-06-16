@@ -167,6 +167,9 @@ export class LemmyUtils {
       case LemmyLoginErrors.UserOrPassInvalid:
         msg = LemmyErrorMsgs.UserOrPassInvalid;
         break;
+      case LemmyLoginErrors.PasswordIncorrect:
+        msg = 'Incorrect Password';
+        break;
       default:
         msg = error;
     }
