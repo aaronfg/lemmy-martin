@@ -70,7 +70,7 @@ export const CommunitiesScreen = (): JSX.Element => {
       <FlatList
         style={styles.list}
         data={communities}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={0.2}
         onEndReached={onListEndReached}
         refreshing={isLoading}
         ListEmptyComponent={

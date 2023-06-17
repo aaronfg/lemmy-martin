@@ -34,8 +34,8 @@ export const LoginScreen = (): JSX.Element => {
   const token = useAppSelector(getSettingsCurrentAccountToken);
   const error = useAppSelector(getLemmyLoginError);
   // local state
-  const [username, setUsername] = useState<string | undefined>('subtex');
-  const [pw, setPW] = useState<string | undefined>(undefined); // ]S\]B/%fL-54/eSX  | 6$)9C3a$VTd+Q%V^
+  const [username, setUsername] = useState<string | undefined>(undefined);
+  const [pw, setPW] = useState<string | undefined>(undefined);
   const [instance, setInstance] = useState<string | undefined>(defaultInstance);
 
   const orientation = useOrientation();

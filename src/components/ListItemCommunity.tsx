@@ -33,6 +33,10 @@ export const ListItemCommunity = (
     // log.debug('icon press');
   };
 
+  // console.log(
+  //   item.communityView.community.name + ': ' + item.communityView.subscribed,
+  // );
+
   const iconName =
     item.communityView.subscribed === 'Subscribed'
       ? MaterialIconNames.CheckCircleOutline
@@ -80,7 +84,8 @@ export const ListItemCommunity = (
             <Text style={styles.name}>
               !{item.communityView.community.name}@{communityInstance.name}{' '}
               <Text style={styles.name}>
-                {UnicodeText.Bullet} {item.communityView.counts.subscribers}{' '}
+                {UnicodeText.Bullet}{' '}
+                {item.communityView.counts.subscribers.toLocaleString()}{' '}
                 Subscribers
               </Text>
             </Text>

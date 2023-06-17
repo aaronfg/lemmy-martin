@@ -12,16 +12,25 @@ import { RootStackParamList } from '../../navigation/types';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { ScreenNames } from '../../types';
 
-export const ProfileChooser = (): React.ReactNode => {
+export const ProfileChooser = (props: {
+  onItemClicked?: () => void;
+}): React.ReactNode => {
   const accounts = useAppSelector(getAccounts);
   const dispatch = useAppDispatch();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
+  const { onItemClicked } = props;
   const styles = createStyleSheet();
 
   const onAccountPress = (account: IAccount) => {
+    if (onItemClicked) onItemClicked();
     dispatch(settingsCurrentAccountChanged(account));
+  };
+
+  const onAddAccountPress = () => {
+    if (onItemClicked) onItemClicked();
+    navigation.navigate(ScreenNames.Login);
   };
 
   const getAccountListItems = useMemo(() => {
@@ -41,10 +50,6 @@ export const ProfileChooser = (): React.ReactNode => {
     });
     return items;
   }, [accounts]);
-
-  const onAddAccountPress = () => {
-    navigation.navigate(ScreenNames.Login);
-  };
 
   return (
     <View>

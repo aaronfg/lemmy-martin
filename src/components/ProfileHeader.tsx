@@ -34,7 +34,7 @@ export const ProfileHeader = (): JSX.Element => {
     return accounts.size * 54 + 54;
   }, [accounts]);
 
-  const contentHeightShared = useSharedValue(contentHeight);
+  const contentHeightShared = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
@@ -52,6 +52,11 @@ export const ProfileHeader = (): JSX.Element => {
   const onPress = () => {
     setIsClosed(!isClosed);
     contentHeightShared.value = isClosed ? contentHeight : 0;
+  };
+
+  const onProfileItemPress = () => {
+    setIsClosed(true);
+    contentHeightShared.value = 0;
   };
 
   return (
@@ -81,7 +86,7 @@ export const ProfileHeader = (): JSX.Element => {
       </TouchableRipple>
       {/* content */}
       <Animated.View style={[styles.menuContainer, animatedStyles]}>
-        <ProfileChooser />
+        <ProfileChooser onItemClicked={onProfileItemPress} />
       </Animated.View>
     </View>
   );
