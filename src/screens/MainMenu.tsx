@@ -4,8 +4,9 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ExpandableView } from '../components/ExpandableView';
+import { ProfileChooser } from '../components/profile/ProfileChooser';
 import { RootStackParamList } from '../navigation/types';
-import { ScreenNames } from '../types';
 
 /** Screen for the main menu */
 export const MainMenuScreen = (): JSX.Element => {
@@ -13,27 +14,20 @@ export const MainMenuScreen = (): JSX.Element => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const styles = createStyleSheet();
 
-  const onAddAccountPress = () => {
-    navigation.navigate(ScreenNames.Login);
-  };
-
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.container}>
-          <Text>Main Menu</Text>
-          {/* <List.Item
-            title="Add Account"
-            onPress={onAddAccountPress}
-            left={props => (
-              <MaterialIcon
-                name="plus"
-                {...props}
-                style={styles.icon}
-                size={20}
+          <ExpandableView
+            buttonView={<Text>Press ME</Text>}
+            childView={
+              <ProfileChooser
+                onItemClicked={() => {
+                  //
+                }}
               />
-            )}
-          /> */}
+            }
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

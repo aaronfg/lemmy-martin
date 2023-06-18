@@ -52,7 +52,7 @@ export const ProfileChooser = (props: {
   }, [accounts]);
 
   return (
-    <View>
+    <View style={styles.container}>
       {getAccountListItems}
       <List.Item
         title="Add Account"
@@ -67,6 +67,9 @@ export const ProfileChooser = (props: {
 
 const createStyleSheet = () => {
   return StyleSheet.create({
+    container: {
+      backgroundColor: 'black',
+    },
     accountItem: {
       marginLeft: 12,
       width: 20,
