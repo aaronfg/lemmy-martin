@@ -14,7 +14,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 export interface IExpandableViewProps {
-  buttonView: React.ReactNode;
+  headerView: React.ReactNode;
   childView: React.ReactNode;
   childContainerStyle?: StyleProp<ViewStyle>;
 }
@@ -22,7 +22,7 @@ export const ExpandableView = (props: IExpandableViewProps): JSX.Element => {
   // local state
   const [contentHeight, setContentHeight] = useState(0);
   const [isClosed, setIsClosed] = useState(true);
-  const { buttonView, childView, childContainerStyle } = props;
+  const { headerView: buttonView, childView, childContainerStyle } = props;
 
   const theme = useTheme();
   const animHeight = useSharedValue(0);

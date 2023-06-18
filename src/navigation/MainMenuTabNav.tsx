@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { ProfileHeader } from '../components/ProfileHeader';
 import { CommunityListHeader } from '../components/communities/CommunityListHeader';
+import { ProfileHeader } from '../components/profile/ProfileHeader';
 import { CommunitiesScreen } from '../screens/Communities';
 import { MainMenuScreen } from '../screens/MainMenu';
 import { LemmyDarkTheme } from '../theme';
