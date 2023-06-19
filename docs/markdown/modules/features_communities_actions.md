@@ -15,8 +15,7 @@
 
 ▸ **communitiesPageUpdated**(`payload`): `Object`
 
-Calling this redux#ActionCreator with an argument will
-return a PayloadAction of type `T` with a payload of `P`
+Dispatched when the Communities list page we are loading changes
 
 #### Parameters
 

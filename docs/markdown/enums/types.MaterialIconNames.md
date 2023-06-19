@@ -13,6 +13,8 @@ Names of icons in the Material Design icon set
 - [CheckCircleOutline](types.MaterialIconNames.md#checkcircleoutline)
 - [Home](types.MaterialIconNames.md#home)
 - [Menu](types.MaterialIconNames.md#menu)
+- [MenuDown](types.MaterialIconNames.md#menudown)
+- [MenuUp](types.MaterialIconNames.md#menuup)
 - [MinusCircleOutline](types.MaterialIconNames.md#minuscircleoutline)
 - [PlusCircleOutline](types.MaterialIconNames.md#pluscircleoutline)
 
@@ -33,6 +35,18 @@ ___
 ### Menu
 
 • **Menu** = ``"menu"``
+
+___
+
+### MenuDown
+
+• **MenuDown** = ``"menu-down"``
+
+___
+
+### MenuUp
+
+• **MenuUp** = ``"menu-up"``
 
 ___
 

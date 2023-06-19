@@ -35,7 +35,7 @@ Class with utility methods related to Lemmy API and accounts
 
 ▸ `Static` **createILemmyInstance**(`instance`): [`ILemmyInstance`](../interfaces/features_lemmy_types.ILemmyInstance.md)
 
-Creates an features/lemmy/types#ILemmyInstance from
+Creates an [ILemmyInstance](../interfaces/features_lemmy_types.ILemmyInstance.md) from
 the `instance` string passed in
 
 #### Parameters
@@ -113,7 +113,7 @@ ___
 ▸ `Static` **getShortDescription**(`description`): `string`
 
 Truncates the `description` to a shorter manageable length
-for use in the screens/Communities#Communities screen
+for use in the [CommunitiesScreen](../modules/screens_Communities.md#communitiesscreen) screen
 
 #### Parameters
 

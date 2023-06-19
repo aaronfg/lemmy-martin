@@ -10,9 +10,16 @@ Error messages related to logging in
 
 ### Enumeration Members
 
+- [PasswordIncorrect](features_lemmy_types.LemmyLoginErrors.md#passwordincorrect)
 - [UserOrPassInvalid](features_lemmy_types.LemmyLoginErrors.md#userorpassinvalid)
 
 ## Enumeration Members
+
+### PasswordIncorrect
+
+• **PasswordIncorrect** = ``"Error: password_incorrect"``
+
+___
 
 ### UserOrPassInvalid
 

@@ -32,7 +32,7 @@ ___
 
 ▸ **getCommunityAPICommunitiesRaw**(`state`): `undefined` \| `CommunityView`[]
 
-Gets the Communities returned from the communityApi.getCommunities endpoint
+Gets the Communities returned from the `communityApi.getCommunities` endpoint
 
 #### Parameters
 
@@ -49,6 +49,8 @@ ___
 ### getCommunityListItems
 
 ▸ **getCommunityListItems**(`state`, `...params`): [`ICommunityListItem`](../interfaces/features_communities_types.ICommunityListItem.md)[]
+
+Returns the Communities we have loaded as an `ICommunityListItem` array
 
 #### Parameters
 

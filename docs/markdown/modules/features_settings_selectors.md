@@ -7,6 +7,7 @@
 ### Functions
 
 - [getAccounts](features_settings_selectors.md#getaccounts)
+- [getCurrentInstance](features_settings_selectors.md#getcurrentinstance)
 - [getSettingsCurrentAccount](features_settings_selectors.md#getsettingscurrentaccount)
 - [getSettingsCurrentAccountToken](features_settings_selectors.md#getsettingscurrentaccounttoken)
 - [getSettingsDefaultInstance](features_settings_selectors.md#getsettingsdefaultinstance)
@@ -30,6 +31,23 @@ Returns the saved accounts as a Set
 #### Returns
 
 `Set`<[`IAccount`](../interfaces/features_settings_types.IAccount.md)\>
+
+___
+
+### getCurrentInstance
+
+▸ **getCurrentInstance**(`state`, `...params`): [`ILemmyInstance`](../interfaces/features_lemmy_types.ILemmyInstance.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `Object` |
+| `...params` | [] |
+
+#### Returns
+
+[`ILemmyInstance`](../interfaces/features_lemmy_types.ILemmyInstance.md)
 
 ___
 

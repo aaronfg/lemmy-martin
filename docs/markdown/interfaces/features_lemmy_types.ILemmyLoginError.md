@@ -4,7 +4,7 @@
 
 [features/lemmy/types](../modules/features_lemmy_types.md).ILemmyLoginError
 
-The error object returned if the lemmyLogin action fails
+The error object returned if the [lemmyLogin](../modules/features_lemmy_actions.md#lemmylogin) action fails
 
 ## Table of contents
 

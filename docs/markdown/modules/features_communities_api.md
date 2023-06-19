@@ -4,6 +4,10 @@
 
 ## Table of contents
 
+### Enumerations
+
+- [CommunityApiTagTypes](../enums/features_communities_api.CommunityApiTagTypes.md)
+
 ### Variables
 
 - [communityApi](features_communities_api.md#communityapi)
@@ -16,7 +20,7 @@
 
 ### communityApi
 
-• `Const` **communityApi**: `Api`<`BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, `FetchBaseQueryMeta`\>, { `getCommunities`: `QueryDefinition`<`ListCommunities`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, `FetchBaseQueryMeta`\>, `never`, `CommunityView`[], ``"communitiesApi"``\>  }, ``"communitiesApi"``, `never`, typeof `coreModuleName` \| typeof `reactHooksModuleName`\>
+• `Const` **communityApi**: `Api`<`BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, {}\>, { `getCommunities`: `QueryDefinition`<`ListCommunities`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, {}\>, [`Community`](../enums/features_communities_api.CommunityApiTagTypes.md#community), `CommunityView`[], ``"communitiesApi"``\>  }, ``"communitiesApi"``, [`Community`](../enums/features_communities_api.CommunityApiTagTypes.md#community), typeof `coreModuleName` \| typeof `reactHooksModuleName`\>
 
 The RTK Query api for community related api calls
 
@@ -24,7 +28,7 @@ The RTK Query api for community related api calls
 
 ### useGetCommunitiesQuery
 
-▸ **useGetCommunitiesQuery**<`R`\>(`arg`, `options?`): `UseQueryHookResult`<`QueryDefinition`<`ListCommunities`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, `FetchBaseQueryMeta`\>, `never`, `CommunityView`[], ``"communitiesApi"``\>, `R`\>
+▸ **useGetCommunitiesQuery**<`R`\>(`arg`, `options?`): `UseQueryHookResult`<`QueryDefinition`<`ListCommunities`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, {}\>, [`Community`](../enums/features_communities_api.CommunityApiTagTypes.md#community), `CommunityView`[], ``"communitiesApi"``\>, `R`\>
 
 A React hook that automatically triggers fetches of data from an endpoint, 'subscribes' the component to the cached data, and reads the request status and cached data from the Redux store. The component will re-render as the loading status changes and the data becomes available.
 
@@ -44,15 +48,15 @@ This hook combines the functionality of both [`useQueryState`](#usequerystate) a
 
 | Name | Type |
 | :------ | :------ |
-| `R` | extends `Record`<`string`, `any`\> = `UseQueryStateDefaultResult`<`QueryDefinition`<`ListCommunities`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, `FetchBaseQueryMeta`\>, `never`, `CommunityView`[], ``"communitiesApi"``\>\> |
+| `R` | extends `Record`<`string`, `any`\> = `UseQueryStateDefaultResult`<`QueryDefinition`<`ListCommunities`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, {}\>, [`Community`](../enums/features_communities_api.CommunityApiTagTypes.md#community), `CommunityView`[], ``"communitiesApi"``\>\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `arg` | `ListCommunities` \| typeof `skipToken` |
-| `options?` | `UseQuerySubscriptionOptions` & `UseQueryStateOptions`<`QueryDefinition`<`ListCommunities`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, `FetchBaseQueryMeta`\>, `never`, `CommunityView`[], ``"communitiesApi"``\>, `R`\> |
+| `options?` | `UseQuerySubscriptionOptions` & `UseQueryStateOptions`<`QueryDefinition`<`ListCommunities`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, {}\>, [`Community`](../enums/features_communities_api.CommunityApiTagTypes.md#community), `CommunityView`[], ``"communitiesApi"``\>, `R`\> |
 
 #### Returns
 
-`UseQueryHookResult`<`QueryDefinition`<`ListCommunities`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, `FetchBaseQueryMeta`\>, `never`, `CommunityView`[], ``"communitiesApi"``\>, `R`\>
+`UseQueryHookResult`<`QueryDefinition`<`ListCommunities`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, {}\>, [`Community`](../enums/features_communities_api.CommunityApiTagTypes.md#community), `CommunityView`[], ``"communitiesApi"``\>, `R`\>

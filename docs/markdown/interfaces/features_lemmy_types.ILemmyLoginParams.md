@@ -4,7 +4,7 @@
 
 [features/lemmy/types](../modules/features_lemmy_types.md).ILemmyLoginParams
 
-Params for the lemmyLogin action
+Params for the [lemmyLogin](../modules/features_lemmy_actions.md#lemmylogin) action
 
 ## Table of contents
 
