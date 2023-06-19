@@ -14,12 +14,15 @@
 
 ▸ **ProfileChooser**(`props`): `Element`
 
+Lists logged in accounts (if any) and offers the
+ability for the user to add an account.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `props` | `Object` |
-| `props.onItemClicked?` | () => `void` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `props` | `Object` | The props for this component. |
+| `props.onItemClicked?` | () => `void` | Event handler when any item in the list is tapped |
 
 #### Returns
 

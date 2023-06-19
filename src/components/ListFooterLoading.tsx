@@ -5,6 +5,7 @@ import { getCommunityListItems } from '../features/communities/selectors';
 import { getLemmyAPILoading } from '../features/lemmy/selectors';
 import { useAppSelector } from '../redux/hooks';
 
+/** Loader view shown at the bottom of Lists when they load more data */
 export const ListFooterLoading = (): JSX.Element => {
   const loading = useAppSelector(getLemmyAPILoading);
   const communities = useAppSelector(getCommunityListItems);

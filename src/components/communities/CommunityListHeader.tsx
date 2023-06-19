@@ -5,6 +5,9 @@ import { getLemmyAPILoading } from '../../features/lemmy/selectors';
 import { getCurrentInstance } from '../../features/settings/selectors';
 import { useAppSelector } from '../../redux/hooks';
 
+/**
+ * Header for the Communities screen
+ */
 export const CommunityListHeader = (): JSX.Element => {
   const loading = useAppSelector(getLemmyAPILoading);
   const currentInstance = useAppSelector(getCurrentInstance);

@@ -14,6 +14,8 @@
 
 ▸ **CommunityListHeader**(): `Element`
 
+Header for the Communities screen
+
 #### Returns
 
 `Element`

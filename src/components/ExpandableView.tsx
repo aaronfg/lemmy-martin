@@ -15,13 +15,23 @@ import Animated, {
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MaterialIconNames } from '../types';
 
+/** Props for the {@link ExpandableView} component */
 export interface IExpandableViewProps {
+  /** The view that users click on */
   headerView: JSX.Element;
+  /** The view that is shown/hidden by the collapsing/opening */
   contentView: JSX.Element;
+  /** Event handler when the collapsed state of the component changes*/
   onStateChange?: (collapsed: boolean) => void;
+  /** Optional style for the container view of the `contentView` */
   contentContainerStyle?: StyleProp<ViewStyle>;
 }
 
+/**
+ * Type for the {@link ExpandableView} events/props.
+ *
+ * Used for type safety when using a React ref
+ */
 export type ExpandableViewType = {
   /** `true` if the view `contentView` is collapsed */
   collapsed: boolean;
@@ -31,6 +41,11 @@ export type ExpandableViewType = {
   close: () => void;
 };
 
+/**
+ * Simple accordian style expanding view that shows a clickable
+ * view that reveals another view when clicked.
+ * @param props - An {@link IExpandableViewProps} instance
+ */
 export const ExpandableView = React.forwardRef<
   ExpandableViewType,
   IExpandableViewProps
@@ -61,7 +76,6 @@ export const ExpandableView = React.forwardRef<
 
   const onLayout = (event: LayoutChangeEvent) => {
     setContentHeight(event.nativeEvent.layout.height);
-    // animHeight.value = event.nativeEvent.layout.height;
   };
 
   const close = () => {
@@ -112,14 +126,11 @@ export const ExpandableView = React.forwardRef<
         size={25}
         style={styles.chevron}
       />
-      {/* Debug */}
+      {/* Hidden view for size determination */}
       <View
         pointerEvents="none"
         style={styles.hidden}
         onLayout={event => {
-          console.log(
-            '++ hidden content height: ' + event.nativeEvent.layout.height,
-          );
           setContentHeight(event.nativeEvent.layout.height);
         }}>
         {contentView}

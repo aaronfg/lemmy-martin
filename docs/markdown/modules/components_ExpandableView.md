@@ -22,6 +22,10 @@
 
 Ƭ **ExpandableViewType**: `Object`
 
+Type for the [ExpandableView](components_ExpandableView.md#expandableview) events/props.
+
+Used for type safety when using a React ref
+
 #### Type declaration
 
 | Name | Type | Description |
@@ -36,13 +40,14 @@
 
 ▸ **ExpandableView**(`props`): ``null`` \| `ReactElement`<`any`, `string` \| `JSXElementConstructor`<`any`\>\>
 
-**NOTE**: Exotic components are not callable.
+Simple accordian style expanding view that shows a clickable
+view that reveals another view when clicked.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `props` | [`IExpandableViewProps`](../interfaces/components_ExpandableView.IExpandableViewProps.md) & `RefAttributes`<[`ExpandableViewType`](components_ExpandableView.md#expandableviewtype)\> |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `props` | [`IExpandableViewProps`](../interfaces/components_ExpandableView.IExpandableViewProps.md) & `RefAttributes`<[`ExpandableViewType`](components_ExpandableView.md#expandableviewtype)\> | An [IExpandableViewProps](../interfaces/components_ExpandableView.IExpandableViewProps.md) instance |
 
 #### Returns
 

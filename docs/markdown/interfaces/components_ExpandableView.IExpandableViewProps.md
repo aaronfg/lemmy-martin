@@ -4,6 +4,8 @@
 
 [components/ExpandableView](../modules/components_ExpandableView.md).IExpandableViewProps
 
+Props for the [ExpandableView](../modules/components_ExpandableView.md#expandableview) component
+
 ## Table of contents
 
 ### Properties
@@ -19,17 +21,23 @@
 
 • `Optional` **contentContainerStyle**: `StyleProp`<`ViewStyle`\>
 
+Optional style for the container view of the `contentView`
+
 ___
 
 ### contentView
 
 • **contentView**: `Element`
 
+The view that is shown/hidden by the collapsing/opening
+
 ___
 
 ### headerView
 
 • **headerView**: `Element`
+
+The view that users click on
 
 ___
 
@@ -40,6 +48,8 @@ ___
 #### Type declaration
 
 ▸ (`collapsed`): `void`
+
+Event handler when the collapsed state of the component changes
 
 ##### Parameters
 

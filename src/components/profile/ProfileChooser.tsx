@@ -12,7 +12,13 @@ import { RootStackParamList } from '../../navigation/types';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { ScreenNames } from '../../types';
 
+/**
+ * Lists logged in accounts (if any) and offers the
+ * ability for the user to add an account.
+ * @param props The props for this component.
+ */
 export const ProfileChooser = (props: {
+  /** Event handler when any item in the list is tapped */
   onItemClicked?: () => void;
 }): JSX.Element => {
   const accounts = useAppSelector(getAccounts);
