@@ -12,6 +12,8 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MaterialIconNames } from '../types';
 
 export interface IExpandableViewProps {
   headerView: React.ReactNode;
@@ -34,14 +36,10 @@ export const ExpandableView = React.forwardRef<
   IExpandableViewProps
 >((props: IExpandableViewProps, ref): JSX.Element => {
   // local state
-  const [contentHeight, setContentHeight] = useState(0);
+  const [contentHeight, setContentHeight] = useState(50);
   const [isClosed, setIsClosed] = useState(true);
-  const {
-    headerView,
-    contentView: childView,
-    contentContainerStyle,
-    onStateChange,
-  } = props;
+  const { headerView, contentView, contentContainerStyle, onStateChange } =
+    props;
 
   const theme = useTheme();
 
@@ -63,9 +61,6 @@ export const ExpandableView = React.forwardRef<
 
   const onLayout = (event: LayoutChangeEvent) => {
     setContentHeight(event.nativeEvent.layout.height);
-    console.log(
-      'event.nativeEvent.layout.height: ' + event.nativeEvent.layout.height,
-    );
     // animHeight.value = event.nativeEvent.layout.height;
   };
 
@@ -76,32 +71,59 @@ export const ExpandableView = React.forwardRef<
 
   const open = () => {
     setIsClosed(false);
-    animHeight.value = 50;
+    animHeight.value = contentHeight;
   };
 
   const onPress = () => {
-    console.log(isClosed);
     setIsClosed(!isClosed);
-    animHeight.value = isClosed ? 50 : 0;
+    animHeight.value = isClosed ? contentHeight : 0;
     if (onStateChange) {
       onStateChange(!isClosed);
     }
   };
 
+  const chevronIcon = isClosed
+    ? MaterialIconNames.MenuDown
+    : MaterialIconNames.MenuUp;
+
   return (
-    <View>
-      <TouchableRipple onPress={onPress} style={styles.container}>
-        {headerView}
-      </TouchableRipple>
-      <Animated.View
-        onLayout={onLayout}
-        style={[
-          animatedStyles,
-          styles.contentContainer,
-          contentContainerStyle,
-        ]}>
-        {childView}
-      </Animated.View>
+    <View style={styles.container}>
+      {/* Content */}
+      <View style={styles.mainContainer}>
+        <TouchableRipple onPress={onPress} style={styles.container}>
+          {headerView}
+        </TouchableRipple>
+        {!isClosed && (
+          <Animated.View
+            onLayout={onLayout}
+            style={[
+              animatedStyles,
+              styles.contentContainer,
+              contentContainerStyle,
+            ]}>
+            {contentView}
+          </Animated.View>
+        )}
+      </View>
+      {/* Chevron */}
+      <MaterialIcon
+        name={chevronIcon}
+        color={theme.colors.onSurface}
+        size={25}
+        style={styles.chevron}
+      />
+      {/* Debug */}
+      <View
+        pointerEvents="none"
+        style={styles.hidden}
+        onLayout={event => {
+          console.log(
+            '++ hidden content height: ' + event.nativeEvent.layout.height,
+          );
+          setContentHeight(event.nativeEvent.layout.height);
+        }}>
+        {contentView}
+      </View>
     </View>
   );
 });
@@ -109,10 +131,23 @@ export const ExpandableView = React.forwardRef<
 const createStyleSheet = (theme: MD3Theme) => {
   return StyleSheet.create({
     container: {
-      // padding: 10,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
     contentContainer: {
       overflow: 'hidden',
+    },
+    hidden: {
+      opacity: 0,
+      position: 'absolute',
+    },
+    mainContainer: {
+      flex: 1,
+    },
+    chevron: {
+      position: 'absolute',
+      top: 20,
+      right: 20,
     },
   });
 };

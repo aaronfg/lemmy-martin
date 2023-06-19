@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import { Avatar, MD3Theme, Text, useTheme } from 'react-native-paper';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getSettingsDefaultInstance } from '../../features/settings/selectors';
 import { IAccount } from '../../features/settings/types';
+import { log } from '../../logging/log';
 import { useAppSelector } from '../../redux/hooks';
-import { MaterialIconNames } from '../../types';
 import { LemmyUtils } from '../../utils/LemmyUtils';
 
 export interface IProfileLoggedInProps {
@@ -25,10 +25,13 @@ export const AccountSwitcher = (props: IProfileLoggedInProps): JSX.Element => {
   }, [currentAccount]);
 
   const name = currentAccount ? currentAccount.username : 'Guest';
-  const chevronIcon = MaterialIconNames.MenuDown;
+
+  const onLayout = (event: LayoutChangeEvent) => {
+    log.debug('AccountSwitcher height: ' + event.nativeEvent.layout.height);
+  };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onLayout}>
       <View style={styles.avatarAndNameContainer}>
         {/* Avatar */}
         <Avatar.Icon
@@ -42,11 +45,6 @@ export const AccountSwitcher = (props: IProfileLoggedInProps): JSX.Element => {
           </Text>
         </View>
       </View>
-      <MaterialIcon
-        name={chevronIcon}
-        color={theme.colors.onSurface}
-        size={25}
-      />
     </View>
   );
 };

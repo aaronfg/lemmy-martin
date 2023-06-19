@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { nanoid } from '@reduxjs/toolkit';
-import React, { useMemo } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { List } from 'react-native-paper';
+import React from 'react';
+import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import { List, MD3Theme, useTheme } from 'react-native-paper';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { settingsCurrentAccountChanged } from '../../features/settings/actions';
 import { getAccounts } from '../../features/settings/selectors';
@@ -17,11 +17,12 @@ export const ProfileChooser = (props: {
 }): React.ReactNode => {
   const accounts = useAppSelector(getAccounts);
   const dispatch = useAppDispatch();
+  const theme = useTheme();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const { onItemClicked } = props;
-  const styles = createStyleSheet();
+  const styles = createStyleSheet(theme);
 
   const onAccountPress = (account: IAccount) => {
     if (onItemClicked) onItemClicked();
@@ -33,7 +34,11 @@ export const ProfileChooser = (props: {
     navigation.navigate(ScreenNames.Login);
   };
 
-  const getAccountListItems = useMemo(() => {
+  const onLayout = (event: LayoutChangeEvent) => {
+    // log.debug('ProfileChooser height: ' + event.nativeEvent.layout.height);
+  };
+
+  const getAccountListItems = () => {
     const accountsArray = Array.from(accounts);
     const items: JSX.Element[] = [];
     accountsArray.map(acc => {
@@ -49,13 +54,13 @@ export const ProfileChooser = (props: {
       items.push(item);
     });
     return items;
-  }, [accounts]);
+  };
 
   return (
-    <View style={styles.container}>
-      {getAccountListItems}
+    <View style={styles.container} onLayout={onLayout}>
+      {getAccountListItems()}
       <List.Item
-        title="Add Account"
+        title={`Add Account`}
         onPress={onAddAccountPress}
         left={props => (
           <MaterialIcon name="plus" {...props} style={styles.icon} size={20} />
@@ -65,19 +70,21 @@ export const ProfileChooser = (props: {
   );
 };
 
-const createStyleSheet = () => {
+const createStyleSheet = (theme: MD3Theme) => {
   return StyleSheet.create({
     container: {
       backgroundColor: 'black',
     },
     accountItem: {
       marginLeft: 12,
-      width: 20,
-      height: 20,
-      backgroundColor: 'pink',
+      width: 12,
+      height: 12,
+      backgroundColor: theme.colors.onSurface,
+      borderRadius: 12,
+      alignSelf: 'center',
     },
     icon: {
-      marginLeft: 12,
+      marginLeft: 8,
       // backgroundColor: 'red',
     },
   });

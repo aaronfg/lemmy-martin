@@ -37,7 +37,6 @@ export const CommunitiesScreen = (): JSX.Element => {
   const styles = createStyleSheet();
 
   // Load the communities
-  log.debug('Screen. auth: ' + authToken);
   const { isLoading } = useGetCommunitiesQuery({
     page: listPage,
     auth: authToken,

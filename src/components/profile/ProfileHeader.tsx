@@ -16,13 +16,7 @@ export const ProfileHeader = (): JSX.Element => {
     <View style={styles.container}>
       <ExpandableView
         headerView={<AccountSwitcher currentAccount={currentAccount} />}
-        contentView={
-          <ProfileChooser
-            onItemClicked={() => {
-              //
-            }}
-          />
-        }
+        contentView={<ProfileChooser />}
       />
     </View>
   );
