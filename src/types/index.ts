@@ -23,6 +23,8 @@ export enum MaterialIconNames {
   CheckCircleOutline = 'check-circle-outline',
   Home = 'home',
   Menu = 'menu',
+  MenuUp = 'menu-up',
+  MenuDown = 'menu-down',
   MinusCircleOutline = 'minus-circle-outline',
   PlusCircleOutline = 'plus-circle-outline',
 }

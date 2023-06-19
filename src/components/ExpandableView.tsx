@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useImperativeHandle, useState } from 'react';
 import {
   LayoutChangeEvent,
   StyleProp,
@@ -15,16 +15,42 @@ import Animated, {
 
 export interface IExpandableViewProps {
   headerView: React.ReactNode;
-  childView: React.ReactNode;
-  childContainerStyle?: StyleProp<ViewStyle>;
+  contentView: React.ReactNode;
+  onStateChange?: (collapsed: boolean) => void;
+  contentContainerStyle?: StyleProp<ViewStyle>;
 }
-export const ExpandableView = (props: IExpandableViewProps): JSX.Element => {
+
+export type ExpandableViewType = {
+  /** `true` if the view `contentView` is collapsed */
+  collapsed: boolean;
+  /** Uncollapses the view, showing the `contentView` */
+  open: () => void;
+  /** Collapses the view, hiding the `contentView` */
+  close: () => void;
+};
+
+export const ExpandableView = React.forwardRef<
+  ExpandableViewType,
+  IExpandableViewProps
+>((props: IExpandableViewProps, ref): JSX.Element => {
   // local state
   const [contentHeight, setContentHeight] = useState(0);
   const [isClosed, setIsClosed] = useState(true);
-  const { headerView: buttonView, childView, childContainerStyle } = props;
+  const {
+    headerView,
+    contentView: childView,
+    contentContainerStyle,
+    onStateChange,
+  } = props;
 
   const theme = useTheme();
+
+  useImperativeHandle(ref, () => ({
+    collapsed: isClosed,
+    open,
+    close,
+  }));
+
   const animHeight = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
@@ -43,30 +69,47 @@ export const ExpandableView = (props: IExpandableViewProps): JSX.Element => {
     // animHeight.value = event.nativeEvent.layout.height;
   };
 
+  const close = () => {
+    setIsClosed(true);
+    animHeight.value = 0;
+  };
+
+  const open = () => {
+    setIsClosed(false);
+    animHeight.value = 50;
+  };
+
   const onPress = () => {
     console.log(isClosed);
     setIsClosed(!isClosed);
     animHeight.value = isClosed ? 50 : 0;
+    if (onStateChange) {
+      onStateChange(!isClosed);
+    }
   };
 
   return (
     <View>
       <TouchableRipple onPress={onPress} style={styles.container}>
-        {buttonView}
+        {headerView}
       </TouchableRipple>
       <Animated.View
         onLayout={onLayout}
-        style={[animatedStyles, styles.contentContainer, childContainerStyle]}>
+        style={[
+          animatedStyles,
+          styles.contentContainer,
+          contentContainerStyle,
+        ]}>
         {childView}
       </Animated.View>
     </View>
   );
-};
+});
 
 const createStyleSheet = (theme: MD3Theme) => {
   return StyleSheet.create({
     container: {
-      padding: 10,
+      // padding: 10,
     },
     contentContainer: {
       overflow: 'hidden',
