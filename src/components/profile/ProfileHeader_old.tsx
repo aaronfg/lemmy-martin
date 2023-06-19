@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MD3Theme, useTheme } from 'react-native-paper';
 
-import { ProfileHeader } from './ProfileHeader';
+import { AccountSwitcher } from './AccountSwitcher';
 
 import {
   getAccounts,
@@ -54,7 +54,7 @@ export const ProfileHeader_old = (): JSX.Element => {
     <View style={{ backgroundColor: theme.colors.surfaceVariant }}>
       <>
         <ExpandableView
-          headerView={<ProfileHeader />}
+          headerView={<AccountSwitcher />}
           contentView={
             <ProfileChooser
               onItemClicked={() => {

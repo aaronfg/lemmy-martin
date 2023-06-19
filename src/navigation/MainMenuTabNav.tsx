@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CommunityListHeader } from '../components/communities/CommunityListHeader';
-import { ProfileHeader } from '../components/profile/ProfileHeader';
+import { AccountSwitcher } from '../components/profile/AccountSwitcher';
 import { CommunitiesScreen } from '../screens/Communities';
 import { MainMenuScreen } from '../screens/MainMenu';
 import { LemmyDarkTheme } from '../theme';
@@ -40,7 +40,7 @@ export const HomeTabNav = (): JSX.Element => {
         options={{
           headerShown: true,
           header(props) {
-            return <ProfileHeader />;
+            return <AccountSwitcher />;
           },
           tabBarIcon: props => (
             <MaterialIcon
