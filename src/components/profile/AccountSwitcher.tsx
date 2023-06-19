@@ -7,6 +7,10 @@ import { ExpandableView, ExpandableViewType } from '../ExpandableView';
 import { CurrentAccountHeader } from './CurrentAccountHeader';
 import { ProfileChooser } from './ProfileChooser';
 
+/**
+ * Allows the user to Add a new Account or switch between
+ * accounts that have already been added.
+ */
 export const AccountSwitcher = (): JSX.Element => {
   const currentAccount = useAppSelector(getSettingsCurrentAccount);
   const theme = useTheme();

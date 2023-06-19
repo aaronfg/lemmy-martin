@@ -130,7 +130,7 @@ export class LemmyUtils {
 
   /**
    * Truncates the `description` to a shorter manageable length
-   * for use in the {@link screens/Communities#Communities} screen
+   * for use in the {@link screens/Communities!CommunitiesScreen} screen
    * @param description - The Community description to truncate
    * @returns
    */
@@ -144,7 +144,7 @@ export class LemmyUtils {
   };
 
   /**
-   * Creates an {@link features/lemmy/types#ILemmyInstance} from
+   * Creates an {@link features/lemmy/types!ILemmyInstance} from
    * the `instance` string passed in
    * @param instance - The string to base the logic on
    */

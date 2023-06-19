@@ -14,7 +14,7 @@ import { ScreenNames } from '../../types';
 
 export const ProfileChooser = (props: {
   onItemClicked?: () => void;
-}): React.ReactNode => {
+}): JSX.Element => {
   const accounts = useAppSelector(getAccounts);
   const dispatch = useAppDispatch();
   const theme = useTheme();

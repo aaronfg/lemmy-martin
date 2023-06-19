@@ -23,13 +23,13 @@ export interface ILemmyInstance {
   href: string;
 }
 
-/** The error object returned if the {@link lemmyLogin} action fails */
+/** The error object returned if the {@link features/lemmy/actions!lemmyLogin} action fails */
 export interface ILemmyLoginError {
   /** The error message */
   error: string;
 }
 
-/** Params for the {@link lemmyLogin} action */
+/** Params for the {@link features/lemmy/actions!lemmyLogin} action */
 export interface ILemmyLoginParams {
   /** The param for the login api call */
   loginForm: Login;

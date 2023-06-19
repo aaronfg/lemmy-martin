@@ -16,8 +16,8 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MaterialIconNames } from '../types';
 
 export interface IExpandableViewProps {
-  headerView: React.ReactNode;
-  contentView: React.ReactNode;
+  headerView: JSX.Element;
+  contentView: JSX.Element;
   onStateChange?: (collapsed: boolean) => void;
   contentContainerStyle?: StyleProp<ViewStyle>;
 }
