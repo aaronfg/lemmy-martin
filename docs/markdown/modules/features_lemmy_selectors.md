@@ -6,23 +6,42 @@
 
 ### Functions
 
+- [getLemmyAPIBaseUrl](features_lemmy_selectors.md#getlemmyapibaseurl)
 - [getLemmyAPIError](features_lemmy_selectors.md#getlemmyapierror)
 - [getLemmyAPILoading](features_lemmy_selectors.md#getlemmyapiloading)
 - [getLemmyJWT](features_lemmy_selectors.md#getlemmyjwt)
+- [getLemmyLoginError](features_lemmy_selectors.md#getlemmyloginerror)
 
 ## Functions
+
+### getLemmyAPIBaseUrl
+
+▸ **getLemmyAPIBaseUrl**(`state`, `...params`): `URL`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `Object` |
+| `...params` | [] |
+
+#### Returns
+
+`URL`
+
+___
 
 ### getLemmyAPIError
 
 ▸ **getLemmyAPIError**(`state`): `undefined` \| [`IError`](../interfaces/types.IError.md)
 
-Returns any error object we have in from the Lemmy API.
+Returns any error object we have related to the Lemmy API.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `state` | `Object` | Our redux state |
+| `state` | `Object` | The redux state |
 
 #### Returns
 
@@ -38,9 +57,9 @@ Returns `true` if we're loading data from the API
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | `Object` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | `Object` | The redux state |
 
 #### Returns
 
@@ -58,8 +77,26 @@ Returns the Lemmy API token (`jwt`) for our user if there is one.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `state` | `Object` | Our redux state |
+| `state` | `Object` | The redux state |
 
 #### Returns
 
 `undefined` \| `string`
+
+___
+
+### getLemmyLoginError
+
+▸ **getLemmyLoginError**(`state`): `undefined` \| [`IError`](../interfaces/types.IError.md)
+
+Returns any error object we have in from the Lemmy API.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | `Object` | The redux state export const getLemmyAPIError = (state: RootState) => state.lemmy.error; /** Returns any error object we have in from the Lemmy API related to logging in. |
+
+#### Returns
+
+`undefined` \| [`IError`](../interfaces/types.IError.md)

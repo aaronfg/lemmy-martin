@@ -14,7 +14,13 @@ Class with utility methods related to Lemmy API and accounts
 
 ### Methods
 
+- [createILemmyInstance](utils_LemmyUtils.LemmyUtils.md#createilemmyinstance)
+- [getDescriptionFirstParagraph](utils_LemmyUtils.LemmyUtils.md#getdescriptionfirstparagraph)
+- [getDescriptionHasMultiParagraphs](utils_LemmyUtils.LemmyUtils.md#getdescriptionhasmultiparagraphs)
+- [getFriendlyErrorMsg](utils_LemmyUtils.LemmyUtils.md#getfriendlyerrormsg)
+- [getShortDescription](utils_LemmyUtils.LemmyUtils.md#getshortdescription)
 - [getUpdatedAccounts](utils_LemmyUtils.LemmyUtils.md#getupdatedaccounts)
+- [isDescriptionLong](utils_LemmyUtils.LemmyUtils.md#isdescriptionlong)
 - [isNewAccount](utils_LemmyUtils.LemmyUtils.md#isnewaccount)
 
 ## Constructors
@@ -24,6 +30,102 @@ Class with utility methods related to Lemmy API and accounts
 • **new LemmyUtils**()
 
 ## Methods
+
+### createILemmyInstance
+
+▸ `Static` **createILemmyInstance**(`instance`): [`ILemmyInstance`](../interfaces/features_lemmy_types.ILemmyInstance.md)
+
+Creates an [ILemmyInstance](../interfaces/features_lemmy_types.ILemmyInstance.md) from
+the `instance` string passed in
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `instance` | `string` | The string to base the logic on |
+
+#### Returns
+
+[`ILemmyInstance`](../interfaces/features_lemmy_types.ILemmyInstance.md)
+
+___
+
+### getDescriptionFirstParagraph
+
+▸ `Static` **getDescriptionFirstParagraph**(`description`): `string`
+
+Returns the first paragraph of a Community's `description`
+passed in.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `description` | `string` | The Community description to test |
+
+#### Returns
+
+`string`
+
+___
+
+### getDescriptionHasMultiParagraphs
+
+▸ `Static` **getDescriptionHasMultiParagraphs**(`description`): `boolean`
+
+Returns `true` if the `description` has multiple paragraphs.
+
+This is used in conjunction with [getDescriptionFirstParagraph](utils_LemmyUtils.LemmyUtils.md#getdescriptionfirstparagraph)
+to get a shorter, list-friendly description.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `description` | `string` | The Community description to test |
+
+#### Returns
+
+`boolean`
+
+___
+
+### getFriendlyErrorMsg
+
+▸ `Static` **getFriendlyErrorMsg**(`error`): `string`
+
+Returns a user-friendly error message given the API-provided `error`
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `error` | `string` | The error string to base the frfiendly message on |
+
+#### Returns
+
+`string`
+
+___
+
+### getShortDescription
+
+▸ `Static` **getShortDescription**(`description`): `string`
+
+Truncates the `description` to a shorter manageable length
+for use in the [CommunitiesScreen](../modules/screens_Communities.md#communitiesscreen) screen
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `description` | `string` | The Community description to truncate |
+
+#### Returns
+
+`string`
+
+___
 
 ### getUpdatedAccounts
 
@@ -45,6 +147,28 @@ new token for an existing account.
 #### Returns
 
 [`IAccount`](../interfaces/features_settings_types.IAccount.md)[]
+
+___
+
+### isDescriptionLong
+
+▸ `Static` **isDescriptionLong**(`description`): `boolean`
+
+Returns `true` if the provided `description` is longer than
+the `COMMUNITY_MAX_DESCRIPTION_LENGTH`.
+
+Used in the Communities Screen to truncate the Community
+description text in the list.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `description` | `string` | The Community description to test |
+
+#### Returns
+
+`boolean`
 
 ___
 

@@ -1,35 +1,30 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { nanoid } from '@reduxjs/toolkit';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { List } from 'react-native-paper';
+import { List, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { getSettingsCurrentAccount } from '../features/settings/selectors';
+import { RootStackParamList } from '../navigation/types';
+import { useAppSelector } from '../redux/hooks';
 
 /** Screen for the main menu */
 export const MainMenuScreen = (): JSX.Element => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const currentAccount = useAppSelector(getSettingsCurrentAccount);
   const styles = createStyleSheet();
-
-  const onAddAccountPress = () => {
-    // navigation.navigate(ScreenNames.Login);
-  };
 
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.container}>
-          <List.Item
-            title="Add Account"
-            onPress={onAddAccountPress}
-            left={props => (
-              <MaterialIcon
-                name="plus"
-                {...props}
-                style={styles.icon}
-                size={20}
-              />
-            )}
-          />
+          {currentAccount ? (
+            <Text>Current Account stuff goes here</Text>
+          ) : (
+            <List.Item key={nanoid()} title="You are not logged in" />
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -39,7 +34,7 @@ export const MainMenuScreen = (): JSX.Element => {
 const createStyleSheet = () => {
   return StyleSheet.create({
     container: {
-      paddingHorizontal: 12,
+      // paddingHorizontal: 12,
       paddingTop: 20,
     },
     icon: {

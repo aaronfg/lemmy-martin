@@ -8,10 +8,17 @@ import {
 import { communitiesPageUpdated } from '../features/communities/actions';
 import { communityApi } from '../features/communities/api';
 import { lemmyLogin } from '../features/lemmy/actions';
-import { settingsUpdateAccounts } from '../features/settings/actions';
-import { getAccounts } from '../features/settings/selectors';
+import {
+  settingsCurrentAccountChanged,
+  settingsUpdateAccounts,
+} from '../features/settings/actions';
+import {
+  getAccounts,
+  getSettingsCurrentAccountToken,
+} from '../features/settings/selectors';
 import { IAccount } from '../features/settings/types';
 import { log } from '../logging/log';
+import { navigationRef } from '../navigation';
 import { LemmyUtils } from '../utils/LemmyUtils';
 import type { AppDispatch, RootState } from './store';
 
@@ -43,6 +50,8 @@ startAppListening({
 
     const updatedAccounts = LemmyUtils.getUpdatedAccounts(newAccount, accounts);
     listenerApi.dispatch(settingsUpdateAccounts(updatedAccounts));
+    listenerApi.dispatch(settingsCurrentAccountChanged(newAccount));
+    navigationRef.goBack();
   },
 });
 
@@ -50,10 +59,33 @@ startAppListening({
   actionCreator: communitiesPageUpdated,
   effect: async (action, listenerApi) => {
     // grab new communites list data based on the new page
-    log.debug('dispatching page ' + action.payload);
-    // listenerApi.dispatch(communitiesTest());
+    const authToken = getSettingsCurrentAccountToken(listenerApi.getState());
+    log.debug('dispatching page ' + action.payload + '\tauth: ' + authToken);
     listenerApi.dispatch(
-      communityApi.endpoints.getCommunities.initiate({ page: action.payload }),
+      communityApi.endpoints.getCommunities.initiate({
+        page: action.payload,
+        auth: authToken,
+        sort: 'Active',
+      }),
+    );
+  },
+});
+
+startAppListening({
+  actionCreator: settingsCurrentAccountChanged,
+  effect: (action, listenerApi) => {
+    const authToken = getSettingsCurrentAccountToken(listenerApi.getState());
+    log.debug('settingsUpdateAccounts listener \tauth: ' + authToken);
+    // re-fetch communities
+    listenerApi.dispatch(
+      communityApi.endpoints.getCommunities.initiate(
+        {
+          page: 1,
+          auth: authToken,
+          sort: 'Active',
+        },
+        { forceRefetch: true },
+      ),
     );
   },
 });

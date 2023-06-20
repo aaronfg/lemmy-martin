@@ -7,7 +7,10 @@
 ### Functions
 
 - [getAccounts](features_settings_selectors.md#getaccounts)
+- [getCurrentInstance](features_settings_selectors.md#getcurrentinstance)
 - [getSettingsCurrentAccount](features_settings_selectors.md#getsettingscurrentaccount)
+- [getSettingsCurrentAccountToken](features_settings_selectors.md#getsettingscurrentaccounttoken)
+- [getSettingsDefaultInstance](features_settings_selectors.md#getsettingsdefaultinstance)
 - [getSettingsFeedSource](features_settings_selectors.md#getsettingsfeedsource)
 
 ## Functions
@@ -31,6 +34,23 @@ Returns the saved accounts as a Set
 
 ___
 
+### getCurrentInstance
+
+▸ **getCurrentInstance**(`state`, `...params`): [`ILemmyInstance`](../interfaces/features_lemmy_types.ILemmyInstance.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `Object` |
+| `...params` | [] |
+
+#### Returns
+
+[`ILemmyInstance`](../interfaces/features_lemmy_types.ILemmyInstance.md)
+
+___
+
 ### getSettingsCurrentAccount
 
 ▸ **getSettingsCurrentAccount**(`state`): `undefined` \| [`IAccount`](../interfaces/features_settings_types.IAccount.md)
@@ -46,6 +66,38 @@ Returns the currently selected account (if there is one)
 #### Returns
 
 `undefined` \| [`IAccount`](../interfaces/features_settings_types.IAccount.md)
+
+___
+
+### getSettingsCurrentAccountToken
+
+▸ **getSettingsCurrentAccountToken**(`state`): `undefined` \| `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `Object` |
+
+#### Returns
+
+`undefined` \| `string`
+
+___
+
+### getSettingsDefaultInstance
+
+▸ **getSettingsDefaultInstance**(`state`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `Object` |
+
+#### Returns
+
+`string`
 
 ___
 

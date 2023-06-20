@@ -10,9 +10,16 @@ The props for the [ErrorMsg](../modules/components_ErrorMsg.md#errormsg) compone
 
 ### Properties
 
+- [containerStyle](components_ErrorMsg.IErrorMsgProps.md#containerstyle)
 - [error](components_ErrorMsg.IErrorMsgProps.md#error)
 
 ## Properties
+
+### containerStyle
+
+• `Optional` **containerStyle**: `StyleProp`<`ViewStyle`\>
+
+___
 
 ### error
 

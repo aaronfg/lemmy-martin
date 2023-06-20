@@ -10,6 +10,7 @@
 
 - [primary](theme.LemmyMartinBrandingColors.md#primary)
 - [secondaryDark](theme.LemmyMartinBrandingColors.md#secondarydark)
+- [tertiary](theme.LemmyMartinBrandingColors.md#tertiary)
 
 ## Enumeration Members
 
@@ -22,3 +23,9 @@ ___
 ### secondaryDark
 
 • **secondaryDark** = ``"#797979"``
+
+___
+
+### tertiary
+
+• **tertiary** = ``"#2b2732"``

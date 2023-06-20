@@ -1,23 +1,33 @@
-[LemmyMartin - v0.0.1](../README.md) / features/settings/middleware
+[LemmyMartin - v0.0.1](../README.md) / redux/listenerMiddleware
 
-# Module: features/settings/middleware
+# Module: redux/listenerMiddleware
 
 ## Table of contents
 
+### Type Aliases
+
+- [AppStartListening](redux_listenerMiddleware.md#appstartlistening)
+
 ### Variables
 
-- [settingsListenerMiddleware](features_settings_middleware.md#settingslistenermiddleware)
+- [appListenerMiddleware](redux_listenerMiddleware.md#applistenermiddleware)
 
 ### Functions
 
-- [addAppListener](features_settings_middleware.md#addapplistener)
-- [startAppListening](features_settings_middleware.md#startapplistening)
+- [addAppListener](redux_listenerMiddleware.md#addapplistener)
+- [startAppListening](redux_listenerMiddleware.md#startapplistening)
+
+## Type Aliases
+
+### AppStartListening
+
+Ƭ **AppStartListening**: `TypedStartListening`<[`RootState`](redux_store.md#rootstate), [`AppDispatch`](redux_store.md#appdispatch)\>
 
 ## Variables
 
-### settingsListenerMiddleware
+### appListenerMiddleware
 
-• `Const` **settingsListenerMiddleware**: `ListenerMiddlewareInstance`<`unknown`, `ThunkDispatch`<`unknown`, `unknown`, `AnyAction`\>, `unknown`\>
+• `Const` **appListenerMiddleware**: `ListenerMiddlewareInstance`<`unknown`, `ThunkDispatch`<`unknown`, `unknown`, `AnyAction`\>, `unknown`\>
 
 Listener middleware related to the `settings` feature
 

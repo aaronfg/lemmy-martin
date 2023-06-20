@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Divider, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,18 +6,17 @@ import { ErrorMsg } from '../components/ErrorMsg';
 import { ListFooterLoading } from '../components/ListFooterLoading';
 import { ListItemCommunity } from '../components/ListItemCommunity';
 import { communitiesPageUpdated } from '../features/communities/actions';
-import { communityApi } from '../features/communities/api';
+import { useGetCommunitiesQuery } from '../features/communities/api';
 import {
   getCommunitesListPage,
   getCommunityListItems,
 } from '../features/communities/selectors';
 import { ICommunityListItem } from '../features/communities/types';
+import { getLemmyAPIError } from '../features/lemmy/selectors';
 import {
-  getLemmyAPIError,
-  getLemmyAPILoading,
-  getLemmyJWT,
-} from '../features/lemmy/selectors';
-import { getSettingsFeedSource } from '../features/settings/selectors';
+  getSettingsCurrentAccountToken,
+  getSettingsFeedSource,
+} from '../features/settings/selectors';
 import { log } from '../logging/log';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
@@ -25,24 +24,24 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
  * Screen for the a list of Communities either local or across all federated instances.
  */
 export const CommunitiesScreen = (): JSX.Element => {
-  // const [loading, setLoading] = useState(false);
+  // selectors
   const feedSource = useAppSelector(getSettingsFeedSource);
-  const loading = useAppSelector(getLemmyAPILoading);
-  const token = useAppSelector(getLemmyJWT);
+  const authToken = useAppSelector(getSettingsCurrentAccountToken);
   const error = useAppSelector(getLemmyAPIError);
   const communities = useAppSelector(getCommunityListItems);
   const listPage = useAppSelector(getCommunitesListPage);
 
+  // hooks
   const dispatch = useAppDispatch();
 
   const styles = createStyleSheet();
-  // dispatch(communityApi.endpoints.getCommunities.initiate());
-  useEffect(() => {
-    if (communities.length === 0)
-      dispatch(
-        communityApi.endpoints.getCommunities.initiate({ page: listPage }),
-      );
-  }, []);
+
+  // Load the communities
+  const { isLoading } = useGetCommunitiesQuery({
+    page: listPage,
+    auth: authToken,
+    sort: 'Active',
+  });
 
   const onPostsPress = async () => {
     try {
@@ -59,21 +58,20 @@ export const CommunitiesScreen = (): JSX.Element => {
   };
 
   const onListEndReached = (info: { distanceFromEnd: number }) => {
-    //
-    log.debug(`currentPage: ${listPage} + next page: ${listPage + 1}`);
+    log.debug('onListEndReached(). dispatching communitiesPageUpdated()');
     dispatch(communitiesPageUpdated(listPage + 1));
   };
 
   return (
     <SafeAreaView style={styles.safe}>
-      {error && <ErrorMsg message={error.message} />}
+      {error && <ErrorMsg error={error} />}
 
       <FlatList
         style={styles.list}
         data={communities}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={0.2}
         onEndReached={onListEndReached}
-        refreshing={loading}
+        refreshing={isLoading}
         ListEmptyComponent={
           () => (
             // loading ? (

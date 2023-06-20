@@ -1,79 +1,187 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { Login } from 'lemmy-js-client';
-import React from 'react';
-import { ScrollView, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import React, { useState } from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import { ActivityIndicator, Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ErrorMsg } from '../components/ErrorMsg';
 import { lemmyClearError, lemmyLogin } from '../features/lemmy/actions';
 import {
-  getLemmyAPIError,
   getLemmyAPILoading,
-  getLemmyJWT,
+  getLemmyLoginError,
 } from '../features/lemmy/selectors';
-import { getSettingsFeedSource } from '../features/settings/selectors';
+import {
+  getSettingsCurrentAccountToken,
+  getSettingsDefaultInstance,
+} from '../features/settings/selectors';
+import { useOrientation } from '../hooks';
 import { log } from '../logging/log';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { ScreenMargin } from '../types';
 
 /**
  * The Login screen for adding an account to the app.
  */
 export const LoginScreen = (): JSX.Element => {
-  const feedSource = useAppSelector(getSettingsFeedSource);
+  // selectors
+  const defaultInstance = useAppSelector(getSettingsDefaultInstance);
   const loading = useAppSelector(getLemmyAPILoading);
-  const token = useAppSelector(getLemmyJWT);
-  const error = useAppSelector(getLemmyAPIError);
+  const token = useAppSelector(getSettingsCurrentAccountToken);
+  const error = useAppSelector(getLemmyLoginError);
+  // local state
+  const [username, setUsername] = useState<string | undefined>(undefined);
+  const [pw, setPW] = useState<string | undefined>(undefined);
+  const [instance, setInstance] = useState<string | undefined>(defaultInstance);
+
+  const orientation = useOrientation();
+
+  const styles = createStyleSheet(orientation.isLandscape);
 
   const dispatch = useAppDispatch();
   useFocusEffect(() => {
     dispatch(lemmyClearError());
   });
 
+  const onUserChanged = (text: string) => {
+    setUsername(text.trim());
+  };
+
+  const onPWChanged = (text: string) => {
+    setPW(text.trim());
+  };
+
+  const onInstanceChanged = (text: string) => {
+    const textTrimmed = text.trim();
+    const finalText = textTrimmed.endsWith('/')
+      ? textTrimmed.substring(0, textTrimmed.length - 1)
+      : textTrimmed;
+    setInstance(finalText);
+  };
+
   const doLogin = async () => {
-    const loginForm: Login = {
-      username_or_email: 'subtex108@protonmail.com',
-      password: '6$)9C3a$VTd+Q%V^',
-    };
-    try {
-      const response = await dispatch(
-        lemmyLogin({
-          instanceUrl: 'https://lemmy.ml',
-          loginForm,
-        }),
-      );
-      log.debug('response: ', response);
-    } catch (error) {
-      log.error(error);
+    if (username && pw && instance) {
+      const loginForm: Login = {
+        username_or_email: username,
+        password: pw,
+      };
+      try {
+        await dispatch(
+          lemmyLogin({
+            instanceUrl: instance,
+            loginForm,
+          }),
+        );
+      } catch (error) {
+        log.error(error);
+      }
     }
   };
 
-  const onPostsPress = async () => {
-    try {
-      //
-      // const response =
-    } catch (error) {
-      //
-    }
-  };
+  const formIsValid = !!username && !!pw && !!instance;
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View>
-          <Text>Default Source: {feedSource}</Text>
+    <SafeAreaView style={styles.safe}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="always">
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <Text style={styles.title}>Login</Text>
+          {/* Username */}
+          <TextInput
+            label="Username or Email"
+            mode="outlined"
+            style={styles.txtInput}
+            onChangeText={onUserChanged}
+          />
+          {/* Passwords */}
+          <TextInput
+            label="Password"
+            mode="outlined"
+            style={styles.txtInput}
+            secureTextEntry={true}
+            onChangeText={onPWChanged}
+            blurOnSubmit={true}
+          />
+          {/* Instance */}
+          <TextInput
+            label="Instance Url"
+            mode="outlined"
+            placeholder={instance}
+            style={styles.txtInput}
+            onChangeText={onInstanceChanged}
+          />
 
-          <Button mode="contained" onPress={doLogin} disabled={loading}>
+          {/* Login Button */}
+          <Button
+            mode="contained"
+            onPress={doLogin}
+            disabled={loading || !formIsValid}
+            style={styles.loginBtn}>
             Login
           </Button>
-          {token && <Text>JWT Token: {token}</Text>}
-          {token && (
-            <Button mode="contained" onPress={onPostsPress} disabled={loading}>
-              Get Communities
-            </Button>
+
+          {error && (
+            <ErrorMsg
+              error={{ message: error.message }}
+              containerStyle={styles.errorContainer}
+            />
           )}
-          {error && <ErrorMsg message={error.message} />}
-        </View>
+          {loading && <ActivityIndicator />}
+        </KeyboardAvoidingView>
       </ScrollView>
     </SafeAreaView>
   );
+};
+
+const createStyleSheet = (isLandscape: boolean) => {
+  return StyleSheet.create({
+    chipContainer: {
+      // marginHorizontal: ScreenMargin.Horizontal,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      marginTop: 8,
+    },
+    container: {
+      minWidth: isLandscape ? '60%' : '100%',
+      flex: 1,
+    },
+    content: {
+      // flex: 1,
+      width: '100%',
+      justifyContent: 'center',
+      backgroundColor: 'pink',
+    },
+    errorContainer: {
+      marginVertical: 20,
+    },
+    loginBtn: {
+      marginTop: 18,
+      width: '50%',
+      alignSelf: 'center',
+    },
+    safe: {
+      flex: 1,
+    },
+    scrollContent: {
+      padding: ScreenMargin.Horizontal,
+      flex: 1,
+    },
+    title: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginBottom: 12,
+    },
+    txtInput: {
+      margin: 8,
+    },
+  });
 };

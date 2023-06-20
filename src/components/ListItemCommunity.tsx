@@ -1,7 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
 import React from 'react';
 import { GestureResponderEvent, Image, StyleSheet, View } from 'react-native';
-import Markdown from 'react-native-markdown-package';
 import {
   IconButton,
   MD3Theme,
@@ -12,11 +11,20 @@ import {
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ICommunityListItem } from '../features/communities/types';
 import { MaterialIconNames, UnicodeText } from '../types';
+import { LemmyUtils } from '../utils/LemmyUtils';
+import { TextMarkdown } from './TextMarkdown';
 
+/** Props for the {@link ListItemCommunity} component */
 export interface IListItemCommunityProps {
+  /** Info about the Community to render */
   item: ICommunityListItem;
 }
 
+/**
+ * Lit item for Communities in a list.
+ * @param props The {@link IListItemCommunityProps} instance to render
+ * @returns
+ */
 export const ListItemCommunity = (
   props: IListItemCommunityProps,
 ): JSX.Element => {
@@ -25,30 +33,26 @@ export const ListItemCommunity = (
   const styles = createStyleSheet(theme);
 
   const onPress = (event: GestureResponderEvent) => {
-    // log.debug('item press:', event);
+    //
   };
 
   const onSubscribePress = () => {
-    // log.debug('icon press');
+    //
   };
 
-  // const iconName = item.communityView.subscribed
-  //   ? MaterialIconNames.CheckCircleOutline
-  //   : MaterialIconNames.PlusCircleOutline;
-
   const iconName =
-    item.communityView.community.name === 'lemmy'
+    item.communityView.subscribed === 'Subscribed'
       ? MaterialIconNames.CheckCircleOutline
       : MaterialIconNames.PlusCircleOutline;
 
-  // const iconColor = item.communityView.subscribed
-  //   ? theme.colors.primary
-  //   : theme.colors.onSurface;
-
   const iconColor =
-    iconName === MaterialIconNames.CheckCircleOutline
+    item.communityView.subscribed === 'Subscribed'
       ? theme.colors.primary
       : theme.colors.onSurface;
+
+  const communityInstance = LemmyUtils.createILemmyInstance(
+    item.communityView.community.actor_id,
+  );
 
   return (
     <View style={styles.outerContainer}>
@@ -71,31 +75,16 @@ export const ListItemCommunity = (
             </Text>
             {/* Name */}
             <Text style={styles.name}>
-              /c/{item.communityView.community.name}{' '}
+              !{item.communityView.community.name}@{communityInstance.name}{' '}
               <Text style={styles.name}>
-                {UnicodeText.Bullet} {item.communityView.counts.subscribers}{' '}
+                {UnicodeText.Bullet}{' '}
+                {item.communityView.counts.subscribers.toLocaleString()}{' '}
                 Subscribers
               </Text>
             </Text>
             {/* Description */}
             <View style={styles.description}>
-              <Markdown
-                styles={{
-                  text: {
-                    color: theme.colors.onSurface,
-                  },
-                  autolink: {
-                    color: theme.colors.primary,
-                  },
-                  listItemNumber: {
-                    color: theme.colors.onSurface,
-                  },
-                  view: {
-                    width: '90%',
-                  },
-                }}>
-                {item.shortDescription}
-              </Markdown>
+              <TextMarkdown theme={theme}>{item.shortDescription}</TextMarkdown>
             </View>
           </View>
         </View>

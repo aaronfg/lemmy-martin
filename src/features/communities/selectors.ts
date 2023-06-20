@@ -8,7 +8,7 @@ import { ICommunityListItem } from './types';
 export const getCommunitesListPage = (state: RootState) =>
   state.communites.listPage;
 
-/** Gets the Communities returned from the {@link communityApi.getCommunities} endpoint */
+/** Gets the Communities returned from the `communityApi.getCommunities` endpoint */
 export const getCommunityAPICommunitiesRaw = (state: RootState) =>
   communityApi.endpoints.getCommunities.select({})(state).data;
 
@@ -19,6 +19,7 @@ const getCommunityAPICommunities = createSelector(
   },
 );
 
+/** Returns the Communities we have loaded as an `ICommunityListItem` array */
 export const getCommunityListItems = createSelector(
   getCommunityAPICommunities,
   communities => {
