@@ -4,6 +4,8 @@
 
 [components/ListItemCommunity](../modules/components_ListItemCommunity.md).IListItemCommunityProps
 
+Props for the [ListItemCommunity](../modules/components_ListItemCommunity.md#listitemcommunity) component
+
 ## Table of contents
 
 ### Properties
@@ -15,3 +17,5 @@
 ### item
 
 • **item**: [`ICommunityListItem`](features_communities_types.ICommunityListItem.md)
+
+Info about the Community to render

@@ -10,7 +10,6 @@ LemmyMartin
 - [components/ExpandableView](modules/components_ExpandableView.md)
 - [components/ListFooterLoading](modules/components_ListFooterLoading.md)
 - [components/ListItemCommunity](modules/components_ListItemCommunity.md)
-- [components/ListItemPost](modules/components_ListItemPost.md)
 - [components/TextMarkdown](modules/components_TextMarkdown.md)
 - [components/communities/CommunityListHeader](modules/components_communities_CommunityListHeader.md)
 - [components/profile/AccountSwitcher](modules/components_profile_AccountSwitcher.md)

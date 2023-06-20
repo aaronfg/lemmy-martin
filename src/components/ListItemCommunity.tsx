@@ -14,10 +14,17 @@ import { MaterialIconNames, UnicodeText } from '../types';
 import { LemmyUtils } from '../utils/LemmyUtils';
 import { TextMarkdown } from './TextMarkdown';
 
+/** Props for the {@link ListItemCommunity} component */
 export interface IListItemCommunityProps {
+  /** Info about the Community to render */
   item: ICommunityListItem;
 }
 
+/**
+ * Lit item for Communities in a list.
+ * @param props The {@link IListItemCommunityProps} instance to render
+ * @returns
+ */
 export const ListItemCommunity = (
   props: IListItemCommunityProps,
 ): JSX.Element => {
@@ -26,36 +33,22 @@ export const ListItemCommunity = (
   const styles = createStyleSheet(theme);
 
   const onPress = (event: GestureResponderEvent) => {
-    // log.debug('item press:', event);
+    //
   };
 
   const onSubscribePress = () => {
-    // log.debug('icon press');
+    //
   };
-
-  // console.log(
-  //   item.communityView.community.name + ': ' + item.communityView.subscribed,
-  // );
 
   const iconName =
     item.communityView.subscribed === 'Subscribed'
       ? MaterialIconNames.CheckCircleOutline
       : MaterialIconNames.PlusCircleOutline;
 
-  // const iconName =
-  //   item.communityView.community.name === 'lemmy'
-  //     ? MaterialIconNames.CheckCircleOutline
-  //     : MaterialIconNames.PlusCircleOutline;
-
   const iconColor =
     item.communityView.subscribed === 'Subscribed'
       ? theme.colors.primary
       : theme.colors.onSurface;
-
-  // const iconColor =
-  //   iconName === MaterialIconNames.CheckCircleOutline
-  //     ? theme.colors.primary
-  //     : theme.colors.onSurface;
 
   const communityInstance = LemmyUtils.createILemmyInstance(
     item.communityView.community.actor_id,

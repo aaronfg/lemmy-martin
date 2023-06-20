@@ -18,11 +18,13 @@
 
 ▸ **ListItemCommunity**(`props`): `Element`
 
+Lit item for Communities in a list.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `props` | [`IListItemCommunityProps`](../interfaces/components_ListItemCommunity.IListItemCommunityProps.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `props` | [`IListItemCommunityProps`](../interfaces/components_ListItemCommunity.IListItemCommunityProps.md) | The [IListItemCommunityProps](../interfaces/components_ListItemCommunity.IListItemCommunityProps.md) instance to render |
 
 #### Returns
 

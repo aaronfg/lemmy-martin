@@ -14,13 +14,15 @@
 
 ▸ **TextMarkdown**(`props`): `Element`
 
+Text component for rendering Markdown
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `props` | `Object` |
-| `props.children` | `ReactNode` |
-| `props.theme` | `MD3Theme` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `props` | `Object` | The RN Paper theme that is used to style text and links |
+| `props.children` | `ReactNode` | - |
+| `props.theme` | `MD3Theme` | - |
 
 #### Returns
 

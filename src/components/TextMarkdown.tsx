@@ -2,6 +2,11 @@ import React from 'react';
 import Markdown from 'react-native-markdown-package';
 import { MD3Theme } from 'react-native-paper';
 
+/**
+ * Text component for rendering Markdown
+ * @param props The RN Paper theme that is used
+ * to style text and links
+ */
 export const TextMarkdown = (props: {
   theme: MD3Theme;
   children: React.ReactNode;
