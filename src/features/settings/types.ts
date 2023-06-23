@@ -1,3 +1,5 @@
+import { SortType } from 'lemmy-js-client';
+
 /**
  * Descriptor for a Lemmy account
  */
@@ -21,6 +23,7 @@ export interface ISettingsState {
   /** Settings for the feed screen / data */
   feed: IFeedSettings;
   defaultInstance: string;
+  feedSortType: SortType;
 }
 
 /**

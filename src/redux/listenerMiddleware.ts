@@ -6,8 +6,8 @@ import {
   createListenerMiddleware,
 } from '@reduxjs/toolkit';
 import { communitiesPageUpdated } from '../features/communities/actions';
-import { communityApi } from '../features/communities/api';
 import { lemmyLogin } from '../features/lemmy/actions';
+import { lemmyApi } from '../features/lemmy/api';
 import {
   settingsCurrentAccountChanged,
   settingsUpdateAccounts,
@@ -62,7 +62,7 @@ startAppListening({
     const authToken = getSettingsCurrentAccountToken(listenerApi.getState());
     log.debug('dispatching page ' + action.payload + '\tauth: ' + authToken);
     listenerApi.dispatch(
-      communityApi.endpoints.getCommunities.initiate({
+      lemmyApi.endpoints.getCommunities.initiate({
         page: action.payload,
         auth: authToken,
         sort: 'Active',
@@ -78,7 +78,7 @@ startAppListening({
     log.debug('settingsUpdateAccounts listener \tauth: ' + authToken);
     // re-fetch communities
     listenerApi.dispatch(
-      communityApi.endpoints.getCommunities.initiate(
+      lemmyApi.endpoints.getCommunities.initiate(
         {
           page: 1,
           auth: authToken,

@@ -7,16 +7,20 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import {
   CommunityView,
+  GetPosts,
+  GetPostsResponse,
   ListCommunities,
   ListCommunitiesResponse,
+  PostView,
 } from 'lemmy-js-client';
 import { RootState } from '../../redux/store';
+import { DEFAULT_API_TIMEOUT } from '../../types';
 import { APIUtils } from '../../utils/APIUtils';
-import { LemmyAPIMethods } from '../lemmy/types';
 import {
   getCurrentInstance,
   getSettingsDefaultInstance,
 } from '../settings/selectors';
+import { LemmyAPIMethods, LemmyAPIPaths } from './types';
 
 export enum CommunityApiTagTypes {
   Community = 'Community',
@@ -50,16 +54,18 @@ const dynamicBaseQuery: BaseQueryFn<
 };
 
 /** The RTK Query api for community related api calls */
-export const communityApi = createApi({
-  reducerPath: 'communitiesApi',
+export const lemmyApi = createApi({
+  reducerPath: 'lemmyApi',
   tagTypes: [CommunityApiTagTypes.Community],
   baseQuery: dynamicBaseQuery,
   endpoints: builder => ({
     getCommunities: builder.query<CommunityView[], ListCommunities>({
       query: args => ({
-        url: `community/list?${APIUtils.getQueryParamsFromObj(args)}`,
+        url: `${LemmyAPIPaths.ListCommunities}?${APIUtils.getQueryParamsFromObj(
+          args,
+        )}`,
         method: LemmyAPIMethods.ListCommunities,
-        timeout: 5000,
+        timeout: DEFAULT_API_TIMEOUT,
       }),
       providesTags: [CommunityApiTagTypes.Community],
       transformResponse: (response: ListCommunitiesResponse) =>
@@ -76,7 +82,17 @@ export const communityApi = createApi({
         return currentArg !== previousArg;
       },
     }),
+    getPosts: builder.query<PostView[], GetPosts>({
+      query: args => ({
+        url: `${LemmyAPIPaths.GetPosts}?${APIUtils.getQueryParamsFromObj(
+          args,
+        )}`,
+        method: LemmyAPIMethods.GetPosts,
+        timeout: DEFAULT_API_TIMEOUT,
+      }),
+      transformResponse: (response: GetPostsResponse) => response.posts,
+    }),
   }),
 });
 
-export const { useGetCommunitiesQuery } = communityApi;
+export const { useGetCommunitiesQuery, useGetPostsQuery } = lemmyApi;

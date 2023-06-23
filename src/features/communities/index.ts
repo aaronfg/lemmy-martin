@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { lemmyLogin } from '../lemmy/actions';
+import { lemmyApi } from '../lemmy/api';
 import { communitiesPageUpdated } from './actions';
-import { communityApi } from './api';
 import { ICommunitesState } from './types';
 
 export const INITIAL_COMMUNITIES_STATE: ICommunitesState = {
@@ -22,7 +22,7 @@ export const communitiesReducer = createReducer(
       })
       // communityApi.endpoints.getCommunities pending
       .addMatcher(
-        communityApi.endpoints.getCommunities.matchPending,
+        lemmyApi.endpoints.getCommunities.matchPending,
         (state, action) => {
           state.listPage = action.meta.arg.originalArgs.page ?? state.listPage;
         },

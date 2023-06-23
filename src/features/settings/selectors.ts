@@ -20,6 +20,9 @@ export const getSettingsFeedSource = (state: RootState) =>
 export const getSettingsDefaultInstance = (state: RootState) =>
   state.settings.defaultInstance;
 
+export const getSettingsFeedSortType = (state: RootState) =>
+  state.settings.feedSortType;
+
 /** Returns the saved accounts as a Set */
 export const getAccounts = createSelector(
   getSettingsAccounts,

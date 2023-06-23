@@ -29,6 +29,8 @@ export interface ILemmyLoginError {
   error: string;
 }
 
+// --- API Params
+
 /** Params for the {@link features/lemmy/actions!lemmyLogin} action */
 export interface ILemmyLoginParams {
   /** The param for the login api call */
@@ -56,9 +58,11 @@ export enum LemmyErrorMsgs {
 }
 
 export enum LemmyAPIPaths {
+  GetPosts = '/post/list',
   ListCommunities = '/community/list',
 }
 export enum LemmyAPIMethods {
+  GetPosts = 'GET',
   ListCommunities = 'GET',
 }
 export const LEMMY_API_PATH = 'api/v3/';

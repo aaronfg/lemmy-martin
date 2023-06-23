@@ -12,6 +12,7 @@ export const INITIAL_SETTINGS_STATE: ISettingsState = {
     source: FeedSource.Local,
   },
   defaultInstance: 'https://lemmy.ml', // https://sopuli.xyz
+  feedSortType: 'Hot',
 };
 
 /** The reducer for the `settings` slice of our redux state */

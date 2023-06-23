@@ -6,12 +6,12 @@ import { ErrorMsg } from '../components/ErrorMsg';
 import { ListFooterLoading } from '../components/ListFooterLoading';
 import { ListItemCommunity } from '../components/ListItemCommunity';
 import { communitiesPageUpdated } from '../features/communities/actions';
-import { useGetCommunitiesQuery } from '../features/communities/api';
 import {
   getCommunitesListPage,
   getCommunityListItems,
 } from '../features/communities/selectors';
 import { ICommunityListItem } from '../features/communities/types';
+import { useGetCommunitiesQuery } from '../features/lemmy/api';
 import { getLemmyAPIError } from '../features/lemmy/selectors';
 import {
   getSettingsCurrentAccountToken,
