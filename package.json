@@ -17,7 +17,7 @@
     "@react-navigation/native-stack": "^6.9.12",
     "@reduxjs/toolkit": "^1.9.5",
     "color": "^4.2.3",
-    "lemmy-js-client": "^0.17.2-rc.20",
+    "lemmy-js-client": "^0.18.0",
     "patch-package": "^7.0.0",
     "postinstall-postinstall": "^2.1.0",
     "react": "18.2.0",
