@@ -1,7 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { CommunityListHeader } from '../components/communities/CommunityListHeader';
 import { FeedListHeader } from '../components/feed/FeedHeader';
 import { AccountSwitcher } from '../components/profile/AccountSwitcher';
+import { CommunitiesScreen } from '../screens/Communities';
 import { FeedScreen } from '../screens/Feed';
 import { MainMenuScreen } from '../screens/MainMenu';
 import { LemmyDarkTheme } from '../theme';
@@ -33,7 +35,7 @@ export const HomeTabNav = (): JSX.Element => {
         }}
       />
       {/* Communities */}
-      {/* <Tab.Screen
+      <Tab.Screen
         name={ScreenNames.Communities}
         component={CommunitiesScreen}
         options={{
@@ -41,7 +43,7 @@ export const HomeTabNav = (): JSX.Element => {
           header: props => <CommunityListHeader />,
           tabBarIcon: props => (
             <MaterialIcon
-              name={MaterialIconNames.Home}
+              name="alpha-c-circle"
               size={TAB_ICON_SIZE}
               color={
                 props.focused
@@ -52,7 +54,7 @@ export const HomeTabNav = (): JSX.Element => {
           ),
           tabBarShowLabel: false,
         }}
-      /> */}
+      />
       {/* Main Menu */}
       <Tab.Screen
         name={ScreenNames.MainMenu}

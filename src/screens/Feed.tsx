@@ -26,12 +26,8 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
  * @module Screens
  */
 export const FeedScreen = (): JSX.Element => {
-  const [showPreview, setShowPreview] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
-  const feedSource = useAppSelector(getSettingsFeedSource);
   const sortType = useAppSelector(getSettingsFeedSortType);
-  const loading = useAppSelector(getLemmyAPILoading);
-  const token = useAppSelector(getLemmyJWT);
 
   const dispatch = useAppDispatch();
   const dimensions = useWindowDimensions();

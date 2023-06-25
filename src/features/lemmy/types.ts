@@ -59,7 +59,7 @@ export enum LemmyErrorMsgs {
 
 export enum LemmyAPIPaths {
   GetPosts = 'post/list',
-  ListCommunities = '/community/list',
+  ListCommunities = 'community/list',
 }
 export enum LemmyAPIMethods {
   GetPosts = 'GET',
