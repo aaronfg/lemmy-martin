@@ -1,7 +1,16 @@
 import { PostView } from 'lemmy-js-client';
-import React from 'react';
-import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Divider } from 'react-native-paper';
+import React, { useState } from 'react';
+import {
+  FlatList,
+  Image,
+  Linking,
+  ListRenderItemInfo,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  useWindowDimensions,
+} from 'react-native';
+import { ActivityIndicator, Button, Modal, Portal } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ListItemPost } from '../components/ListItemPost';
 import { useGetPostsQuery } from '../features/lemmy/api';
@@ -17,13 +26,15 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
  * @module Screens
  */
 export const FeedScreen = (): JSX.Element => {
-  // const [loading, setLoading] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
   const feedSource = useAppSelector(getSettingsFeedSource);
   const sortType = useAppSelector(getSettingsFeedSortType);
   const loading = useAppSelector(getLemmyAPILoading);
   const token = useAppSelector(getLemmyJWT);
 
   const dispatch = useAppDispatch();
+  const dimensions = useWindowDimensions();
 
   const { isLoading, error, isFetching, data } = useGetPostsQuery({
     sort: sortType,
@@ -113,8 +124,18 @@ export const FeedScreen = (): JSX.Element => {
     }
   };
 
+  const onThumbnailPress = (url: string) => {
+    setPreviewUrl(url);
+  };
+
+  const onPreviewDismiss = () => {
+    setPreviewUrl(undefined);
+  };
+
   const renderItem = (item: ListRenderItemInfo<PostView>) => {
-    return <ListItemPost post={item.item} />;
+    return (
+      <ListItemPost post={item.item} onThumbnailPress={onThumbnailPress} />
+    );
   };
 
   return (
@@ -124,12 +145,42 @@ export const FeedScreen = (): JSX.Element => {
           data={data}
           renderItem={renderItem}
           ListEmptyComponent={<ActivityIndicator />}
-          ItemSeparatorComponent={() => <Divider />}
+          // ItemSeparatorComponent={() => (
+          //   <Divider style={{ backgroundColor: 'red' }} />
+          // )}
         />
       </View>
-      {/* <View style={styles.footerContainer}>
-        <Text>Footer Toolbar</Text>
-      </View> */}
+      {previewUrl && (
+        <Portal>
+          <Modal
+            visible={!!previewUrl}
+            onDismiss={onPreviewDismiss}
+            style={styles.modal}>
+            {/* <ScrollView maximumZoomScale={3} minimumZoomScale={1}> */}
+            <TouchableOpacity onPressIn={onPreviewDismiss}>
+              <Image
+                source={{ uri: previewUrl }}
+                style={{
+                  // backgroundColor: 'gray',
+                  width: dimensions.width,
+                  height: dimensions.height - 100,
+                }}
+                resizeMode="contain"
+              />
+              <Button
+                mode="contained"
+                icon="web"
+                style={styles.openInBrowser}
+                onPress={() => {
+                  Linking.openURL(previewUrl);
+                }}>
+                Open in Browser
+              </Button>
+            </TouchableOpacity>
+            {/* </ScrollView> */}
+          </Modal>
+        </Portal>
+      )}
     </SafeAreaView>
   );
 };
@@ -145,8 +196,15 @@ const createStyleSheet = () => {
       left: 0,
       right: 0,
     },
+    modal: {
+      backgroundColor: '#000000',
+    },
     safe: {
       flex: 1,
+    },
+    openInBrowser: {
+      alignSelf: 'center',
+      marginTop: 12,
     },
   });
 };
