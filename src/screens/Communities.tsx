@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Divider, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -52,10 +52,13 @@ export const CommunitiesScreen = (): JSX.Element => {
     }
   };
 
-  const renderItem = (item: ListRenderItemInfo<ICommunityListItem>) => {
-    return <ListItemCommunity item={item.item} />;
-    // return <Text>ite</Text>;
-  };
+  const renderItem = useCallback(
+    (item: ListRenderItemInfo<ICommunityListItem>) => {
+      return <ListItemCommunity item={item.item} />;
+      // return <Text>ite</Text>;
+    },
+    [],
+  );
 
   const onListEndReached = (info: { distanceFromEnd: number }) => {
     log.debug('onListEndReached(). dispatching communitiesPageUpdated()');

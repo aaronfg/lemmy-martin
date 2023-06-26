@@ -28,13 +28,25 @@ export const lemmyReducer = createReducer(INITIAL_LEMMY_STATE, builder => {
     })
     // communities
 
-    .addMatcher(lemmyApi.endpoints.getCommunities.matchPending, state => {
-      state.error = undefined;
-      state.loading = true;
-    })
-    .addMatcher(lemmyApi.endpoints.getCommunities.matchFulfilled, state => {
-      state.loading = false;
-    })
+    .addMatcher(
+      isAnyOf(
+        lemmyApi.endpoints.getCommunities.matchPending,
+        lemmyApi.endpoints.getPosts.matchPending,
+      ),
+      state => {
+        state.error = undefined;
+        state.loading = true;
+      },
+    )
+    .addMatcher(
+      isAnyOf(
+        lemmyApi.endpoints.getCommunities.matchFulfilled,
+        lemmyApi.endpoints.getPosts.matchFulfilled,
+      ),
+      state => {
+        state.loading = false;
+      },
+    )
     .addMatcher(
       lemmyApi.endpoints.getCommunities.matchRejected,
       (state, action) => {

@@ -1,55 +1,56 @@
 import { DateTime } from 'luxon';
 export class DateUtils {
   static getUserFriendlyPostDate = (dateString: string): string => {
-    console.log('new Date: ' + dateString);
     const date = DateTime.fromISO(dateString, { zone: 'utc' });
     const diff = DateTime.now().diff(date, [
       'years',
       'months',
-      'weeks',
       'days',
       'hours',
       'minutes',
     ]);
     const years = diff.years;
     const months = diff.months;
-    const weeks = diff.weeks;
+    // const weeks = diff.weeks;
     const days = diff.days;
+    console.log('days: ' + days);
     const hours = diff.hours;
+    console.log('hours: ' + hours);
     const minutes = Math.floor(diff.minutes);
 
     if (years >= 1) {
-      return this.getSingularOrPluralDuration(years, 'year');
+      return this.getSingularOrPluralPhrase(years, 'year', ' ago');
     }
     if (months >= 1) {
-      return this.getSingularOrPluralDuration(months, 'month');
+      return this.getSingularOrPluralPhrase(months, 'month', ' ago');
     }
-    if (weeks >= 1) {
-      return this.getSingularOrPluralDuration(weeks, 'week');
-    }
+    // if (weeks >= 2) {
+    //   return this.getSingularOrPluralPhrase(weeks, 'week', ' ago');
+    // }
     if (days >= 1) {
-      return this.getSingularOrPluralDuration(days, 'day');
+      return this.getSingularOrPluralPhrase(days, 'day', ' ago');
     }
-    if (hours >= 1) {
-      return this.getSingularOrPluralDuration(hours, 'hour');
+    if (hours >= 1 && !(hours >= 24)) {
+      return this.getSingularOrPluralPhrase(hours, 'hour', ' ago');
     }
     if (minutes >= 2) {
-      return this.getSingularOrPluralDuration(minutes, 'minute');
+      return this.getSingularOrPluralPhrase(minutes, 'minute', ' ago');
     }
     return 'Now';
   };
 
-  static getSingularOrPluralDuration = (
+  static getSingularOrPluralPhrase = (
     dateNum: number,
     singularString: string,
+    predicate = '',
   ): string => {
     if (dateNum < 1) {
-      return `${dateNum} ${singularString}s ago`;
+      return `${dateNum} ${singularString}s${predicate}`;
     }
     if (dateNum === 1) {
-      return `${dateNum} ${singularString} ago`;
+      return `${dateNum} ${singularString}${predicate}`;
     } else {
-      return `${dateNum} ${singularString}s ago`;
+      return `${dateNum} ${singularString}s${predicate}`;
     }
   };
 }

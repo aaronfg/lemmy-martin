@@ -91,6 +91,17 @@ export const lemmyApi = createApi({
         timeout: DEFAULT_API_TIMEOUT,
       }),
       transformResponse: (response: GetPostsResponse) => response.posts,
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      // Always merge incoming data to the cache entry
+      merge: (currentCache, newItems) => {
+        currentCache.push(...newItems);
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
     }),
   }),
 });

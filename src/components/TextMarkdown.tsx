@@ -21,7 +21,7 @@ export const TextMarkdown = (props: {
         },
         text: {
           color: theme.colors.onSurface,
-          fontSize: textSize,
+          fontSize: textSize ?? 16,
         },
         autolink: {
           color: theme.colors.primary,
@@ -31,7 +31,6 @@ export const TextMarkdown = (props: {
         },
         view: {
           width: '100%',
-          backgroundColor: 'purple',
         },
       }}>
       {children}

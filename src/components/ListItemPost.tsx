@@ -24,6 +24,8 @@ export const ListItemPost = (props: {
     }
   };
 
+  console.log('Post: ' + post.post.name);
+
   return (
     <View style={styles.container}>
       <TouchableRipple onPress={onItemPress} style={styles.ripple}>
@@ -86,7 +88,7 @@ const createStyleSheet = (theme: MD3Theme) => {
       paddingBottom: 4,
     },
     container: {
-      backgroundColor: theme.colors.background,
+      // backgroundColor: theme.colors.background,
       paddingTop: 8,
     },
     content: {
@@ -116,8 +118,8 @@ const createStyleSheet = (theme: MD3Theme) => {
     },
     thumbnailContainer: {
       marginBottom: 12,
-      borderWidth: 1,
-      borderColor: '#333333',
+      // borderWidth: 1,
+      // borderColor: '#333333',
       borderRadius: 20,
     },
     title: {

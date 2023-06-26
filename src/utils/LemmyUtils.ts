@@ -177,13 +177,13 @@ export class LemmyUtils {
     return msg;
   };
 
-  static getPostScore = (rawScore: number): string => {
-    const isMillions = rawScore / 1000000 >= 1;
-    const isThousands = rawScore / 1000 >= 1;
+  static getFormattedNumber = (rawNumber: number): string => {
+    const isMillions = rawNumber / 1000000 >= 1;
+    const isThousands = rawNumber / 1000 >= 1;
     return isMillions
-      ? `${rawScore / 1000000}M`
+      ? `${rawNumber / 1000000}M`
       : isThousands
-      ? `${rawScore / 1000}K`
-      : rawScore.toString();
+      ? `${rawNumber / 1000}K`
+      : rawNumber.toString();
   };
 }
