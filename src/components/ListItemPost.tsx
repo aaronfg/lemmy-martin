@@ -3,6 +3,7 @@ import { PostView } from 'lemmy-js-client';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { MD3Theme, Text, TouchableRipple, useTheme } from 'react-native-paper';
+import { DateUtils } from '../utils/DateUtils';
 
 export const ListItemPost = (props: {
   post: PostView;
@@ -45,10 +46,16 @@ export const ListItemPost = (props: {
             <View style={styles.titleAndComments}>
               {/* Title */}
               <Text style={styles.title}>{post.post.name}</Text>
-              {/* Comment Count, url, time */}
+              {/* Details */}
               <View style={styles.detailsContainer}>
+                {/* Comments */}
                 <Text style={styles.comments}>
                   {post.counts.comments} Comments
+                </Text>
+                {/* Time */}
+                <Text style={styles.comments}>
+                  {' \u2022 '}
+                  {DateUtils.getUserFriendlyPostDate(post.post.published)}
                 </Text>
               </View>
             </View>
