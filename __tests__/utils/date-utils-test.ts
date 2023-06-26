@@ -21,6 +21,16 @@ describe('DateUtils()', () => {
         `"10 days ago"`,
       );
     });
+
+    test('getUserFriendlyPostDate() with date 1 year ago returns correctly', () => {
+      const expectedNow = DateTime.local(2023, 6, 11, 23, 0, 0);
+      Settings.now = () => expectedNow.toMillis();
+      const fakeDate = new Date('6/1/2022');
+      const iso = fakeDate.toISOString();
+      expect(DateUtils.getUserFriendlyPostDate(iso)).toMatchInlineSnapshot(
+        `"1 year ago"`,
+      );
+    });
   });
 
   describe('getSingularOrPluralDuration()', () => {

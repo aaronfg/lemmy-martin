@@ -6,23 +6,26 @@ export class DateUtils {
     const diff = DateTime.now().diff(date, [
       'years',
       'months',
+      'weeks',
       'days',
       'hours',
       'minutes',
     ]);
     const years = diff.years;
     const months = diff.months;
+    const weeks = diff.weeks;
     const days = diff.days;
     const hours = diff.hours;
     const minutes = Math.floor(diff.minutes);
-    console.log('\tdays: ' + days);
-    console.log('\thours: ' + hours);
-    console.log('\tminutes: ' + minutes + '\n\n');
+
     if (years >= 1) {
       return this.getSingularOrPluralDuration(years, 'year');
     }
     if (months >= 1) {
       return this.getSingularOrPluralDuration(months, 'month');
+    }
+    if (weeks >= 1) {
+      return this.getSingularOrPluralDuration(weeks, 'week');
     }
     if (days >= 1) {
       return this.getSingularOrPluralDuration(days, 'day');
@@ -34,16 +37,6 @@ export class DateUtils {
       return this.getSingularOrPluralDuration(minutes, 'minute');
     }
     return 'Now';
-    // if (days > 1) {
-    //   return `${days} days ago`;
-    // } else if (hours < 1) {
-    //   if (minutes < 1) {
-    //     return 'Now';
-    //   }
-    //   return `${minutes} minutes ago`;
-    // } else {
-    //   return `${hours} hours ago`;
-    // }
   };
 
   static getSingularOrPluralDuration = (

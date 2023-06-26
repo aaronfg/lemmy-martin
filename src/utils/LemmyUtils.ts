@@ -176,4 +176,14 @@ export class LemmyUtils {
 
     return msg;
   };
+
+  static getPostScore = (rawScore: number): string => {
+    const isMillions = rawScore / 1000000 >= 1;
+    const isThousands = rawScore / 1000 >= 1;
+    return isMillions
+      ? `${rawScore / 1000000}M`
+      : isThousands
+      ? `${rawScore / 1000}K`
+      : rawScore.toString();
+  };
 }
