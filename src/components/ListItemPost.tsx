@@ -1,8 +1,14 @@
 import Color from 'color';
 import { PostView } from 'lemmy-js-client';
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { MD3Theme, Text, TouchableRipple, useTheme } from 'react-native-paper';
+import {
+  Image,
+  StyleSheet,
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { MD3Theme, Text, useTheme } from 'react-native-paper';
 import { DateUtils } from '../utils/DateUtils';
 import { LemmyUtils } from '../utils/LemmyUtils';
 
@@ -13,23 +19,20 @@ export const ListItemPost = (props: {
   const { post, onThumbnailPress } = props;
   const theme = useTheme();
   const styles = createStyleSheet(theme);
+
   const onItemPress = () => {
     //
   };
 
   const onThumbPress = async () => {
     if (post.post.thumbnail_url) {
-      // Linking.openURL(post.post.thumbnail_url);
-
       onThumbnailPress(post.post.thumbnail_url);
     }
   };
 
-  // console.log('Post: ' + post.post.name);
-
   return (
     <View style={styles.container}>
-      <TouchableRipple onPress={onItemPress} style={styles.ripple}>
+      <TouchableHighlight onPress={onItemPress} style={styles.ripple}>
         <View
           style={
             {
@@ -43,7 +46,9 @@ export const ListItemPost = (props: {
             {/* Creator */}
             <Text style={styles.creatorTxt}>{post.creator.name}</Text>
             <Text> in </Text>
-            <Text style={styles.creatorTxt}>{post.community.name}</Text>
+            <Text style={styles.creatorTxt}>
+              {LemmyUtils.getPostCommunityForItem(post.community)}
+            </Text>
           </View>
           <View style={styles.content}>
             <View style={styles.titleAndComments}>
@@ -85,7 +90,7 @@ export const ListItemPost = (props: {
             )}
           </View>
         </View>
-      </TouchableRipple>
+      </TouchableHighlight>
     </View>
   );
 };

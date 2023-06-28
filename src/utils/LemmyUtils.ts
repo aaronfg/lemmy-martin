@@ -1,3 +1,4 @@
+import { Community } from 'lemmy-js-client';
 import {
   ILemmyInstance,
   LemmyErrorMsgs,
@@ -190,5 +191,14 @@ export class LemmyUtils {
   static getPostUrlShort = (fullUrl: string): string => {
     const url = new URL(fullUrl);
     return url.hostname;
+  };
+
+  static getPostCommunityForItem = (community: Community): string => {
+    if (community.local) {
+      return community.name;
+    } else {
+      const commUrl = new URL(community.actor_id);
+      return `${community.name}@${commUrl.hostname}`;
+    }
   };
 }

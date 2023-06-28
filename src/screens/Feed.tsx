@@ -89,22 +89,21 @@ export const FeedScreen = (): JSX.Element => {
     <SafeAreaView style={styles.safe}>
       <View style={styles.contentContainer}>
         {isLoading || isFetching ? (
-          <ActivityIndicator />
+          <View style={styles.loadingContainer}>
+            <Text>Loading...</Text>
+            <ActivityIndicator style={styles.loadingIndicator} />
+          </View>
         ) : (
           <FlatList
             data={data}
             renderItem={renderItem}
             ListEmptyComponent={<Text>No items to show!</Text>}
             ListFooterComponent={
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-evenly',
-                  paddingVertical: 10,
-                }}>
+              <View style={styles.pageButtonsContainer}>
                 <Button
                   mode="outlined"
                   icon="arrow-left"
+                  disabled={page === 1}
                   onPress={() =>
                     dispatch(settingsFeedPageUpdated(page > 1 ? page - 1 : 1))
                   }>
@@ -159,17 +158,31 @@ export const FeedScreen = (): JSX.Element => {
 
 const createStyleSheet = () => {
   return StyleSheet.create({
-    contentContainer: {},
+    contentContainer: {
+      flex: 1,
+    },
     footerContainer: {
       height: 50,
-      backgroundColor: 'purple',
       position: 'absolute',
       bottom: 0,
       left: 0,
       right: 0,
     },
+    loadingContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    loadingIndicator: {
+      marginVertical: 12,
+    },
     modal: {
       backgroundColor: '#000000',
+    },
+    pageButtonsContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      paddingVertical: 10,
     },
     safe: {
       flex: 1,
