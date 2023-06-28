@@ -6,6 +6,7 @@ import {
   Image,
   Linking,
   ListRenderItemInfo,
+  StatusBar,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -17,6 +18,7 @@ import {
   Modal,
   Portal,
   Text,
+  useTheme,
 } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ListItemPost } from '../components/ListItemPost';
@@ -44,6 +46,7 @@ export const FeedScreen = (): JSX.Element => {
 
   const dispatch = useAppDispatch();
   const dimensions = useWindowDimensions();
+  const theme = useTheme();
 
   console.log('FEED sort: ' + sortType + '\tpage: ' + page);
   const { isLoading, error, isFetching, data } = useGetPostsQuery({
@@ -87,6 +90,7 @@ export const FeedScreen = (): JSX.Element => {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <StatusBar backgroundColor={theme.colors.tertiary} />
       <View style={styles.contentContainer}>
         {isLoading || isFetching ? (
           <View style={styles.loadingContainer}>

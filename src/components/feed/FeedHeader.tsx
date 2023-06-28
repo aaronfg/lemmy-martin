@@ -42,6 +42,17 @@ export const FeedListHeader = (): JSX.Element => {
 
   const styles = createStyleSheet(theme);
 
+  const createFeedMenuItem = (fType: ListingType) => {
+    return (
+      <Menu.Item
+        key={nanoid()}
+        onPress={() => onFeedTypePress(fType)}
+        titleStyle={fType === feedType ? styles.currentFeedType : undefined}
+        title={fType}
+      />
+    );
+  };
+
   const onTypePress = () => {
     setShowMenuType(true);
   };
@@ -65,21 +76,6 @@ export const FeedListHeader = (): JSX.Element => {
     onMenuTypeDismiss();
   };
 
-  // const onTypeAllPress = () => {
-  //   if (feedType !== 'All'){
-  //     dispatch(settingsFeedTypeUpdated('All'));
-  //   }
-  //   onMenuTypeDismiss();
-  // };
-  // const onTypeLocalPress = () => {
-  //   dispatch(settingsFeedTypeUpdated('Local'));
-  //   onMenuTypeDismiss();
-  // };
-  // const onTypeSubscribedPress = () => {
-  //   dispatch(settingsFeedTypeUpdated('Subscribed'));
-  //   onMenuTypeDismiss();
-  // };
-
   const onSortTypePress = (sort: SortTypeValue) => {
     console.log('sort: ' + sort);
     dispatch(settingsFeedSortUpdated(sort));
@@ -95,33 +91,14 @@ export const FeedListHeader = (): JSX.Element => {
           onDismiss={onMenuTypeDismiss}
           anchor={
             <TouchableHighlight onPress={onTypePress}>
-              <Text style={styles.title}>{feedType}</Text>
+              <Button icon="adjust" labelStyle={{ fontSize: 20 }}>
+                {feedType}
+              </Button>
             </TouchableHighlight>
           }>
-          <Menu.Item
-            key={nanoid()}
-            onPress={() => onFeedTypePress('All')}
-            titleStyle={feedType === 'All' ? styles.currentFeedType : undefined}
-            title="All"
-          />
-          <Menu.Item
-            key={nanoid()}
-            onPress={() => onFeedTypePress('Local')}
-            titleStyle={
-              feedType === 'Local' ? styles.currentFeedType : undefined
-            }
-            title="Local"
-          />
-          {currentAccount && (
-            <Menu.Item
-              key={nanoid()}
-              onPress={() => onFeedTypePress('Subscribed')}
-              titleStyle={
-                feedType === 'Subscribed' ? styles.currentFeedType : undefined
-              }
-              title="Subscribed"
-            />
-          )}
+          {createFeedMenuItem('All')}
+          {createFeedMenuItem('Local')}
+          {currentAccount && createFeedMenuItem('Subscribed')}
         </Menu>
         {/* Sort Type */}
         <Menu
@@ -129,7 +106,10 @@ export const FeedListHeader = (): JSX.Element => {
           onDismiss={onMenuSortDismiss}
           anchor={
             <TouchableHighlight onPress={onSortPress}>
-              <Button icon="sort-variant">{sortType}</Button>
+              <View style={styles.sortContainer}>
+                <Text style={styles.sortText}>Sort: </Text>
+                <Button labelStyle={{ fontSize: 18 }}>{sortType}</Button>
+              </View>
             </TouchableHighlight>
           }>
           {SortTypeValues.map(val => (
@@ -151,8 +131,9 @@ const createStyleSheet = (theme: MD3Theme) => {
     container: {
       flexDirection: 'row',
       backgroundColor: theme.colors.tertiary,
-      padding: 16,
+      paddingVertical: 8,
       alignItems: 'center',
+      justifyContent: 'space-between',
     },
     currentFeedType: {
       color: theme.colors.primary,
@@ -160,6 +141,14 @@ const createStyleSheet = (theme: MD3Theme) => {
     title: {
       fontSize: 20,
       fontWeight: 'bold',
+    },
+    sortContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    sortText: {
+      fontSize: 16,
+      marginBottom: 2,
     },
     sortType: {
       fontSize: 16,
