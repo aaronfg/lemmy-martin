@@ -186,4 +186,9 @@ export class LemmyUtils {
       ? `${rawNumber / 1000}K`
       : rawNumber.toString();
   };
+
+  static getPostUrlShort = (fullUrl: string): string => {
+    const url = new URL(fullUrl);
+    return url.hostname;
+  };
 }

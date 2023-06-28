@@ -17,11 +17,17 @@ export const getSettingsCurrentAccountToken = (state: RootState) =>
 export const getSettingsFeedSource = (state: RootState) =>
   state.settings.feed.source;
 
+export const getSettingsFeedSortType = (state: RootState) =>
+  state.settings.feed.feedSortType;
+
+export const getSettingsFeedType = (state: RootState) =>
+  state.settings.feed.type;
+
+export const getSettingsFeedPage = (state: RootState) =>
+  state.settings.feed.page;
+
 export const getSettingsDefaultInstance = (state: RootState) =>
   state.settings.defaultInstance;
-
-export const getSettingsFeedSortType = (state: RootState) =>
-  state.settings.feedSortType;
 
 /** Returns the saved accounts as a Set */
 export const getAccounts = createSelector(

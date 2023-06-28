@@ -22,8 +22,9 @@ import {
 } from '../settings/selectors';
 import { LemmyAPIMethods, LemmyAPIPaths } from './types';
 
-export enum CommunityApiTagTypes {
+export enum LemmyApiTagTypes {
   Community = 'Community',
+  Posts = 'Posts',
 }
 
 const rawBaseQuery = fetchBaseQuery({
@@ -56,7 +57,7 @@ const dynamicBaseQuery: BaseQueryFn<
 /** The RTK Query api for community related api calls */
 export const lemmyApi = createApi({
   reducerPath: 'lemmyApi',
-  tagTypes: [CommunityApiTagTypes.Community],
+  tagTypes: [LemmyApiTagTypes.Community, LemmyApiTagTypes.Posts],
   baseQuery: dynamicBaseQuery,
   endpoints: builder => ({
     getCommunities: builder.query<CommunityView[], ListCommunities>({
@@ -67,7 +68,7 @@ export const lemmyApi = createApi({
         method: LemmyAPIMethods.ListCommunities,
         timeout: DEFAULT_API_TIMEOUT,
       }),
-      providesTags: [CommunityApiTagTypes.Community],
+      providesTags: [LemmyApiTagTypes.Community],
       transformResponse: (response: ListCommunitiesResponse) =>
         response.communities,
       serializeQueryArgs: ({ endpointName }) => {
@@ -90,18 +91,30 @@ export const lemmyApi = createApi({
         method: LemmyAPIMethods.GetPosts,
         timeout: DEFAULT_API_TIMEOUT,
       }),
+      providesTags: [LemmyApiTagTypes.Posts],
       transformResponse: (response: GetPostsResponse) => response.posts,
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName;
-      },
-      // Always merge incoming data to the cache entry
-      merge: (currentCache, newItems) => {
-        currentCache.push(...newItems);
-      },
-      // Refetch when the page arg changes
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg;
-      },
+      // serializeQueryArgs: ({ endpointName }) => {
+      //   return endpointName;
+      // },
+      // // Always merge incoming data to the cache entry
+      // merge: (currentCache, newItems, otherArgs) => {
+      //   console.log('=== merge: ', otherArgs.arg);
+      //   if (otherArgs.arg.page === 1) {
+      //     console.log('\tcurrentCache items: ' + currentCache.length);
+      //     console.log('\nnewItems: ' + newItems.length);
+      //     currentCache = newItems;
+      //   } else {
+      //     currentCache.push(...newItems);
+      //   }
+      // },
+      // // Refetch when the page arg changes
+      // forceRefetch({ currentArg, previousArg }) {
+      //   console.log(
+      //     'forceRefetch? currentArg !== previousArg: ' +
+      //       (currentArg !== previousArg),
+      //   );
+      //   return currentArg !== previousArg;
+      // },
     }),
   }),
 });

@@ -7,9 +7,10 @@ import {
 } from '@reduxjs/toolkit';
 import { communitiesPageUpdated } from '../features/communities/actions';
 import { lemmyLogin } from '../features/lemmy/actions';
-import { lemmyApi } from '../features/lemmy/api';
+import { LemmyApiTagTypes, lemmyApi } from '../features/lemmy/api';
 import {
   settingsCurrentAccountChanged,
+  settingsFeedTypeUpdated,
   settingsUpdateAccounts,
 } from '../features/settings/actions';
 import {
@@ -86,6 +87,16 @@ startAppListening({
         },
         { forceRefetch: true },
       ),
+    );
+  },
+});
+
+startAppListening({
+  actionCreator: settingsFeedTypeUpdated,
+  effect: (action, listenerApi) => {
+    console.log('middleware caught feet type update');
+    listenerApi.dispatch(
+      lemmyApi.util.invalidateTags([LemmyApiTagTypes.Posts]),
     );
   },
 });

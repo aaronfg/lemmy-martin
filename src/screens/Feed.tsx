@@ -11,11 +11,23 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import { ActivityIndicator, Button, Modal, Portal } from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Button,
+  Modal,
+  Portal,
+  Text,
+} from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ListItemPost } from '../components/ListItemPost';
 import { useGetPostsQuery } from '../features/lemmy/api';
-import { getSettingsFeedSortType } from '../features/settings/selectors';
+import { settingsFeedPageUpdated } from '../features/settings/actions';
+import {
+  getSettingsCurrentAccountToken,
+  getSettingsFeedPage,
+  getSettingsFeedSortType,
+  getSettingsFeedType,
+} from '../features/settings/selectors';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 /**
@@ -24,20 +36,26 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
  */
 export const FeedScreen = (): JSX.Element => {
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const sortType = useAppSelector(getSettingsFeedSortType);
+  const feedType = useAppSelector(getSettingsFeedType);
+  const page = useAppSelector(getSettingsFeedPage);
+  const authToken = useAppSelector(getSettingsCurrentAccountToken);
 
   const dispatch = useAppDispatch();
   const dimensions = useWindowDimensions();
 
+  console.log('FEED sort: ' + sortType + '\tpage: ' + page);
   const { isLoading, error, isFetching, data } = useGetPostsQuery({
     sort: sortType,
     page,
+    type_: feedType,
+    auth: authToken,
   });
   const styles = createStyleSheet();
 
   const onListEndReached = (info: { distanceFromEnd: number }) => {
-    setPage(page + 1);
+    dispatch(settingsFeedPageUpdated(page + 1));
   };
 
   const onPostsPress = async () => {
@@ -70,16 +88,40 @@ export const FeedScreen = (): JSX.Element => {
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.contentContainer}>
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          ListEmptyComponent={<ActivityIndicator />}
-          onEndReached={onListEndReached}
-          onEndReachedThreshold={0.8}
-          // ItemSeparatorComponent={() => (
-          //   <Divider style={{ backgroundColor: 'red' }} />
-          // )}
-        />
+        {isLoading || isFetching ? (
+          <ActivityIndicator />
+        ) : (
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            ListEmptyComponent={<Text>No items to show!</Text>}
+            ListFooterComponent={
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-evenly',
+                  paddingVertical: 10,
+                }}>
+                <Button
+                  mode="outlined"
+                  icon="arrow-left"
+                  onPress={() =>
+                    dispatch(settingsFeedPageUpdated(page > 1 ? page - 1 : 1))
+                  }>
+                  Prev
+                </Button>
+                <Button
+                  mode="outlined"
+                  icon="arrow-right"
+                  onPress={() => dispatch(settingsFeedPageUpdated(page + 1))}>
+                  Next
+                </Button>
+              </View>
+            }
+            // onEndReached={onListEndReached}
+            // onEndReachedThreshold={0.8}
+          />
+        )}
       </View>
       {previewUrl && (
         <Portal>
@@ -92,7 +134,6 @@ export const FeedScreen = (): JSX.Element => {
               <Image
                 source={{ uri: previewUrl }}
                 style={{
-                  // backgroundColor: 'gray',
                   width: dimensions.width,
                   height: dimensions.height - 100,
                 }}

@@ -4,6 +4,7 @@ import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { MD3Theme, Text, TouchableRipple, useTheme } from 'react-native-paper';
 import { DateUtils } from '../utils/DateUtils';
+import { LemmyUtils } from '../utils/LemmyUtils';
 
 export const ListItemPost = (props: {
   post: PostView;
@@ -24,7 +25,7 @@ export const ListItemPost = (props: {
     }
   };
 
-  console.log('Post: ' + post.post.name);
+  // console.log('Post: ' + post.post.name);
 
   return (
     <View style={styles.container}>
@@ -54,6 +55,14 @@ export const ListItemPost = (props: {
                 <Text style={styles.comments}>
                   {post.counts.comments} Comments
                 </Text>
+
+                {/* url */}
+                {post.post.url && (
+                  <Text style={styles.comments}>
+                    {' \u2022 '}
+                    {LemmyUtils.getPostUrlShort(post.post.url)}
+                  </Text>
+                )}
                 {/* Time */}
                 <Text style={styles.comments}>
                   {' \u2022 '}
@@ -102,8 +111,9 @@ const createStyleSheet = (theme: MD3Theme) => {
     },
     detailsContainer: {
       flexDirection: 'row',
-      // flex: 1,
       paddingVertical: 8,
+      flexWrap: 'wrap',
+      paddingRight: 12,
     },
     ripple: {
       // paddingVertical: 8,

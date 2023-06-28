@@ -66,3 +66,21 @@ export enum LemmyAPIMethods {
   ListCommunities = 'GET',
 }
 export const LEMMY_API_PATH = 'api/v3/';
+
+export const SortTypeValues = [
+  'Active',
+  'Hot',
+  'New',
+  'Old',
+  'TopDay',
+  'TopWeek',
+  'TopMonth',
+  'TopYear',
+  'TopAll',
+  'MostComments',
+  'NewComments',
+  'TopHour',
+  'TopSixHour',
+  'TopTwelveHour',
+] as const;
+export type SortTypeValue = (typeof SortTypeValues)[number];
