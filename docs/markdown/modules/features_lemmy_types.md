@@ -19,12 +19,29 @@
 - [ILemmyLoginParams](../interfaces/features_lemmy_types.ILemmyLoginParams.md)
 - [ILemmyState](../interfaces/features_lemmy_types.ILemmyState.md)
 
+### Type Aliases
+
+- [SortTypeValue](features_lemmy_types.md#sorttypevalue)
+
 ### Variables
 
 - [LEMMY\_API\_PATH](features_lemmy_types.md#lemmy_api_path)
+- [SortTypeValues](features_lemmy_types.md#sorttypevalues)
+
+## Type Aliases
+
+### SortTypeValue
+
+Ƭ **SortTypeValue**: typeof [`SortTypeValues`](features_lemmy_types.md#sorttypevalues)[`number`]
 
 ## Variables
 
 ### LEMMY\_API\_PATH
 
 • `Const` **LEMMY\_API\_PATH**: ``"api/v3/"``
+
+___
+
+### SortTypeValues
+
+• `Const` **SortTypeValues**: readonly [``"Active"``, ``"Hot"``, ``"New"``, ``"Old"``, ``"TopDay"``, ``"TopWeek"``, ``"TopMonth"``, ``"TopYear"``, ``"TopAll"``, ``"MostComments"``, ``"NewComments"``, ``"TopHour"``, ``"TopSixHour"``, ``"TopTwelveHour"``]

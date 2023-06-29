@@ -22,6 +22,7 @@ Text component for rendering Markdown
 | :------ | :------ | :------ |
 | `props` | `Object` | The RN Paper theme that is used to style text and links |
 | `props.children` | `ReactNode` | - |
+| `props.textSize?` | `number` | - |
 | `props.theme` | `MD3Theme` | - |
 
 #### Returns

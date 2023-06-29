@@ -8,10 +8,17 @@
 
 ### Enumeration Members
 
+- [GetPosts](features_lemmy_types.LemmyAPIPaths.md#getposts)
 - [ListCommunities](features_lemmy_types.LemmyAPIPaths.md#listcommunities)
 
 ## Enumeration Members
 
+### GetPosts
+
+• **GetPosts** = ``"post/list"``
+
+___
+
 ### ListCommunities
 
-• **ListCommunities** = ``"/community/list"``
+• **ListCommunities** = ``"community/list"``

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Divider, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,12 +6,12 @@ import { ErrorMsg } from '../components/ErrorMsg';
 import { ListFooterLoading } from '../components/ListFooterLoading';
 import { ListItemCommunity } from '../components/ListItemCommunity';
 import { communitiesPageUpdated } from '../features/communities/actions';
-import { useGetCommunitiesQuery } from '../features/communities/api';
 import {
   getCommunitesListPage,
   getCommunityListItems,
 } from '../features/communities/selectors';
 import { ICommunityListItem } from '../features/communities/types';
+import { useGetCommunitiesQuery } from '../features/lemmy/api';
 import { getLemmyAPIError } from '../features/lemmy/selectors';
 import {
   getSettingsCurrentAccountToken,
@@ -52,10 +52,13 @@ export const CommunitiesScreen = (): JSX.Element => {
     }
   };
 
-  const renderItem = (item: ListRenderItemInfo<ICommunityListItem>) => {
-    return <ListItemCommunity item={item.item} />;
-    // return <Text>ite</Text>;
-  };
+  const renderItem = useCallback(
+    (item: ListRenderItemInfo<ICommunityListItem>) => {
+      return <ListItemCommunity item={item.item} />;
+      // return <Text>ite</Text>;
+    },
+    [],
+  );
 
   const onListEndReached = (info: { distanceFromEnd: number }) => {
     log.debug('onListEndReached(). dispatching communitiesPageUpdated()');

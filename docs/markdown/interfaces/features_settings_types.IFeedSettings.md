@@ -11,9 +11,24 @@ screen / data.
 
 ### Properties
 
+- [feedSortType](features_settings_types.IFeedSettings.md#feedsorttype)
+- [page](features_settings_types.IFeedSettings.md#page)
 - [source](features_settings_types.IFeedSettings.md#source)
+- [type](features_settings_types.IFeedSettings.md#type)
 
 ## Properties
+
+### feedSortType
+
+• **feedSortType**: `SortType`
+
+___
+
+### page
+
+• **page**: `number`
+
+___
 
 ### source
 
@@ -23,3 +38,9 @@ The source of this feed.
 
 This is about whether the feed is pulling from the local instance or
 all Lemmy instances
+
+___
+
+### type
+
+• **type**: `ListingType`

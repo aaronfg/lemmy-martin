@@ -17,7 +17,10 @@ Class with utility methods related to Lemmy API and accounts
 - [createILemmyInstance](utils_LemmyUtils.LemmyUtils.md#createilemmyinstance)
 - [getDescriptionFirstParagraph](utils_LemmyUtils.LemmyUtils.md#getdescriptionfirstparagraph)
 - [getDescriptionHasMultiParagraphs](utils_LemmyUtils.LemmyUtils.md#getdescriptionhasmultiparagraphs)
+- [getFormattedNumber](utils_LemmyUtils.LemmyUtils.md#getformattednumber)
 - [getFriendlyErrorMsg](utils_LemmyUtils.LemmyUtils.md#getfriendlyerrormsg)
+- [getPostCommunityForItem](utils_LemmyUtils.LemmyUtils.md#getpostcommunityforitem)
+- [getPostUrlShort](utils_LemmyUtils.LemmyUtils.md#getposturlshort)
 - [getShortDescription](utils_LemmyUtils.LemmyUtils.md#getshortdescription)
 - [getUpdatedAccounts](utils_LemmyUtils.LemmyUtils.md#getupdatedaccounts)
 - [isDescriptionLong](utils_LemmyUtils.LemmyUtils.md#isdescriptionlong)
@@ -90,6 +93,22 @@ to get a shorter, list-friendly description.
 
 ___
 
+### getFormattedNumber
+
+▸ `Static` **getFormattedNumber**(`rawNumber`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `rawNumber` | `number` |
+
+#### Returns
+
+`string`
+
+___
+
 ### getFriendlyErrorMsg
 
 ▸ `Static` **getFriendlyErrorMsg**(`error`): `string`
@@ -101,6 +120,38 @@ Returns a user-friendly error message given the API-provided `error`
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `error` | `string` | The error string to base the frfiendly message on |
+
+#### Returns
+
+`string`
+
+___
+
+### getPostCommunityForItem
+
+▸ `Static` **getPostCommunityForItem**(`community`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `community` | `Community` |
+
+#### Returns
+
+`string`
+
+___
+
+### getPostUrlShort
+
+▸ `Static` **getPostUrlShort**(`fullUrl`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `fullUrl` | `string` |
 
 #### Returns
 

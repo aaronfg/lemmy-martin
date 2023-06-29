@@ -6,10 +6,11 @@ import {
   createListenerMiddleware,
 } from '@reduxjs/toolkit';
 import { communitiesPageUpdated } from '../features/communities/actions';
-import { communityApi } from '../features/communities/api';
 import { lemmyLogin } from '../features/lemmy/actions';
+import { LemmyApiTagTypes, lemmyApi } from '../features/lemmy/api';
 import {
   settingsCurrentAccountChanged,
+  settingsFeedTypeUpdated,
   settingsUpdateAccounts,
 } from '../features/settings/actions';
 import {
@@ -62,7 +63,7 @@ startAppListening({
     const authToken = getSettingsCurrentAccountToken(listenerApi.getState());
     log.debug('dispatching page ' + action.payload + '\tauth: ' + authToken);
     listenerApi.dispatch(
-      communityApi.endpoints.getCommunities.initiate({
+      lemmyApi.endpoints.getCommunities.initiate({
         page: action.payload,
         auth: authToken,
         sort: 'Active',
@@ -78,7 +79,7 @@ startAppListening({
     log.debug('settingsUpdateAccounts listener \tauth: ' + authToken);
     // re-fetch communities
     listenerApi.dispatch(
-      communityApi.endpoints.getCommunities.initiate(
+      lemmyApi.endpoints.getCommunities.initiate(
         {
           page: 1,
           auth: authToken,
@@ -86,6 +87,15 @@ startAppListening({
         },
         { forceRefetch: true },
       ),
+    );
+  },
+});
+
+startAppListening({
+  actionCreator: settingsFeedTypeUpdated,
+  effect: (action, listenerApi) => {
+    listenerApi.dispatch(
+      lemmyApi.util.invalidateTags([LemmyApiTagTypes.Posts]),
     );
   },
 });

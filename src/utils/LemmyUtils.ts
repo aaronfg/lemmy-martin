@@ -1,3 +1,4 @@
+import { Community } from 'lemmy-js-client';
 import {
   ILemmyInstance,
   LemmyErrorMsgs,
@@ -175,5 +176,29 @@ export class LemmyUtils {
     }
 
     return msg;
+  };
+
+  static getFormattedNumber = (rawNumber: number): string => {
+    const isMillions = rawNumber / 1000000 >= 1;
+    const isThousands = rawNumber / 1000 >= 1;
+    return isMillions
+      ? `${rawNumber / 1000000}M`
+      : isThousands
+      ? `${rawNumber / 1000}K`
+      : rawNumber.toString();
+  };
+
+  static getPostUrlShort = (fullUrl: string): string => {
+    const url = new URL(fullUrl);
+    return url.hostname;
+  };
+
+  static getPostCommunityForItem = (community: Community): string => {
+    if (community.local) {
+      return community.name;
+    } else {
+      const commUrl = new URL(community.actor_id);
+      return `${community.name}@${commUrl.hostname}`;
+    }
   };
 }

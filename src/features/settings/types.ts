@@ -1,3 +1,5 @@
+import { ListingType, SortType } from 'lemmy-js-client';
+
 /**
  * Descriptor for a Lemmy account
  */
@@ -35,6 +37,9 @@ export interface IFeedSettings {
    * all Lemmy instances
    */
   source: FeedSource;
+  feedSortType: SortType;
+  type: ListingType;
+  page: number;
 }
 
 /** The source of the feed data (local instance only or all instances) */

@@ -173,4 +173,24 @@ describe('LemmyUtils Tests', () => {
       );
     });
   });
+
+  describe('getFormattedNumber()', () => {
+    test('getFormattedNumber() with number < 1000 returns same number as string', () => {
+      expect(LemmyUtils.getFormattedNumber(245)).toEqual('245');
+    });
+
+    test('getFormattedNumber() with number > 1000 returns correct string', () => {
+      expect(LemmyUtils.getFormattedNumber(2450)).toMatchInlineSnapshot(
+        `"2.45K"`,
+      );
+    });
+    test('getFormattedNumber() with number === 1000 returns correct string', () => {
+      expect(LemmyUtils.getFormattedNumber(1000)).toMatchInlineSnapshot(`"1K"`);
+    });
+    test('getFormattedNumber() with number over a million returns correct string', () => {
+      expect(LemmyUtils.getFormattedNumber(1200000)).toMatchInlineSnapshot(
+        `"1.2M"`,
+      );
+    });
+  });
 });

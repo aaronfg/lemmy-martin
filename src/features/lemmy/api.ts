@@ -7,19 +7,24 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import {
   CommunityView,
+  GetPosts,
+  GetPostsResponse,
   ListCommunities,
   ListCommunitiesResponse,
+  PostView,
 } from 'lemmy-js-client';
 import { RootState } from '../../redux/store';
+import { DEFAULT_API_TIMEOUT } from '../../types';
 import { APIUtils } from '../../utils/APIUtils';
-import { LemmyAPIMethods } from '../lemmy/types';
 import {
   getCurrentInstance,
   getSettingsDefaultInstance,
 } from '../settings/selectors';
+import { LemmyAPIMethods, LemmyAPIPaths } from './types';
 
-export enum CommunityApiTagTypes {
+export enum LemmyApiTagTypes {
   Community = 'Community',
+  Posts = 'Posts',
 }
 
 const rawBaseQuery = fetchBaseQuery({
@@ -50,18 +55,20 @@ const dynamicBaseQuery: BaseQueryFn<
 };
 
 /** The RTK Query api for community related api calls */
-export const communityApi = createApi({
-  reducerPath: 'communitiesApi',
-  tagTypes: [CommunityApiTagTypes.Community],
+export const lemmyApi = createApi({
+  reducerPath: 'lemmyApi',
+  tagTypes: [LemmyApiTagTypes.Community, LemmyApiTagTypes.Posts],
   baseQuery: dynamicBaseQuery,
   endpoints: builder => ({
     getCommunities: builder.query<CommunityView[], ListCommunities>({
       query: args => ({
-        url: `community/list?${APIUtils.getQueryParamsFromObj(args)}`,
+        url: `${LemmyAPIPaths.ListCommunities}?${APIUtils.getQueryParamsFromObj(
+          args,
+        )}`,
         method: LemmyAPIMethods.ListCommunities,
-        timeout: 5000,
+        timeout: DEFAULT_API_TIMEOUT,
       }),
-      providesTags: [CommunityApiTagTypes.Community],
+      providesTags: [LemmyApiTagTypes.Community],
       transformResponse: (response: ListCommunitiesResponse) =>
         response.communities,
       serializeQueryArgs: ({ endpointName }) => {
@@ -76,7 +83,40 @@ export const communityApi = createApi({
         return currentArg !== previousArg;
       },
     }),
+    getPosts: builder.query<PostView[], GetPosts>({
+      query: args => ({
+        url: `${LemmyAPIPaths.GetPosts}?${APIUtils.getQueryParamsFromObj(
+          args,
+        )}`,
+        method: LemmyAPIMethods.GetPosts,
+        timeout: DEFAULT_API_TIMEOUT,
+      }),
+      providesTags: [LemmyApiTagTypes.Posts],
+      transformResponse: (response: GetPostsResponse) => response.posts,
+      // serializeQueryArgs: ({ endpointName }) => {
+      //   return endpointName;
+      // },
+      // // Always merge incoming data to the cache entry
+      // merge: (currentCache, newItems, otherArgs) => {
+      //   console.log('=== merge: ', otherArgs.arg);
+      //   if (otherArgs.arg.page === 1) {
+      //     console.log('\tcurrentCache items: ' + currentCache.length);
+      //     console.log('\nnewItems: ' + newItems.length);
+      //     currentCache = newItems;
+      //   } else {
+      //     currentCache.push(...newItems);
+      //   }
+      // },
+      // // Refetch when the page arg changes
+      // forceRefetch({ currentArg, previousArg }) {
+      //   console.log(
+      //     'forceRefetch? currentArg !== previousArg: ' +
+      //       (currentArg !== previousArg),
+      //   );
+      //   return currentArg !== previousArg;
+      // },
+    }),
   }),
 });
 
-export const { useGetCommunitiesQuery } = communityApi;
+export const { useGetCommunitiesQuery, useGetPostsQuery } = lemmyApi;

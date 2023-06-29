@@ -11,7 +11,10 @@
 - [getSettingsCurrentAccount](features_settings_selectors.md#getsettingscurrentaccount)
 - [getSettingsCurrentAccountToken](features_settings_selectors.md#getsettingscurrentaccounttoken)
 - [getSettingsDefaultInstance](features_settings_selectors.md#getsettingsdefaultinstance)
+- [getSettingsFeedPage](features_settings_selectors.md#getsettingsfeedpage)
+- [getSettingsFeedSortType](features_settings_selectors.md#getsettingsfeedsorttype)
 - [getSettingsFeedSource](features_settings_selectors.md#getsettingsfeedsource)
+- [getSettingsFeedType](features_settings_selectors.md#getsettingsfeedtype)
 
 ## Functions
 
@@ -101,6 +104,38 @@ ___
 
 ___
 
+### getSettingsFeedPage
+
+▸ **getSettingsFeedPage**(`state`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `Object` |
+
+#### Returns
+
+`number`
+
+___
+
+### getSettingsFeedSortType
+
+▸ **getSettingsFeedSortType**(`state`): `SortType`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `Object` |
+
+#### Returns
+
+`SortType`
+
+___
+
 ### getSettingsFeedSource
 
 ▸ **getSettingsFeedSource**(`state`): [`FeedSource`](../enums/features_settings_types.FeedSource.md)
@@ -116,3 +151,19 @@ Returns the feed source of our `settings` slice
 #### Returns
 
 [`FeedSource`](../enums/features_settings_types.FeedSource.md)
+
+___
+
+### getSettingsFeedType
+
+▸ **getSettingsFeedType**(`state`): `ListingType`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `Object` |
+
+#### Returns
+
+`ListingType`

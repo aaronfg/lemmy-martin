@@ -29,6 +29,8 @@ export interface ILemmyLoginError {
   error: string;
 }
 
+// --- API Params
+
 /** Params for the {@link features/lemmy/actions!lemmyLogin} action */
 export interface ILemmyLoginParams {
   /** The param for the login api call */
@@ -56,9 +58,29 @@ export enum LemmyErrorMsgs {
 }
 
 export enum LemmyAPIPaths {
-  ListCommunities = '/community/list',
+  GetPosts = 'post/list',
+  ListCommunities = 'community/list',
 }
 export enum LemmyAPIMethods {
+  GetPosts = 'GET',
   ListCommunities = 'GET',
 }
 export const LEMMY_API_PATH = 'api/v3/';
+
+export const SortTypeValues = [
+  'Active',
+  'Hot',
+  'New',
+  'Old',
+  'TopDay',
+  'TopWeek',
+  'TopMonth',
+  'TopYear',
+  'TopAll',
+  'MostComments',
+  'NewComments',
+  'TopHour',
+  'TopSixHour',
+  'TopTwelveHour',
+] as const;
+export type SortTypeValue = (typeof SortTypeValues)[number];

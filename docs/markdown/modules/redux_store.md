@@ -29,6 +29,6 @@ ___
 
 ### store
 
-• `Const` **store**: `ToolkitStore`<`Object`, `AnyAction`, `MiddlewareArray`<[`ListenerMiddleware`<`unknown`, `ThunkDispatch`<`unknown`, `unknown`, `AnyAction`\>, `unknown`\>, `ThunkMiddleware`<`Object`, `AnyAction`, `undefined`\>, ...Middleware<Object, any, Dispatch<AnyAction\>\>[], `Middleware`<{}, `RootState`<{ `getCommunities`: `QueryDefinition`<`ListCommunities`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, {}\>, [`Community`](../enums/features_communities_api.CommunityApiTagTypes.md#community), `CommunityView`[], ``"communitiesApi"``\>  }, `string`, ``"communitiesApi"``\>, `ThunkDispatch`<`any`, `any`, `AnyAction`\>\>]\>\>
+• `Const` **store**: `ToolkitStore`<`Object`, `AnyAction`, `MiddlewareArray`<[`ListenerMiddleware`<`unknown`, `ThunkDispatch`<`unknown`, `unknown`, `AnyAction`\>, `unknown`\>, `ThunkMiddleware`<`Object`, `AnyAction`, `undefined`\>, ...Middleware<Object, any, Dispatch<AnyAction\>\>[], `Middleware`<{}, `RootState`<{ `getCommunities`: `QueryDefinition`<`ListCommunities`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, {}\>, `LemmyApiTagTypes`, `CommunityView`[], ``"lemmyApi"``\> ; `getPosts`: `QueryDefinition`<`GetPosts`, `BaseQueryFn`<`string` \| `FetchArgs`, `unknown`, `FetchBaseQueryError`, {}, {}\>, `LemmyApiTagTypes`, `PostView`[], ``"lemmyApi"``\>  }, `string`, ``"lemmyApi"``\>, `ThunkDispatch`<`any`, `any`, `AnyAction`\>\>]\>\>
 
 Our redux store

@@ -2,7 +2,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
 import { RootState } from '../../redux/store';
 import { LemmyUtils } from '../../utils/LemmyUtils';
-import { communityApi } from './api';
+import { lemmyApi } from '../lemmy/api';
 import { ICommunityListItem } from './types';
 
 export const getCommunitesListPage = (state: RootState) =>
@@ -10,18 +10,18 @@ export const getCommunitesListPage = (state: RootState) =>
 
 /** Gets the Communities returned from the `communityApi.getCommunities` endpoint */
 export const getCommunityAPICommunitiesRaw = (state: RootState) =>
-  communityApi.endpoints.getCommunities.select({})(state).data;
+  lemmyApi.endpoints.getCommunities.select({})(state).data;
 
-const getCommunityAPICommunities = createSelector(
+const getLemmyAPICommunities = createSelector(
   [(state: RootState) => state, getCommunitesListPage],
   (state, page) => {
-    return communityApi.endpoints.getCommunities.select({ page })(state).data;
+    return lemmyApi.endpoints.getCommunities.select({ page })(state).data;
   },
 );
 
 /** Returns the Communities we have loaded as an `ICommunityListItem` array */
 export const getCommunityListItems = createSelector(
-  getCommunityAPICommunities,
+  getLemmyAPICommunities,
   communities => {
     const items: ICommunityListItem[] = [];
     if (communities) {
