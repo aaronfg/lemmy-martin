@@ -94,7 +94,6 @@ startAppListening({
 startAppListening({
   actionCreator: settingsFeedTypeUpdated,
   effect: (action, listenerApi) => {
-    console.log('middleware caught feet type update');
     listenerApi.dispatch(
       lemmyApi.util.invalidateTags([LemmyApiTagTypes.Posts]),
     );

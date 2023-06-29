@@ -114,13 +114,13 @@ export const FeedScreen = (): JSX.Element => {
                   onPress={() =>
                     dispatch(settingsFeedPageUpdated(page > 1 ? page - 1 : 1))
                   }>
-                  Prev
+                  Prev Page
                 </Button>
                 <Button
                   mode="outlined"
                   icon="arrow-right"
                   onPress={() => dispatch(settingsFeedPageUpdated(page + 1))}>
-                  Next
+                  Next Page
                 </Button>
               </View>
             }

@@ -14,7 +14,6 @@ export const useOrientation = () => {
   Dimensions.addEventListener(
     'change',
     ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => {
-      console.log(screen);
       setOrientation({
         isLandscape: window.width > window.height,
         isPortrait: window.height > window.width,

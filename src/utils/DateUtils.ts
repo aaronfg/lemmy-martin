@@ -11,11 +11,8 @@ export class DateUtils {
     ]);
     const years = diff.years;
     const months = diff.months;
-    // const weeks = diff.weeks;
     const days = diff.days;
-    // console.log('days: ' + days);
     const hours = diff.hours;
-    // console.log('hours: ' + hours);
     const minutes = Math.floor(diff.minutes);
 
     if (years >= 1) {

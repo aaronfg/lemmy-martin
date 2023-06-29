@@ -77,7 +77,6 @@ export const FeedListHeader = (): JSX.Element => {
   };
 
   const onSortTypePress = (sort: SortTypeValue) => {
-    console.log('sort: ' + sort);
     dispatch(settingsFeedSortUpdated(sort));
     dispatch(lemmyApi.util.invalidateTags([LemmyApiTagTypes.Posts]));
     onMenuSortDismiss();
