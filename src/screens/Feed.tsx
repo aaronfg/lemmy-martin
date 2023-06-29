@@ -38,6 +38,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
  */
 export const FeedScreen = (): JSX.Element => {
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
+  const [previewImgLoaded, setPreviewImgLoaded] = useState(false);
   // const [page, setPage] = useState(1);
   const sortType = useAppSelector(getSettingsFeedSortType);
   const feedType = useAppSelector(getSettingsFeedType);
@@ -76,6 +77,7 @@ export const FeedScreen = (): JSX.Element => {
 
   const onPreviewDismiss = () => {
     setPreviewUrl(undefined);
+    setPreviewImgLoaded(false);
   };
 
   const renderItem = useCallback((item: ListRenderItemInfo<PostView>) => {
@@ -92,6 +94,7 @@ export const FeedScreen = (): JSX.Element => {
     <SafeAreaView style={styles.safe}>
       <StatusBar backgroundColor={theme.colors.tertiary} />
       <View style={styles.contentContainer}>
+        {/* Feed loading indicator */}
         {isLoading || isFetching ? (
           <View style={styles.loadingContainer}>
             <Text>Loading...</Text>
@@ -126,6 +129,7 @@ export const FeedScreen = (): JSX.Element => {
           />
         )}
       </View>
+      {/* Image preview */}
       {previewUrl && (
         <Portal>
           <Modal
@@ -141,7 +145,17 @@ export const FeedScreen = (): JSX.Element => {
                   height: dimensions.height - 100,
                 }}
                 resizeMode="contain"
+                onLoad={() => {
+                  setPreviewImgLoaded(true);
+                }}
               />
+              {/* Image loading indicator */}
+              {!previewImgLoaded && (
+                <View style={styles.absoluteCentered}>
+                  <ActivityIndicator style={styles.absoluteCentered} />
+                </View>
+              )}
+              {/* Open in Browser button */}
               <Button
                 mode="contained"
                 icon="web"
@@ -162,6 +176,13 @@ export const FeedScreen = (): JSX.Element => {
 
 const createStyleSheet = () => {
   return StyleSheet.create({
+    absoluteCentered: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+    },
     contentContainer: {
       flex: 1,
     },
