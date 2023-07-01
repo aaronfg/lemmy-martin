@@ -14,14 +14,16 @@ import { LemmyUtils } from '../utils/LemmyUtils';
 
 export const ListItemPost = (props: {
   post: PostView;
+  onPress: (post: PostView) => void;
   onThumbnailPress: (url: string) => void;
 }): JSX.Element => {
-  const { post, onThumbnailPress } = props;
+  const { post, onPress, onThumbnailPress } = props;
   const theme = useTheme();
   const styles = createStyleSheet(theme);
 
   const onItemPress = () => {
     //
+    onPress(post);
   };
 
   const onThumbPress = async () => {

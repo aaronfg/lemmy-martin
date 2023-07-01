@@ -16,6 +16,8 @@ export enum ScreenNames {
   Feed = 'Feed',
   Login = 'Login',
   MainMenu = 'MainMenu',
+  PostView = 'PostView',
+  FeedAndPostView = 'FeedAndPostView',
 }
 
 /** Names of icons in the Material Design icon set */

@@ -1,3 +1,5 @@
+import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
+import { useNavigation } from '@react-navigation/native';
 import { nanoid } from '@reduxjs/toolkit';
 import { PostView } from 'lemmy-js-client';
 import React, { useCallback, useState } from 'react';
@@ -30,7 +32,10 @@ import {
   getSettingsFeedSortType,
   getSettingsFeedType,
 } from '../features/settings/selectors';
+import { log } from '../logging/log';
+import { FeedAndPostParamList } from '../navigation/types';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { ScreenNames } from '../types';
 
 /**
  * Screen for the main feed list
@@ -48,6 +53,8 @@ export const FeedScreen = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const dimensions = useWindowDimensions();
   const theme = useTheme();
+  const navigation =
+    useNavigation<MaterialTopTabNavigationProp<FeedAndPostParamList>>();
 
   console.log('FEED sort: ' + sortType + '\tpage: ' + page);
   const { isLoading, error, isFetching, data } = useGetPostsQuery({
@@ -62,15 +69,6 @@ export const FeedScreen = (): JSX.Element => {
     dispatch(settingsFeedPageUpdated(page + 1));
   };
 
-  const onPostsPress = async () => {
-    try {
-      //
-      // const response =
-    } catch (error) {
-      //
-    }
-  };
-
   const onThumbnailPress = (url: string) => {
     setPreviewUrl(url);
   };
@@ -80,12 +78,19 @@ export const FeedScreen = (): JSX.Element => {
     setPreviewImgLoaded(false);
   };
 
+  const onListItemPress = (post: PostView) => {
+    //
+    log.debug('pressed ' + post.post.name);
+    navigation.jumpTo(ScreenNames.PostView, { post });
+  };
+
   const renderItem = useCallback((item: ListRenderItemInfo<PostView>) => {
     return (
       <ListItemPost
         key={nanoid()}
         post={item.item}
         onThumbnailPress={onThumbnailPress}
+        onPress={onListItemPress}
       />
     );
   }, []);

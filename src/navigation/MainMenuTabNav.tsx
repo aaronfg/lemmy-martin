@@ -1,13 +1,12 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CommunityListHeader } from '../components/communities/CommunityListHeader';
-import { FeedListHeader } from '../components/feed/FeedHeader';
 import { AccountSwitcher } from '../components/profile/AccountSwitcher';
 import { CommunitiesScreen } from '../screens/Communities';
-import { FeedScreen } from '../screens/Feed';
 import { MainMenuScreen } from '../screens/MainMenu';
 import { LemmyDarkTheme } from '../theme';
 import { MaterialIconNames, ScreenNames, TAB_ICON_SIZE } from '../types';
+import { FeedAndPostNav } from './FeedAndPostNav';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +14,7 @@ export const HomeTabNav = (): JSX.Element => {
   return (
     <Tab.Navigator>
       {/* Feed */}
-      <Tab.Screen
+      {/* <Tab.Screen
         name={ScreenNames.Feed}
         component={FeedScreen}
         options={{
@@ -33,14 +32,34 @@ export const HomeTabNav = (): JSX.Element => {
           ),
           tabBarShowLabel: false,
         }}
+      /> */}
+      <Tab.Screen
+        name={ScreenNames.FeedAndPostView}
+        component={FeedAndPostNav}
+        options={{
+          headerShown: false,
+          tabBarIcon: props => (
+            <MaterialIcon
+              name={MaterialIconNames.Home}
+              size={TAB_ICON_SIZE}
+              color={
+                props.focused
+                  ? LemmyDarkTheme.colors.primary
+                  : LemmyDarkTheme.colors.secondary
+              }
+            />
+          ),
+          tabBarShowLabel: false,
+        }}
       />
+
       {/* Communities */}
       <Tab.Screen
         name={ScreenNames.Communities}
         component={CommunitiesScreen}
         options={{
           // headerShown: false,
-          header: props => <CommunityListHeader />,
+          header: () => <CommunityListHeader />,
           tabBarIcon: props => (
             <MaterialIcon
               name="alpha-c-circle"
@@ -61,7 +80,7 @@ export const HomeTabNav = (): JSX.Element => {
         component={MainMenuScreen}
         options={{
           headerShown: true,
-          header(props) {
+          header() {
             return <AccountSwitcher />;
           },
           tabBarIcon: props => (
