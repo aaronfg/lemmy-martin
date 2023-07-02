@@ -1,22 +1,54 @@
 import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import {
+  RouteProp,
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
+import { CommentView } from 'lemmy-js-client';
 import React from 'react';
-import { StatusBar, StyleSheet, View } from 'react-native';
+import {
+  ActivityIndicator,
+  ListRenderItemInfo,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { Button, Divider, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { ListItemComment } from '../components/ListItemComment';
 import { ListItemPost } from '../components/ListItemPost';
-import { log } from '../logging/log';
+import { useGetCommentsQuery } from '../features/lemmy/api';
+import { getLemmyJWT } from '../features/lemmy/selectors';
 import { FeedAndPostParamList } from '../navigation/types';
+import { useAppSelector } from '../redux/hooks';
 import { ScreenNames } from '../types';
 
 export const PostView = (): JSX.Element => {
+  const token = useAppSelector(getLemmyJWT);
+  const focused = useIsFocused();
+  console.log('focused?: ' + focused);
+  //   const [arg, setArg] = useState<boolean | null>(focused ? true : null);
   const route = useRoute<RouteProp<FeedAndPostParamList>>();
   const post = route.params?.post;
-  log.debug('route params: ', route.params);
+
   const navigation =
     useNavigation<MaterialTopTabNavigationProp<FeedAndPostParamList>>();
 
   const styles = createStyleSheet();
+
+  const { data, isLoading, isFetching, error } = useGetCommentsQuery({
+    post_id: post?.post.id,
+    auth: token,
+  });
+
+  const renderItem = (item: ListRenderItemInfo<CommentView>) => {
+    const loading = isLoading || isFetching;
+    const loadingView =
+      item.index === 0 ? <ActivityIndicator size="large" /> : <View />;
+    return loading ? loadingView : <ListItemComment commentView={item.item} />;
+  };
 
   const onThumbnailPress = (url: string) => {
     //
@@ -41,8 +73,23 @@ export const PostView = (): JSX.Element => {
       )}
       {post && (
         <View style={styles.postContainer}>
-          <ListItemPost post={post} onThumbnailPress={onThumbnailPress} />
-          <Divider />
+          <SwipeListView
+            data={data}
+            renderItem={renderItem}
+            ListHeaderComponent={() => (
+              <View>
+                <ListItemPost post={post} onThumbnailPress={onThumbnailPress} />
+              </View>
+            )}
+            ItemSeparatorComponent={() =>
+              isLoading || isFetching ? <View /> : <Divider />
+            }
+            ListEmptyComponent={
+              <View style={styles.noCommentsContainer}>
+                <Text>There are no comments</Text>
+              </View>
+            }
+          />
         </View>
       )}
     </SafeAreaView>
@@ -51,6 +98,9 @@ export const PostView = (): JSX.Element => {
 
 const createStyleSheet = () => {
   return StyleSheet.create({
+    noCommentsContainer: {
+      marginHorizontal: 10,
+    },
     noPost: {
       fontSize: 20,
       marginBottom: 12,

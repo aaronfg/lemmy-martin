@@ -17,7 +17,7 @@ export const TextMarkdown = (props: {
     <Markdown
       styles={{
         paragraph: {
-          fontSize: 20,
+          fontSize: 16,
         },
         text: {
           color: theme.colors.onSurface,

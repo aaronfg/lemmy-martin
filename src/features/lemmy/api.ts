@@ -6,7 +6,10 @@ import {
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
 import {
+  CommentView,
   CommunityView,
+  GetComments,
+  GetCommentsResponse,
   GetPosts,
   GetPostsResponse,
   ListCommunities,
@@ -23,6 +26,7 @@ import {
 import { LemmyAPIMethods, LemmyAPIPaths } from './types';
 
 export enum LemmyApiTagTypes {
+  Comments = 'Comments',
   Community = 'Community',
   Posts = 'Posts',
 }
@@ -57,7 +61,11 @@ const dynamicBaseQuery: BaseQueryFn<
 /** The RTK Query api for community related api calls */
 export const lemmyApi = createApi({
   reducerPath: 'lemmyApi',
-  tagTypes: [LemmyApiTagTypes.Community, LemmyApiTagTypes.Posts],
+  tagTypes: [
+    LemmyApiTagTypes.Community,
+    LemmyApiTagTypes.Posts,
+    LemmyApiTagTypes.Comments,
+  ],
   baseQuery: dynamicBaseQuery,
   endpoints: builder => ({
     getCommunities: builder.query<CommunityView[], ListCommunities>({
@@ -83,6 +91,19 @@ export const lemmyApi = createApi({
         return currentArg !== previousArg;
       },
     }),
+    // Get Comments
+    getComments: builder.query<CommentView[], GetComments>({
+      query: args => ({
+        url: `${LemmyAPIPaths.GetComments}?${APIUtils.getQueryParamsFromObj(
+          args,
+        )}`,
+        method: LemmyAPIMethods.GetComments,
+        timeout: DEFAULT_API_TIMEOUT,
+      }),
+      providesTags: [LemmyApiTagTypes.Comments],
+      transformResponse: (response: GetCommentsResponse) => response.comments,
+    }),
+    // Get Posts
     getPosts: builder.query<PostView[], GetPosts>({
       query: args => ({
         url: `${LemmyAPIPaths.GetPosts}?${APIUtils.getQueryParamsFromObj(
@@ -119,4 +140,5 @@ export const lemmyApi = createApi({
   }),
 });
 
-export const { useGetCommunitiesQuery, useGetPostsQuery } = lemmyApi;
+export const { useGetCommentsQuery, useGetCommunitiesQuery, useGetPostsQuery } =
+  lemmyApi;
