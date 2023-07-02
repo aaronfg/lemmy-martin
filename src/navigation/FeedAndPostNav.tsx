@@ -6,6 +6,8 @@ import { PostView } from '../screens/PostView';
 import { LemmyDarkTheme } from '../theme';
 import { MaterialIconNames, ScreenNames, TAB_ICON_SIZE } from '../types';
 
+
+
 const Tab = createMaterialTopTabNavigator();
 export const FeedAndPostNav = (): JSX.Element => {
   return (

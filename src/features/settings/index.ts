@@ -17,7 +17,7 @@ export const INITIAL_SETTINGS_STATE: ISettingsState = {
     type: 'Local',
     page: 1,
   },
-  defaultInstance: 'https://lemmy.ml', // https://sopuli.xyz
+  defaultInstance: 'https://sopuli.xyz/', // https://sopuli.xyz
 };
 
 /** The reducer for the `settings` slice of our redux state */
