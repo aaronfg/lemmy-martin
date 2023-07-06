@@ -1,6 +1,6 @@
 import Color from 'color';
 import { CommentView } from 'lemmy-js-client';
-import { StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 import { MD3Theme, Text, useTheme } from 'react-native-paper';
 import { UnicodeText } from '../types';
 import { DateUtils } from '../utils/DateUtils';
@@ -11,6 +11,9 @@ export const ListItemComment = (props: {
 }): JSX.Element => {
   const { commentView } = props;
   const theme = useTheme();
+  const isRootComment = commentView.counts.child_count === 0;
+  
+
   const styles = createStyleSheet(theme);
   return (
     <View style={styles.container}>
@@ -25,7 +28,9 @@ export const ListItemComment = (props: {
           )}
         </Text>
       </View>
-      <TextMarkdown theme={theme}>{commentView.comment.content}</TextMarkdown>
+      <TextMarkdown theme={theme} onLink={async url => Linking.openURL(url)}>
+        {commentView.comment.content}
+      </TextMarkdown>
     </View>
   );
 };
@@ -35,6 +40,7 @@ const createStyleSheet = (theme: MD3Theme) => {
     container: {
       paddingHorizontal: 10,
       paddingVertical: 8,
+      backgroundColor: theme.colors.surface,
     },
     creator: {
       fontWeight: 'bold',
@@ -44,6 +50,7 @@ const createStyleSheet = (theme: MD3Theme) => {
     creatorContainr: {
       flexDirection: 'row',
       alignItems: 'center',
+      marginBottom: -5,
     },
   });
 };

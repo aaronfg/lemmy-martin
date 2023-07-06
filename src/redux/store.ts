@@ -4,6 +4,7 @@ import { communitiesReducer } from '../features/communities';
 import { lemmyReducer } from '../features/lemmy';
 import { lemmyApi } from '../features/lemmy/api';
 import { settingsReducer } from '../features/settings';
+import { userReducer } from '../features/user';
 import { appListenerMiddleware } from './listenerMiddleware';
 
 const middlewares: Middleware[] = [
@@ -22,6 +23,7 @@ export const store = configureStore({
     settings: settingsReducer,
     communites: communitiesReducer,
     [lemmyApi.reducerPath]: lemmyApi.reducer,
+    user: userReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware()

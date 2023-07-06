@@ -9,12 +9,14 @@ import { MD3Theme } from 'react-native-paper';
  */
 export const TextMarkdown = (props: {
   theme: MD3Theme;
+  onLink?: (url: string) => Promise<void>;
   textSize?: number;
   children: React.ReactNode;
 }): JSX.Element => {
-  const { theme, children, textSize } = props;
+  const { theme, children, textSize, onLink } = props;
   return (
     <Markdown
+      onLink={onLink}
       styles={{
         paragraph: {
           fontSize: 16,

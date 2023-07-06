@@ -1,4 +1,4 @@
-import { Login, LoginResponse } from 'lemmy-js-client';
+import { CommentView, Login, LoginResponse } from 'lemmy-js-client';
 import { IError } from '../../types';
 
 /** The descriptor for the `lemmy` slice of our redux store */
@@ -27,6 +27,16 @@ export interface ILemmyInstance {
 export interface ILemmyLoginError {
   /** The error message */
   error: string;
+}
+
+export interface ILemmyCommentItemData {
+  commentView: CommentView;
+  rootComment: boolean;
+}
+
+export interface IParsedComment {
+  commentView: CommentView;
+  children: string[];
 }
 
 // --- API Params
@@ -67,6 +77,16 @@ export enum LemmyAPIMethods {
   GetPosts = 'GET',
   ListCommunities = 'GET',
 }
+
+export const LemmyNestedItemColors: string[] = [
+  '#307aba',
+  '#b82cd1',
+  '#fcba03',
+  '#28c928',
+  '#ba203c',
+  '#f8fc0d',
+];
+
 export const LEMMY_API_PATH = 'api/v3/';
 
 export const SortTypeValues = [

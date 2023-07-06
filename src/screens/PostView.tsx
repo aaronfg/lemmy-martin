@@ -9,6 +9,7 @@ import { CommentView } from 'lemmy-js-client';
 import React from 'react';
 import {
   ActivityIndicator,
+  FlatList,
   ListRenderItemInfo,
   StatusBar,
   StyleSheet,
@@ -16,19 +17,20 @@ import {
 } from 'react-native';
 import { Button, Divider, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { SwipeListView } from 'react-native-swipe-list-view';
 import { ListItemComment } from '../components/ListItemComment';
 import { ListItemPost } from '../components/ListItemPost';
 import { useGetCommentsQuery } from '../features/lemmy/api';
-import { getLemmyJWT } from '../features/lemmy/selectors';
+import { getLemmyComments, getLemmyJWT } from '../features/lemmy/selectors';
 import { FeedAndPostParamList } from '../navigation/types';
 import { useAppSelector } from '../redux/hooks';
 import { ScreenNames } from '../types';
 
 export const PostView = (): JSX.Element => {
   const token = useAppSelector(getLemmyJWT);
+  const comments = useAppSelector(getLemmyComments);
   const focused = useIsFocused();
-  console.log('focused?: ' + focused);
+
+  console.log('comments: ', JSON.stringify(comments));
   //   const [arg, setArg] = useState<boolean | null>(focused ? true : null);
   const route = useRoute<RouteProp<FeedAndPostParamList>>();
   const post = route.params?.post;
@@ -41,6 +43,7 @@ export const PostView = (): JSX.Element => {
   const { data, isLoading, isFetching, error } = useGetCommentsQuery({
     post_id: post?.post.id,
     auth: token,
+    max_depth: 5,
   });
 
   const renderItem = (item: ListRenderItemInfo<CommentView>) => {
@@ -49,6 +52,13 @@ export const PostView = (): JSX.Element => {
       item.index === 0 ? <ActivityIndicator size="large" /> : <View />;
     return loading ? loadingView : <ListItemComment commentView={item.item} />;
   };
+
+  // const renderHiddenItem = (
+  //   rowData: ListRenderItemInfo<null>,
+  //   rowMap: RowMap<null>,
+  // ) => {
+  //   return <ListItemCommentActions />;
+  // };
 
   const onThumbnailPress = (url: string) => {
     //
@@ -73,9 +83,11 @@ export const PostView = (): JSX.Element => {
       )}
       {post && (
         <View style={styles.postContainer}>
-          <SwipeListView
+          <FlatList
             data={data}
             renderItem={renderItem}
+            // renderHiddenItem={renderHiddenItem}
+            // leftOpenValue={-200}
             ListHeaderComponent={() => (
               <View>
                 <ListItemPost post={post} onThumbnailPress={onThumbnailPress} />

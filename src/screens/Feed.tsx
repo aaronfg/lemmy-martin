@@ -23,15 +23,17 @@ import {
   useTheme,
 } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ErrorMsg } from '../components/ErrorMsg';
 import { ListItemPost } from '../components/ListItemPost';
 import { useGetPostsQuery } from '../features/lemmy/api';
 import { settingsFeedPageUpdated } from '../features/settings/actions';
+import { getSettingsCurrentAccountToken } from '../features/settings/selectors';
+import { userUIFeedCurrentPostUpdated } from '../features/user/actions';
 import {
-  getSettingsCurrentAccountToken,
-  getSettingsFeedPage,
-  getSettingsFeedSortType,
-  getSettingsFeedType,
-} from '../features/settings/selectors';
+  getUserUIFeedPage,
+  getUserUIFeedSortType,
+  getUserUIFeedType,
+} from '../features/user/selectors';
 import { log } from '../logging/log';
 import { FeedAndPostParamList } from '../navigation/types';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -45,9 +47,9 @@ export const FeedScreen = (): JSX.Element => {
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
   const [previewImgLoaded, setPreviewImgLoaded] = useState(false);
   // const [page, setPage] = useState(1);
-  const sortType = useAppSelector(getSettingsFeedSortType);
-  const feedType = useAppSelector(getSettingsFeedType);
-  const page = useAppSelector(getSettingsFeedPage);
+  const sortType = useAppSelector(getUserUIFeedSortType);
+  const feedType = useAppSelector(getUserUIFeedType);
+  const page = useAppSelector(getUserUIFeedPage);
   const authToken = useAppSelector(getSettingsCurrentAccountToken);
 
   const dispatch = useAppDispatch();
@@ -81,6 +83,7 @@ export const FeedScreen = (): JSX.Element => {
   const onListItemPress = (post: PostView) => {
     //
     log.debug('pressed ' + post.post.name);
+    dispatch(userUIFeedCurrentPostUpdated(post));
     navigation.jumpTo(ScreenNames.PostView, { post });
   };
 
@@ -99,6 +102,13 @@ export const FeedScreen = (): JSX.Element => {
     <SafeAreaView style={styles.safe}>
       <StatusBar backgroundColor={theme.colors.tertiary} />
       <View style={styles.contentContainer}>
+        {error && !isFetching && (
+          <ErrorMsg
+            error={{
+              message: JSON.stringify(error),
+            }}
+          />
+        )}
         {/* Feed loading indicator */}
         {isLoading || isFetching ? (
           <View style={styles.loadingContainer}>
