@@ -5,7 +5,6 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import { CommentView } from 'lemmy-js-client';
 import React from 'react';
 import {
   ActivityIndicator,
@@ -21,6 +20,7 @@ import { ListItemComment } from '../components/ListItemComment';
 import { ListItemPost } from '../components/ListItemPost';
 import { useGetCommentsQuery } from '../features/lemmy/api';
 import { getLemmyComments, getLemmyJWT } from '../features/lemmy/selectors';
+import { IParsedComment } from '../features/lemmy/types';
 import { FeedAndPostParamList } from '../navigation/types';
 import { useAppSelector } from '../redux/hooks';
 import { ScreenNames } from '../types';
@@ -30,7 +30,7 @@ export const PostView = (): JSX.Element => {
   const comments = useAppSelector(getLemmyComments);
   const focused = useIsFocused();
 
-  console.log('comments: ', JSON.stringify(comments));
+  // console.log('comments: ', JSON.stringify(comments));
   //   const [arg, setArg] = useState<boolean | null>(focused ? true : null);
   const route = useRoute<RouteProp<FeedAndPostParamList>>();
   const post = route.params?.post;
@@ -46,11 +46,15 @@ export const PostView = (): JSX.Element => {
     max_depth: 5,
   });
 
-  const renderItem = (item: ListRenderItemInfo<CommentView>) => {
+  const renderItem = (item: ListRenderItemInfo<IParsedComment>) => {
     const loading = isLoading || isFetching;
     const loadingView =
       item.index === 0 ? <ActivityIndicator size="large" /> : <View />;
-    return loading ? loadingView : <ListItemComment commentView={item.item} />;
+    return loading ? (
+      loadingView
+    ) : (
+      <ListItemComment parsedComment={item.item} />
+    );
   };
 
   // const renderHiddenItem = (
@@ -84,7 +88,7 @@ export const PostView = (): JSX.Element => {
       {post && (
         <View style={styles.postContainer}>
           <FlatList
-            data={data}
+            data={comments}
             renderItem={renderItem}
             // renderHiddenItem={renderHiddenItem}
             // leftOpenValue={-200}

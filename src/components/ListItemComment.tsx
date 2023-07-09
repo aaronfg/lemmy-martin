@@ -1,18 +1,18 @@
 import Color from 'color';
-import { CommentView } from 'lemmy-js-client';
 import { Linking, StyleSheet, View } from 'react-native';
 import { MD3Theme, Text, useTheme } from 'react-native-paper';
+import { IParsedComment } from '../features/lemmy/types';
 import { UnicodeText } from '../types';
 import { DateUtils } from '../utils/DateUtils';
 import { TextMarkdown } from './TextMarkdown';
 
 export const ListItemComment = (props: {
-  commentView: CommentView;
+  parsedComment: IParsedComment;
 }): JSX.Element => {
-  const { commentView } = props;
+  const { parsedComment } = props;
+  const { commentView, children } = parsedComment;
   const theme = useTheme();
-  const isRootComment = commentView.counts.child_count === 0;
-  
+  const isRootComment = parsedComment.commentView.counts.child_count === 0;
 
   const styles = createStyleSheet(theme);
   return (
@@ -26,6 +26,7 @@ export const ListItemComment = (props: {
           {DateUtils.getUserFriendlyPostDate(
             commentView.comment.updated ?? commentView.comment.published,
           )}
+          {' ' + parsedComment.children.length} children
         </Text>
       </View>
       <TextMarkdown theme={theme} onLink={async url => Linking.openURL(url)}>

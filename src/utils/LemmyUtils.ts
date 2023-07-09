@@ -211,6 +211,72 @@ export class LemmyUtils {
   };
 
   static getParsedComments = (commentViews: CommentView[]) => {
+    const rootComments = this.getRootComments(commentViews);
+
+    // loop through the rootComments. For each, search the original
+    // commentViews for any that have the id of a root Comment in
+    // their path. If so, add them to the rootComment.children[]
+    rootComments.forEach(rpcv => {
+      if (rpcv.commentView.counts.child_count > 0) {
+        const currentCVId = rpcv.commentView.comment.id;
+        // get all the child comments
+        const allChildren = commentViews.filter(
+          cv =>
+            cv !== rpcv.commentView &&
+            cv.comment.path.includes(rpcv.commentView.comment.id.toString()),
+        );
+        console.log(
+          `${rpcv.commentView.comment.id} has ${allChildren.length} children`,
+        );
+        allChildren.forEach((child, index) => {
+          console.log('-- child: ' + child.comment.id);
+          // slice the path to remove the root currentCVId and this child
+          // comment's id
+          const pathParts = child.comment.path.split('.');
+          const thisChildId = child.comment.id.toString();
+
+          const rid = pathParts.indexOf(currentCVId.toString());
+          console.log(`\tindex of the root id (${currentCVId}): ` + rid);
+          // pathParts.shift();
+          const leftover = pathParts.slice(rid + 1);
+          console.log('\tparts after shift:', leftover);
+          leftover.pop();
+          console.log(
+            '\tfinal pathParts after removing root id and this one:',
+            leftover,
+          );
+
+          if (leftover.length === 0) {
+            rpcv.children.push(child.comment.id.toString());
+          }
+        });
+      }
+    });
+
+    console.log('final: ', JSON.stringify(rootComments));
+    return rootComments;
+  };
+
+  static getRootComments = (commentViews: CommentView[]): IParsedComment[] => {
+    const rootComments: IParsedComment[] = [];
+    commentViews.forEach(cv => {
+      const children: string[] = [];
+      const parts = cv.comment.path.split('.');
+      // remove the "0"
+      parts.shift();
+      // remove the id for this comment
+      const thisCommentID = parts.pop();
+      if (parts.length === 0) {
+        rootComments.push({
+          commentView: cv,
+          children: [],
+        });
+      }
+    });
+    return rootComments;
+  };
+
+  static getParsedCommentsOld = (commentViews: CommentView[]) => {
     const allParsed: IParsedComment[] = [];
 
     commentViews.forEach(cv => {
@@ -229,9 +295,7 @@ export class LemmyUtils {
           console.log(
             'adding ' + parts.length + ' child comment ids to ' + rootCommentID,
           );
-          // if (rootCommentID) {
           children.push(...parts);
-          // }
           // get the root CommentView
           const rootComment = commentViews.find(val => {
             return val.comment.id.toString() === rootCommentID;
