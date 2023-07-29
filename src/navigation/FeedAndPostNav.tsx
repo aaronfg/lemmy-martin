@@ -2,6 +2,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import React from 'react';
 import { View } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { FeedListHeader } from '../components/feed/FeedHeader';
 import { FeedScreen } from '../screens/Feed';
 import { PostView } from '../screens/PostView';
 import { LemmyDarkTheme } from '../theme';
@@ -11,7 +12,17 @@ const Tab = createMaterialTopTabNavigator();
 export const FeedAndPostNav = (): JSX.Element => {
   return (
     <Tab.Navigator
-      tabBar={() => <View />}
+      tabBar={props => {
+        // activeRoute = navigation.state.routes[navigation.state.index];
+        const activeRoute =
+          props.navigation.getState().routes[props.navigation.getState().index];
+        console.log('active route: ' + activeRoute.name);
+        return activeRoute.name === ScreenNames.PostView ? (
+          <View />
+        ) : (
+          <FeedListHeader />
+        );
+      }}
       screenOptions={{
         tabBarShowIcon: false,
       }}>

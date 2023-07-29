@@ -39,7 +39,7 @@ export const HomeTabNav = (): JSX.Element => {
         component={FeedAndPostNav}
         options={{
           header: props => <FeedListHeader />,
-          headerShown: true,
+          headerShown: false,
           tabBarIcon: props => (
             <MaterialIcon
               name={MaterialIconNames.Home}

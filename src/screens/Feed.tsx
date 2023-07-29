@@ -84,6 +84,7 @@ export const FeedScreen = (): JSX.Element => {
     //
     log.debug('pressed ' + post.post.name);
     dispatch(userUIFeedCurrentPostUpdated(post));
+    log.debug('after dispatch');
     navigation.jumpTo(ScreenNames.PostView, { post });
   };
 
@@ -119,25 +120,36 @@ export const FeedScreen = (): JSX.Element => {
           <FlatList
             data={data}
             renderItem={renderItem}
-            ListEmptyComponent={<Text>No items to show!</Text>}
-            ListFooterComponent={
-              <View style={styles.pageButtonsContainer}>
-                <Button
-                  mode="outlined"
-                  icon="arrow-left"
-                  disabled={page === 1}
-                  onPress={() =>
-                    dispatch(settingsFeedPageUpdated(page > 1 ? page - 1 : 1))
-                  }>
-                  Prev Page
-                </Button>
-                <Button
-                  mode="outlined"
-                  icon="arrow-right"
-                  onPress={() => dispatch(settingsFeedPageUpdated(page + 1))}>
-                  Next Page
-                </Button>
+            contentContainerStyle={{
+              flex: 1,
+            }}
+            ListEmptyComponent={
+              <View style={styles.emptyContainer}>
+                {!error && !isFetching && <Text>No items to show!</Text>}
               </View>
+            }
+            ListFooterComponent={
+              !error && !isFetching ? (
+                <View style={styles.pageButtonsContainer}>
+                  <Button
+                    mode="outlined"
+                    icon="arrow-left"
+                    disabled={page === 1}
+                    onPress={() =>
+                      dispatch(settingsFeedPageUpdated(page > 1 ? page - 1 : 1))
+                    }>
+                    Prev Page
+                  </Button>
+                  <Button
+                    mode="outlined"
+                    icon="arrow-right"
+                    onPress={() => dispatch(settingsFeedPageUpdated(page + 1))}>
+                    Next Page
+                  </Button>
+                </View>
+              ) : (
+                <View />
+              )
             }
             // onEndReached={onListEndReached}
             // onEndReachedThreshold={0.8}
@@ -181,7 +193,6 @@ export const FeedScreen = (): JSX.Element => {
                 Open in Browser
               </Button>
             </TouchableOpacity>
-            {/* </ScrollView> */}
           </Modal>
         </Portal>
       )}
@@ -199,6 +210,10 @@ const createStyleSheet = () => {
       bottom: 0,
     },
     contentContainer: {
+      flex: 1,
+      justifyContent: 'space-between',
+    },
+    emptyContainer: {
       flex: 1,
     },
     footerContainer: {
