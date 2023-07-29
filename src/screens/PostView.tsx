@@ -102,7 +102,11 @@ export const PostView = (): JSX.Element => {
             }
             ListEmptyComponent={
               <View style={styles.noCommentsContainer}>
-                <Text>There are no comments</Text>
+                {isLoading || isFetching ? (
+                  <ActivityIndicator size="large" />
+                ) : (
+                  <Text>There are no comments</Text>
+                )}
               </View>
             }
           />

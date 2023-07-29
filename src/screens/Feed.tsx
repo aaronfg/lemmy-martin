@@ -120,9 +120,16 @@ export const FeedScreen = (): JSX.Element => {
           <FlatList
             data={data}
             renderItem={renderItem}
-            contentContainerStyle={{
-              flex: 1,
-            }}
+            style={
+              {
+                // flex: 1,
+              }
+            }
+            contentContainerStyle={
+              {
+                // flex: 1,
+              }
+            }
             ListEmptyComponent={
               <View style={styles.emptyContainer}>
                 {!error && !isFetching && <Text>No items to show!</Text>}
@@ -211,7 +218,7 @@ const createStyleSheet = () => {
     },
     contentContainer: {
       flex: 1,
-      justifyContent: 'space-between',
+      // justifyContent: 'space-between',
     },
     emptyContainer: {
       flex: 1,
