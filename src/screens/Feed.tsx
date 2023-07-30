@@ -139,7 +139,7 @@ export const FeedScreen = (): JSX.Element => {
               !error && !isFetching ? (
                 <View style={styles.pageButtonsContainer}>
                   <Button
-                    mode="outlined"
+                    // mode="outlined"
                     icon="arrow-left"
                     disabled={page === 1}
                     onPress={() =>
@@ -148,7 +148,7 @@ export const FeedScreen = (): JSX.Element => {
                     Prev Page
                   </Button>
                   <Button
-                    mode="outlined"
+                    // mode="outlined"
                     icon="arrow-right"
                     onPress={() => dispatch(userUIFeedPageUpdated(page + 1))}>
                     Next Page

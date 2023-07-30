@@ -1,8 +1,8 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
-import { View } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { FeedListHeader } from '../components/feed/FeedHeader';
+import { PostHeader } from '../components/post/PostHeader';
 import { FeedScreen } from '../screens/Feed';
 import { PostView } from '../screens/PostView';
 import { LemmyDarkTheme } from '../theme';
@@ -18,7 +18,7 @@ export const FeedAndPostNav = (): JSX.Element => {
           props.navigation.getState().routes[props.navigation.getState().index];
         console.log('active route: ' + activeRoute.name);
         return activeRoute.name === ScreenNames.PostView ? (
-          <View />
+          <PostHeader />
         ) : (
           <FeedListHeader />
         );

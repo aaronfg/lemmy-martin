@@ -14,7 +14,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { Button, Divider, Text } from 'react-native-paper';
+import { Button, Divider, MD3Theme, Text, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ListItemComment } from '../components/ListItemComment';
 import { ListItemPost } from '../components/ListItemPost';
@@ -29,6 +29,7 @@ export const PostView = (): JSX.Element => {
   const token = useAppSelector(getLemmyJWT);
   const comments = useAppSelector(getLemmyComments);
   const focused = useIsFocused();
+  const theme = useTheme();
 
   // console.log('comments: ', JSON.stringify(comments));
   //   const [arg, setArg] = useState<boolean | null>(focused ? true : null);
@@ -38,7 +39,7 @@ export const PostView = (): JSX.Element => {
   const navigation =
     useNavigation<MaterialTopTabNavigationProp<FeedAndPostParamList>>();
 
-  const styles = createStyleSheet();
+  const styles = createStyleSheet(theme);
 
   const { data, isLoading, isFetching, error } = useGetCommentsQuery({
     post_id: post?.post.id,
@@ -93,7 +94,7 @@ export const PostView = (): JSX.Element => {
             // renderHiddenItem={renderHiddenItem}
             // leftOpenValue={-200}
             ListHeaderComponent={() => (
-              <View>
+              <View style={styles.listHeaderContainer}>
                 <ListItemPost post={post} onThumbnailPress={onThumbnailPress} />
               </View>
             )}
@@ -116,8 +117,13 @@ export const PostView = (): JSX.Element => {
   );
 };
 
-const createStyleSheet = () => {
+const createStyleSheet = (theme: MD3Theme) => {
   return StyleSheet.create({
+    listHeaderContainer: {
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.surfaceVariant,
+      marginBottom: 8,
+    },
     noCommentsContainer: {
       marginHorizontal: 10,
     },
