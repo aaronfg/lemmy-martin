@@ -73,6 +73,7 @@ export const PostView = (): JSX.Element => {
     navigation.jumpTo(ScreenNames.Feed);
   };
 
+
   return (
     <SafeAreaView style={styles.safe}>
       <StatusBar />
