@@ -59,7 +59,7 @@ export const FeedScreen = (): JSX.Element => {
     useNavigation<MaterialTopTabNavigationProp<FeedAndPostParamList>>();
 
   console.log('FEED sort: ' + sortType + '\tpage: ' + page);
-  const { isLoading, error, isFetching, data } = useGetPostsQuery({
+  const { isLoading, error, isFetching, data, refetch } = useGetPostsQuery({
     sort: sortType,
     page,
     type_: feedType,
@@ -103,12 +103,18 @@ export const FeedScreen = (): JSX.Element => {
     <SafeAreaView style={styles.safe}>
       <StatusBar backgroundColor={theme.colors.tertiary} />
       <View style={styles.contentContainer}>
+        {/* Error */}
         {error && !isFetching && (
-          <ErrorMsg
-            error={{
-              message: JSON.stringify(error),
-            }}
-          />
+          <View style={styles.errorContainer}>
+            <ErrorMsg
+              error={{
+                message:
+                  'name' in error && error.name === 'AbortError'
+                    ? 'Failed to load posts. Please try again.'
+                    : JSON.stringify(error),
+              }}
+            />
+          </View>
         )}
         {/* Feed loading indicator */}
         {isLoading || isFetching ? (
@@ -120,16 +126,7 @@ export const FeedScreen = (): JSX.Element => {
           <FlatList
             data={data}
             renderItem={renderItem}
-            style={
-              {
-                // flex: 1,
-              }
-            }
-            contentContainerStyle={
-              {
-                // flex: 1,
-              }
-            }
+            // contentContainerStyle={error ? styles.listContentEmpty : undefined}
             ListEmptyComponent={
               <View style={styles.emptyContainer}>
                 {!error && !isFetching && <Text>No items to show!</Text>}
@@ -223,12 +220,19 @@ const createStyleSheet = () => {
     emptyContainer: {
       flex: 1,
     },
+    errorContainer: {
+      paddingHorizontal: 12,
+      marginTop: 12,
+    },
     footerContainer: {
       height: 50,
       position: 'absolute',
       bottom: 0,
       left: 0,
       right: 0,
+    },
+    listContentEmpty: {
+      flex: 1,
     },
     loadingContainer: {
       flex: 1,
