@@ -61,8 +61,8 @@ export const getLemmyAPIBaseUrl = createSelector(
 // );
 
 export const getLemmyAPICommentsRaw = (state: RootState) => {
-  const postId = getUserUIFeedCurrentPost(state)?.post.id;
-  console.log('getLemmyAPICommentsRaw() postId: ' + postId);
+  // const postId = getUserUIFeedCurrentPost(state)?.post.id;
+  // console.log('getLemmyAPICommentsRaw() postId: ' + postId);
   return lemmyApi.endpoints.getComments.select({
     auth: getLemmyJWT(state),
     post_id: getUserUIFeedCurrentPost(state)?.post.id,

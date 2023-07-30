@@ -28,7 +28,10 @@ import { ListItemPost } from '../components/ListItemPost';
 import { useGetPostsQuery } from '../features/lemmy/api';
 import { settingsFeedPageUpdated } from '../features/settings/actions';
 import { getSettingsCurrentAccountToken } from '../features/settings/selectors';
-import { userUIFeedCurrentPostUpdated } from '../features/user/actions';
+import {
+  userUIFeedCurrentPostUpdated,
+  userUIFeedPageUpdated,
+} from '../features/user/actions';
 import {
   getUserUIFeedPage,
   getUserUIFeedSortType,
@@ -58,7 +61,7 @@ export const FeedScreen = (): JSX.Element => {
   const navigation =
     useNavigation<MaterialTopTabNavigationProp<FeedAndPostParamList>>();
 
-  console.log('FEED sort: ' + sortType + '\tpage: ' + page);
+  // console.log('FEED sort: ' + sortType + '\tpage: ' + page);
   const { isLoading, error, isFetching, data, refetch } = useGetPostsQuery({
     sort: sortType,
     page,
@@ -140,14 +143,14 @@ export const FeedScreen = (): JSX.Element => {
                     icon="arrow-left"
                     disabled={page === 1}
                     onPress={() =>
-                      dispatch(settingsFeedPageUpdated(page > 1 ? page - 1 : 1))
+                      dispatch(userUIFeedPageUpdated(page > 1 ? page - 1 : 1))
                     }>
                     Prev Page
                   </Button>
                   <Button
                     mode="outlined"
                     icon="arrow-right"
-                    onPress={() => dispatch(settingsFeedPageUpdated(page + 1))}>
+                    onPress={() => dispatch(userUIFeedPageUpdated(page + 1))}>
                     Next Page
                   </Button>
                 </View>
