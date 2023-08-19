@@ -3,6 +3,8 @@ import React from 'react';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { FeedListHeader } from '../components/feed/FeedHeader';
 import { PostHeader } from '../components/post/PostHeader';
+import { getUserUIFeedCurrentPost } from '../features/user/selectors';
+import { useAppSelector } from '../redux/hooks';
 import { FeedScreen } from '../screens/Feed';
 import { PostView } from '../screens/PostView';
 import { LemmyDarkTheme } from '../theme';
@@ -10,6 +12,7 @@ import { MaterialIconNames, ScreenNames, TAB_ICON_SIZE } from '../types';
 
 const Tab = createMaterialTopTabNavigator();
 export const FeedAndPostNav = (): JSX.Element => {
+  const currentPost = useAppSelector(getUserUIFeedCurrentPost);
   return (
     <Tab.Navigator
       tabBar={props => {
@@ -23,8 +26,13 @@ export const FeedAndPostNav = (): JSX.Element => {
           <FeedListHeader />
         );
       }}
-      screenOptions={{
-        tabBarShowIcon: false,
+      screenOptions={props => {
+        const activeRoute =
+          props.navigation.getState().routes[props.navigation.getState().index];
+        return {
+          tabBarShowIcon: false,
+          swipeEnabled: !!currentPost,
+        };
       }}>
       {/* Feed */}
       <Tab.Screen
