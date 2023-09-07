@@ -8,10 +8,17 @@
 
 ### Enumeration Members
 
+- [GetComments](features_lemmy_types.LemmyAPIPaths.md#getcomments)
 - [GetPosts](features_lemmy_types.LemmyAPIPaths.md#getposts)
 - [ListCommunities](features_lemmy_types.LemmyAPIPaths.md#listcommunities)
 
 ## Enumeration Members
+
+### GetComments
+
+• **GetComments** = ``"comment/list"``
+
+___
 
 ### GetPosts
 

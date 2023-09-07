@@ -8,10 +8,17 @@
 
 ### Enumeration Members
 
+- [Comments](features_lemmy_api.LemmyApiTagTypes.md#comments)
 - [Community](features_lemmy_api.LemmyApiTagTypes.md#community)
 - [Posts](features_lemmy_api.LemmyApiTagTypes.md#posts)
 
 ## Enumeration Members
+
+### Comments
+
+• **Comments** = ``"Comments"``
+
+___
 
 ### Community
 

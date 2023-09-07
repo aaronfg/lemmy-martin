@@ -22,13 +22,26 @@ export enum ScreenNames {
 
 /** Names of icons in the Material Design icon set */
 export enum MaterialIconNames {
+  AccountOutline = 'account-outline',
+  AlphaCCircleOutline = 'alpha-c-circle-outline',
+  ArrowUpThick = 'arrow-up-thick',
+  ArrowDownThick = 'arrow-down-thick',
   CheckCircleOutline = 'check-circle-outline',
+  CloseOutline = 'close-outline',
+  ContentCopy = 'content-copy',
+  DotsVertical = 'dots-vertical',
+  ExportVariant = 'export-variant',
   Home = 'home',
   Menu = 'menu',
   MenuUp = 'menu-up',
   MenuDown = 'menu-down',
   MinusCircleOutline = 'minus-circle-outline',
   PlusCircleOutline = 'plus-circle-outline',
+  Reload = 'reload',
+  ReplyOutline = 'reply-outline',
+  ShareVariantOutline = 'share-variant-outline',
+  StarOutline = 'star-outline',
+  Web = 'web',
 }
 
 export enum UnicodeText {

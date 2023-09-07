@@ -8,10 +8,10 @@
 
 ### Properties
 
-- [selectedAccount](features_user_types.IUserState.md#selectedaccount)
+- [ui](features_user_types.IUserState.md#ui)
 
 ## Properties
 
-### selectedAccount
+### ui
 
-• **selectedAccount**: `boolean`
+• **ui**: [`IUIState`](features_user_types.IUIState.md)

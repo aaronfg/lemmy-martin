@@ -4,7 +4,12 @@ import { Linking, Platform, StyleSheet, View } from 'react-native';
 import { IconButton, MD3Theme, Menu, useTheme } from 'react-native-paper';
 import { getUserUIFeedCurrentPost } from '../../features/user/selectors';
 import { useAppSelector } from '../../redux/hooks';
+import { MaterialIconNames } from '../../types';
 
+/**
+ * Header component for a Post with actionable icons for
+ * voting, starring, etc.
+ */
 export const PostHeader = (): JSX.Element => {
   // local state
   const [showMenu, setShowMenu] = useState(false);
@@ -71,10 +76,23 @@ export const PostHeader = (): JSX.Element => {
   return (
     <View>
       <View style={styles.container}>
-        <IconButton icon="arrow-up-thick" onPress={onUpVotePress} />
-        <IconButton icon="arrow-down-thick" onPress={onDownVotePress} />
-        <IconButton icon="star-outline" onPress={onStarPress} />
-        <IconButton icon="web" onPress={onWebPress} />
+        {/* UpVote */}
+        <IconButton
+          icon={MaterialIconNames.ArrowUpThick}
+          onPress={onUpVotePress}
+        />
+        {/* DownVote */}
+        <IconButton
+          icon={MaterialIconNames.ArrowDownThick}
+          onPress={onDownVotePress}
+        />
+        {/* Star */}
+        <IconButton
+          icon={MaterialIconNames.StarOutline}
+          onPress={onStarPress}
+        />
+        {/* Web */}
+        <IconButton icon={MaterialIconNames.Web} onPress={onWebPress} />
         {/* Menu */}
         {currentPost && (
           <View>
@@ -82,12 +100,17 @@ export const PostHeader = (): JSX.Element => {
               visible={showMenu}
               style={styles.menu}
               onDismiss={onMenuDismiss}
-              anchor={<IconButton icon="dots-vertical" onPress={onMenuPress} />}
+              anchor={
+                <IconButton
+                  icon={MaterialIconNames.DotsVertical}
+                  onPress={onMenuPress}
+                />
+              }
               anchorPosition="bottom">
               {/* Community */}
               <Menu.Item
                 title={currentPost?.community.name}
-                leadingIcon="alpha-c-circle-outline"
+                leadingIcon={MaterialIconNames.AlphaCCircleOutline}
                 onPress={onMenuCommunityPress}
               />
               {/* Creator */}
@@ -95,21 +118,21 @@ export const PostHeader = (): JSX.Element => {
                 title={
                   currentPost?.creator.display_name ?? currentPost?.creator.name
                 }
-                leadingIcon="account-outline"
+                leadingIcon={MaterialIconNames.AccountOutline}
                 onPress={onMenuCreatorPress}
               />
 
               {/* Reply */}
               <Menu.Item
                 title="Reply"
-                leadingIcon="reply-outline"
+                leadingIcon={MaterialIconNames.ReplyOutline}
                 onPress={onMenuReplyPress}
               />
 
               {/* Hide */}
               <Menu.Item
                 title="Hide"
-                leadingIcon="close-outline"
+                leadingIcon={MaterialIconNames.CloseOutline}
                 onPress={onMenuHidePress}
               />
               {/* Share */}
@@ -117,21 +140,21 @@ export const PostHeader = (): JSX.Element => {
                 title="Share"
                 leadingIcon={
                   Platform.OS === 'android'
-                    ? 'share-variant-outline'
-                    : 'export-variant'
+                    ? MaterialIconNames.ShareVariantOutline
+                    : MaterialIconNames.ExportVariant
                 }
                 onPress={onMenuSharePress}
               />
               {/* Copy */}
               <Menu.Item
                 title="Copy"
-                leadingIcon="content-copy"
+                leadingIcon={MaterialIconNames.ContentCopy}
                 onPress={onMenuCopyPress}
               />
               {/* Reload Comments */}
               <Menu.Item
                 title="Reload Comments"
-                leadingIcon="reload"
+                leadingIcon={MaterialIconNames.Reload}
                 onPress={onMenuReloadCommentsPress}
               />
             </Menu>

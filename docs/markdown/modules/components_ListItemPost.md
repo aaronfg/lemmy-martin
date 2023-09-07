@@ -19,6 +19,7 @@
 | Name | Type |
 | :------ | :------ |
 | `props` | `Object` |
+| `props.onPress?` | (`post`: `PostView`) => `void` |
 | `props.onThumbnailPress` | (`url`: `string`) => `void` |
 | `props.post` | `PostView` |
 

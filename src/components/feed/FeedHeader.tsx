@@ -130,7 +130,7 @@ const createStyleSheet = (theme: MD3Theme) => {
     container: {
       flexDirection: 'row',
       backgroundColor: theme.colors.tertiary,
-      paddingVertical: 8,
+      paddingVertical: 11,
       alignItems: 'center',
       justifyContent: 'space-between',
     },
