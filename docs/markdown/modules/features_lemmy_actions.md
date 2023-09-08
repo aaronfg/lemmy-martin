@@ -15,8 +15,8 @@
 
 ▸ **lemmyClearError**(`noArgument`): `Object`
 
-Calling this redux#ActionCreator will
-return a PayloadAction of type `T` with a payload of `undefined`
+Dispatched when we want to clear any error present in the `lemmy`
+slice of the redux store
 
 #### Parameters
 

@@ -17,8 +17,7 @@
 
 ▸ **userUIFeedCurrentPostUpdated**(`payload`): `Object`
 
-Calling this redux#ActionCreator with an argument will
-return a PayloadAction of type `T` with a payload of `P`
+Dispatched when the current post on the Feed screen has changed
 
 #### Parameters
 
@@ -41,8 +40,7 @@ ___
 
 ▸ **userUIFeedListingTypeUpdated**(`payload`): `Object`
 
-Calling this redux#ActionCreator with an argument will
-return a PayloadAction of type `T` with a payload of `P`
+Dispatched when the feed type has changed
 
 #### Parameters
 
@@ -65,8 +63,7 @@ ___
 
 ▸ **userUIFeedPageUpdated**(`payload`): `Object`
 
-Calling this redux#ActionCreator with an argument will
-return a PayloadAction of type `T` with a payload of `P`
+Dispatched when the page of results in the Feed has changed.
 
 #### Parameters
 
@@ -89,8 +86,7 @@ ___
 
 ▸ **userUIFeedSortTypeUpdated**(`payload`): `Object`
 
-Calling this redux#ActionCreator with an argument will
-return a PayloadAction of type `T` with a payload of `P`
+Dispatched when the sort of the feed has been changed
 
 #### Parameters
 
