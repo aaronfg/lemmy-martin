@@ -24,15 +24,11 @@ export const PostView = (): JSX.Element => {
   const token = useAppSelector(getLemmyJWT);
   const comments = useAppSelector(getLemmyComments);
   const theme = useTheme();
-
-  // console.log('comments: ', JSON.stringify(comments));
-  //   const [arg, setArg] = useState<boolean | null>(focused ? true : null);
   const route = useRoute<RouteProp<FeedAndPostParamList>>();
-  const post = route.params?.post;
-
   const navigation =
     useNavigation<MaterialTopTabNavigationProp<FeedAndPostParamList>>();
 
+  const post = route.params?.post;
   const styles = createStyleSheet(theme);
 
   const { isLoading, isFetching, error } = useGetCommentsQuery({

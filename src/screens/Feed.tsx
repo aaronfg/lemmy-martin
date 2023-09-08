@@ -62,7 +62,6 @@ export const FeedScreen = (): JSX.Element => {
   const navigation =
     useNavigation<MaterialTopTabNavigationProp<FeedAndPostParamList>>();
 
-  // console.log('FEED sort: ' + sortType + '\tpage: ' + page);
   const { isLoading, error, isFetching, data, refetch } = useGetPostsQuery({
     sort: sortType,
     page,
