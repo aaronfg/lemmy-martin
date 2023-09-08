@@ -190,11 +190,31 @@ export class LemmyUtils {
       : rawNumber.toString();
   };
 
+  /**
+   * Creates a shortened url from the (possibly) longer `fullUrl`
+   * that is passed in
+   * @param fullUrl - The URL to shorten
+   * @returns The hostname of the url passed in
+   */
   static getPostUrlShort = (fullUrl: string): string => {
     const url = new URL(fullUrl);
     return url.hostname;
   };
 
+  /**
+   * Returns the community name formatted in different ways if
+   * the community is on the same instance as the user or not.
+   *
+   * **Local Community Example:**
+   *
+   * `"games"`
+   *
+   * **Non-Local Community Example:**
+   *
+   * `"games@some-instance-name.xyz"`
+
+   * @param community - The `Community` to get the name from
+   */
   static getPostCommunityForItem = (community: Community): string => {
     if (community.local) {
       return community.name;
@@ -204,12 +224,22 @@ export class LemmyUtils {
     }
   };
 
+  /**
+   * Returns a color to be used as the border color on a comment list
+   * item to denote depth.
+   * @param commentDepth - The depth of the comment
+   */
   static getCommentBorderColor = (commentDepth: number) => {
     const isLast = commentDepth === LemmyNestedItemColors.length;
     const ind = commentDepth === 0 || isLast ? 0 : commentDepth;
     return LemmyNestedItemColors[ind];
   };
 
+  /**
+   *
+   * @param commentViews
+   * @returns
+   */
   static getParsedComments = (commentViews: CommentView[]) => {
     const rootComments = this.getRootComments(commentViews);
 
