@@ -24,6 +24,8 @@ export enum ScreenNames {
 export enum MaterialIconNames {
   AccountOutline = 'account-outline',
   AlphaCCircleOutline = 'alpha-c-circle-outline',
+  ArrowLeft = 'arrow-left',
+  ArrowRight = 'arrow-right',
   ArrowUpThick = 'arrow-up-thick',
   ArrowDownThick = 'arrow-down-thick',
   CheckCircleOutline = 'check-circle-outline',

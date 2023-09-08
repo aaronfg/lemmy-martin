@@ -8,6 +8,7 @@ import {
   Image,
   Linking,
   ListRenderItemInfo,
+  ScaledSize,
   StatusBar,
   StyleSheet,
   TouchableOpacity,
@@ -40,7 +41,7 @@ import {
 import { log } from '../logging/log';
 import { FeedAndPostParamList } from '../navigation/types';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { ScreenNames } from '../types';
+import { MaterialIconNames, ScreenNames } from '../types';
 
 /**
  * Screen for the main feed list
@@ -68,7 +69,7 @@ export const FeedScreen = (): JSX.Element => {
     type_: feedType,
     auth: authToken,
   });
-  const styles = createStyleSheet();
+  const styles = createStyleSheet(dimensions);
 
   const onListEndReached = (info: { distanceFromEnd: number }) => {
     dispatch(settingsFeedPageUpdated(page + 1));
@@ -129,7 +130,6 @@ export const FeedScreen = (): JSX.Element => {
           <FlatList
             data={data}
             renderItem={renderItem}
-            // contentContainerStyle={error ? styles.listContentEmpty : undefined}
             ListEmptyComponent={
               <View style={styles.emptyContainer}>
                 {!error && !isFetching && <Text>No items to show!</Text>}
@@ -139,8 +139,7 @@ export const FeedScreen = (): JSX.Element => {
               !error && !isFetching ? (
                 <View style={styles.pageButtonsContainer}>
                   <Button
-                    // mode="outlined"
-                    icon="arrow-left"
+                    icon={MaterialIconNames.ArrowLeft}
                     disabled={page === 1}
                     onPress={() =>
                       dispatch(userUIFeedPageUpdated(page > 1 ? page - 1 : 1))
@@ -148,8 +147,7 @@ export const FeedScreen = (): JSX.Element => {
                     Prev Page
                   </Button>
                   <Button
-                    // mode="outlined"
-                    icon="arrow-right"
+                    icon={MaterialIconNames.ArrowRight}
                     onPress={() => dispatch(userUIFeedPageUpdated(page + 1))}>
                     Next Page
                   </Button>
@@ -170,14 +168,10 @@ export const FeedScreen = (): JSX.Element => {
             visible={!!previewUrl}
             onDismiss={onPreviewDismiss}
             style={styles.modal}>
-            {/* <ScrollView maximumZoomScale={3} minimumZoomScale={1}> */}
             <TouchableOpacity onPressIn={onPreviewDismiss}>
               <Image
                 source={{ uri: previewUrl }}
-                style={{
-                  width: dimensions.width,
-                  height: dimensions.height - 100,
-                }}
+                style={styles.imagePreview}
                 resizeMode="contain"
                 onLoad={() => {
                   setPreviewImgLoaded(true);
@@ -192,7 +186,7 @@ export const FeedScreen = (): JSX.Element => {
               {/* Open in Browser button */}
               <Button
                 mode="contained"
-                icon="web"
+                icon={MaterialIconNames.Web}
                 style={styles.openInBrowser}
                 onPress={() => {
                   Linking.openURL(previewUrl);
@@ -207,7 +201,7 @@ export const FeedScreen = (): JSX.Element => {
   );
 };
 
-const createStyleSheet = () => {
+const createStyleSheet = (dimensions: ScaledSize) => {
   return StyleSheet.create({
     absoluteCentered: {
       position: 'absolute',
@@ -218,7 +212,6 @@ const createStyleSheet = () => {
     },
     contentContainer: {
       flex: 1,
-      // justifyContent: 'space-between',
     },
     emptyContainer: {
       flex: 1,
@@ -233,6 +226,10 @@ const createStyleSheet = () => {
       bottom: 0,
       left: 0,
       right: 0,
+    },
+    imagePreview: {
+      width: dimensions.width,
+      height: dimensions.height - 100,
     },
     listContentEmpty: {
       flex: 1,

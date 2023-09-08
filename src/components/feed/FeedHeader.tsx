@@ -90,7 +90,7 @@ export const FeedListHeader = (): JSX.Element => {
           onDismiss={onMenuTypeDismiss}
           anchor={
             <TouchableHighlight onPress={onTypePress}>
-              <Button icon="adjust" labelStyle={{ fontSize: 20 }}>
+              <Button icon="adjust" labelStyle={styles.feedType}>
                 {feedType}
               </Button>
             </TouchableHighlight>
@@ -107,7 +107,7 @@ export const FeedListHeader = (): JSX.Element => {
             <TouchableHighlight onPress={onSortPress}>
               <View style={styles.sortContainer}>
                 <Text style={styles.sortText}>Sort: </Text>
-                <Button labelStyle={{ fontSize: 18 }}>{sortType}</Button>
+                <Button labelStyle={styles.sortType}>{sortType}</Button>
               </View>
             </TouchableHighlight>
           }>
@@ -137,6 +137,9 @@ const createStyleSheet = (theme: MD3Theme) => {
     currentFeedType: {
       color: theme.colors.primary,
     },
+    feedType: {
+      fontSize: 20,
+    },
     title: {
       fontSize: 20,
       fontWeight: 'bold',
@@ -150,9 +153,7 @@ const createStyleSheet = (theme: MD3Theme) => {
       marginBottom: 2,
     },
     sortType: {
-      fontSize: 16,
-      marginLeft: 12,
-      color: theme.colors.secondary,
+      fontSize: 18,
     },
   });
 };

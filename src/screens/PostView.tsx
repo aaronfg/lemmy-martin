@@ -1,10 +1,5 @@
 import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
-import {
-  RouteProp,
-  useIsFocused,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
 import {
   ActivityIndicator,
@@ -28,7 +23,6 @@ import { ScreenNames } from '../types';
 export const PostView = (): JSX.Element => {
   const token = useAppSelector(getLemmyJWT);
   const comments = useAppSelector(getLemmyComments);
-  const focused = useIsFocused();
   const theme = useTheme();
 
   // console.log('comments: ', JSON.stringify(comments));
@@ -41,7 +35,7 @@ export const PostView = (): JSX.Element => {
 
   const styles = createStyleSheet(theme);
 
-  const { data, isLoading, isFetching, error } = useGetCommentsQuery({
+  const { isLoading, isFetching, error } = useGetCommentsQuery({
     post_id: post?.post.id,
     auth: token,
     max_depth: 5,
@@ -73,7 +67,6 @@ export const PostView = (): JSX.Element => {
     navigation.jumpTo(ScreenNames.Feed);
   };
 
-
   return (
     <SafeAreaView style={styles.safe}>
       <StatusBar />
@@ -92,8 +85,6 @@ export const PostView = (): JSX.Element => {
           <FlatList
             data={comments}
             renderItem={renderItem}
-            // renderHiddenItem={renderHiddenItem}
-            // leftOpenValue={-200}
             ListHeaderComponent={() => (
               <View style={styles.listHeaderContainer}>
                 <ListItemPost post={post} onThumbnailPress={onThumbnailPress} />
