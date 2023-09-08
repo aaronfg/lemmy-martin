@@ -13,15 +13,15 @@ import {
 import { LemmyApiTagTypes, lemmyApi } from '../../features/lemmy/api';
 import { getLemmyAPILoading } from '../../features/lemmy/selectors';
 import { SortTypeValue, SortTypeValues } from '../../features/lemmy/types';
+import { getSettingsCurrentAccount } from '../../features/settings/selectors';
 import {
-  settingsFeedSortUpdated,
-  settingsFeedTypeUpdated,
-} from '../../features/settings/actions';
+  userUIFeedListingTypeUpdated,
+  userUIFeedSortTypeUpdated,
+} from '../../features/user/actions';
 import {
-  getSettingsCurrentAccount,
-  getSettingsFeedSortType,
-  getSettingsFeedType,
-} from '../../features/settings/selectors';
+  getUserUIFeedSortType,
+  getUserUIFeedType,
+} from '../../features/user/selectors';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 /**
@@ -34,8 +34,8 @@ export const FeedListHeader = (): JSX.Element => {
   // selectors
   const loading = useAppSelector(getLemmyAPILoading);
   const currentAccount = useAppSelector(getSettingsCurrentAccount);
-  const sortType = useAppSelector(getSettingsFeedSortType);
-  const feedType = useAppSelector(getSettingsFeedType);
+  const sortType = useAppSelector(getUserUIFeedSortType);
+  const feedType = useAppSelector(getUserUIFeedType);
   // hooks
   const theme = useTheme();
   const dispatch = useAppDispatch();
@@ -71,13 +71,13 @@ export const FeedListHeader = (): JSX.Element => {
 
   const onFeedTypePress = (type: ListingType) => {
     if (feedType !== type) {
-      dispatch(settingsFeedTypeUpdated(type));
+      dispatch(userUIFeedListingTypeUpdated(type));
     }
     onMenuTypeDismiss();
   };
 
   const onSortTypePress = (sort: SortTypeValue) => {
-    dispatch(settingsFeedSortUpdated(sort));
+    dispatch(userUIFeedSortTypeUpdated(sort));
     dispatch(lemmyApi.util.invalidateTags([LemmyApiTagTypes.Posts]));
     onMenuSortDismiss();
   };
@@ -90,7 +90,7 @@ export const FeedListHeader = (): JSX.Element => {
           onDismiss={onMenuTypeDismiss}
           anchor={
             <TouchableHighlight onPress={onTypePress}>
-              <Button icon="adjust" labelStyle={{ fontSize: 20 }}>
+              <Button icon="adjust" labelStyle={styles.feedType}>
                 {feedType}
               </Button>
             </TouchableHighlight>
@@ -107,7 +107,7 @@ export const FeedListHeader = (): JSX.Element => {
             <TouchableHighlight onPress={onSortPress}>
               <View style={styles.sortContainer}>
                 <Text style={styles.sortText}>Sort: </Text>
-                <Button labelStyle={{ fontSize: 18 }}>{sortType}</Button>
+                <Button labelStyle={styles.sortType}>{sortType}</Button>
               </View>
             </TouchableHighlight>
           }>
@@ -130,12 +130,15 @@ const createStyleSheet = (theme: MD3Theme) => {
     container: {
       flexDirection: 'row',
       backgroundColor: theme.colors.tertiary,
-      paddingVertical: 8,
+      paddingVertical: 11,
       alignItems: 'center',
       justifyContent: 'space-between',
     },
     currentFeedType: {
       color: theme.colors.primary,
+    },
+    feedType: {
+      fontSize: 20,
     },
     title: {
       fontSize: 20,
@@ -150,9 +153,7 @@ const createStyleSheet = (theme: MD3Theme) => {
       marginBottom: 2,
     },
     sortType: {
-      fontSize: 16,
-      marginLeft: 12,
-      color: theme.colors.secondary,
+      fontSize: 18,
     },
   });
 };

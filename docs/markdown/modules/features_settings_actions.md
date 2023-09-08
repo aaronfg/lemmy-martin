@@ -8,8 +8,6 @@
 
 - [settingsCurrentAccountChanged](features_settings_actions.md#settingscurrentaccountchanged)
 - [settingsFeedPageUpdated](features_settings_actions.md#settingsfeedpageupdated)
-- [settingsFeedSortUpdated](features_settings_actions.md#settingsfeedsortupdated)
-- [settingsFeedTypeUpdated](features_settings_actions.md#settingsfeedtypeupdated)
 - [settingsUpdateAccounts](features_settings_actions.md#settingsupdateaccounts)
 
 ## Functions
@@ -18,8 +16,7 @@
 
 ▸ **settingsCurrentAccountChanged**(`payload`): `Object`
 
-Calling this redux#ActionCreator with an argument will
-return a PayloadAction of type `T` with a payload of `P`
+Dispatched when the current account being used has changed
 
 #### Parameters
 
@@ -42,8 +39,7 @@ ___
 
 ▸ **settingsFeedPageUpdated**(`payload`): `Object`
 
-Calling this redux#ActionCreator with an argument will
-return a PayloadAction of type `T` with a payload of `P`
+Dispatched when the page of results in the Feed has changed.
 
 #### Parameters
 
@@ -58,54 +54,6 @@ return a PayloadAction of type `T` with a payload of `P`
 | Name | Type |
 | :------ | :------ |
 | `payload` | `number` |
-| `type` | `string` |
-
-___
-
-### settingsFeedSortUpdated
-
-▸ **settingsFeedSortUpdated**(`payload`): `Object`
-
-Calling this redux#ActionCreator with an argument will
-return a PayloadAction of type `T` with a payload of `P`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `payload` | `SortType` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `payload` | `SortType` |
-| `type` | `string` |
-
-___
-
-### settingsFeedTypeUpdated
-
-▸ **settingsFeedTypeUpdated**(`payload`): `Object`
-
-Calling this redux#ActionCreator with an argument will
-return a PayloadAction of type `T` with a payload of `P`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `payload` | `ListingType` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `payload` | `ListingType` |
 | `type` | `string` |
 
 ___
@@ -114,7 +62,7 @@ ___
 
 ▸ **settingsUpdateAccounts**(`payload`): `Object`
 
-Dsipatched when we update the accounts that have been saved.
+Dispatched when we update the accounts that have been saved.
 
 #### Parameters
 

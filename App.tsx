@@ -42,54 +42,8 @@ function App(): JSX.Element {
                 }}
               />
               {/* Login */}
-              <Stack.Screen
-                name={ScreenNames.Login}
-                component={LoginScreen}
-                // options={{
-                //   presentation: 'fullScreenModal',
-                // }}
-              />
+              <Stack.Screen name={ScreenNames.Login} component={LoginScreen} />
             </Stack.Navigator>
-            {/* <Tab.Navigator> */}
-            {/* Feed */}
-            {/* <Tab.Screen
-                name={ScreenNames.Communities}
-                component={CommunitiesScreen}
-                options={{
-                  tabBarIcon: props => (
-                    <Icon
-                      name={MaterialIconNames.Home}
-                      size={TAB_ICON_SIZE}
-                      color={
-                        props.focused
-                          ? LemmyDarkTheme.colors.primary
-                          : LemmyDarkTheme.colors.secondary
-                      }
-                    />
-                  ),
-                  tabBarShowLabel: false,
-                }}
-              />
-              <Tab.Screen
-                name={ScreenNames.MainMenu}
-                component={MainMenuScreen}
-                options={{
-                  headerShown: false,
-                  tabBarIcon: props => (
-                    <Icon
-                      name={MaterialIconNames.Menu}
-                      size={TAB_ICON_SIZE}
-                      color={
-                        props.focused
-                          ? LemmyDarkTheme.colors.primary
-                          : LemmyDarkTheme.colors.secondary
-                      }
-                    />
-                  ),
-                  tabBarShowLabel: false,
-                }}
-              /> */}
-            {/* </Tab.Navigator> */}
           </NavigationContainer>
         </SafeAreaProvider>
       </PaperProvider>

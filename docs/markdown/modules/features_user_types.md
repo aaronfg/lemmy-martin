@@ -6,4 +6,6 @@
 
 ### Interfaces
 
+- [IFeedsUI](../interfaces/features_user_types.IFeedsUI.md)
+- [IUIState](../interfaces/features_user_types.IUIState.md)
 - [IUserState](../interfaces/features_user_types.IUserState.md)

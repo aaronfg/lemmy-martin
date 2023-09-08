@@ -12,17 +12,25 @@ import { MD3Theme, Text, useTheme } from 'react-native-paper';
 import { DateUtils } from '../utils/DateUtils';
 import { LemmyUtils } from '../utils/LemmyUtils';
 
+/**
+ * List Item for a Post
+ * @param props
+ */
 export const ListItemPost = (props: {
   post: PostView;
   onThumbnailPress: (url: string) => void;
+  onPress?: (post: PostView) => void;
 }): JSX.Element => {
-  const { post, onThumbnailPress } = props;
+  const { post, onPress, onThumbnailPress } = props;
   const theme = useTheme();
   const styles = createStyleSheet(theme);
 
-  const onItemPress = () => {
-    //
-  };
+  const onItemPress = onPress
+    ? () => {
+        //
+        onPress(post);
+      }
+    : undefined;
 
   const onThumbPress = async () => {
     if (post.post.thumbnail_url) {

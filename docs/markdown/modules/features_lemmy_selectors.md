@@ -7,8 +7,10 @@
 ### Functions
 
 - [getLemmyAPIBaseUrl](features_lemmy_selectors.md#getlemmyapibaseurl)
+- [getLemmyAPICommentsRaw](features_lemmy_selectors.md#getlemmyapicommentsraw)
 - [getLemmyAPIError](features_lemmy_selectors.md#getlemmyapierror)
 - [getLemmyAPILoading](features_lemmy_selectors.md#getlemmyapiloading)
+- [getLemmyComments](features_lemmy_selectors.md#getlemmycomments)
 - [getLemmyJWT](features_lemmy_selectors.md#getlemmyjwt)
 - [getLemmyLoginError](features_lemmy_selectors.md#getlemmyloginerror)
 
@@ -28,6 +30,22 @@
 #### Returns
 
 `URL`
+
+___
+
+### getLemmyAPICommentsRaw
+
+▸ **getLemmyAPICommentsRaw**(`state`): `undefined` \| `CommentView`[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `Object` |
+
+#### Returns
+
+`undefined` \| `CommentView`[]
 
 ___
 
@@ -64,6 +82,23 @@ Returns `true` if we're loading data from the API
 #### Returns
 
 `boolean`
+
+___
+
+### getLemmyComments
+
+▸ **getLemmyComments**(`state`, `...params`): [`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `Object` |
+| `...params` | [] |
+
+#### Returns
+
+[`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
 
 ___
 

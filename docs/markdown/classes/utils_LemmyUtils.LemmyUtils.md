@@ -15,12 +15,16 @@ Class with utility methods related to Lemmy API and accounts
 ### Methods
 
 - [createILemmyInstance](utils_LemmyUtils.LemmyUtils.md#createilemmyinstance)
+- [getCommentBorderColor](utils_LemmyUtils.LemmyUtils.md#getcommentbordercolor)
 - [getDescriptionFirstParagraph](utils_LemmyUtils.LemmyUtils.md#getdescriptionfirstparagraph)
 - [getDescriptionHasMultiParagraphs](utils_LemmyUtils.LemmyUtils.md#getdescriptionhasmultiparagraphs)
 - [getFormattedNumber](utils_LemmyUtils.LemmyUtils.md#getformattednumber)
 - [getFriendlyErrorMsg](utils_LemmyUtils.LemmyUtils.md#getfriendlyerrormsg)
+- [getParsedComments](utils_LemmyUtils.LemmyUtils.md#getparsedcomments)
+- [getParsedCommentsOld](utils_LemmyUtils.LemmyUtils.md#getparsedcommentsold)
 - [getPostCommunityForItem](utils_LemmyUtils.LemmyUtils.md#getpostcommunityforitem)
 - [getPostUrlShort](utils_LemmyUtils.LemmyUtils.md#getposturlshort)
+- [getRootComments](utils_LemmyUtils.LemmyUtils.md#getrootcomments)
 - [getShortDescription](utils_LemmyUtils.LemmyUtils.md#getshortdescription)
 - [getUpdatedAccounts](utils_LemmyUtils.LemmyUtils.md#getupdatedaccounts)
 - [isDescriptionLong](utils_LemmyUtils.LemmyUtils.md#isdescriptionlong)
@@ -50,6 +54,22 @@ the `instance` string passed in
 #### Returns
 
 [`ILemmyInstance`](../interfaces/features_lemmy_types.ILemmyInstance.md)
+
+___
+
+### getCommentBorderColor
+
+▸ `Static` **getCommentBorderColor**(`commentDepth`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `commentDepth` | `number` |
+
+#### Returns
+
+`string`
 
 ___
 
@@ -127,6 +147,38 @@ Returns a user-friendly error message given the API-provided `error`
 
 ___
 
+### getParsedComments
+
+▸ `Static` **getParsedComments**(`commentViews`): [`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `commentViews` | `CommentView`[] |
+
+#### Returns
+
+[`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
+
+___
+
+### getParsedCommentsOld
+
+▸ `Static` **getParsedCommentsOld**(`commentViews`): [`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `commentViews` | `CommentView`[] |
+
+#### Returns
+
+[`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
+
+___
+
 ### getPostCommunityForItem
 
 ▸ `Static` **getPostCommunityForItem**(`community`): `string`
@@ -156,6 +208,22 @@ ___
 #### Returns
 
 `string`
+
+___
+
+### getRootComments
+
+▸ `Static` **getRootComments**(`commentViews`): [`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `commentViews` | `CommentView`[] |
+
+#### Returns
+
+[`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
 
 ___
 

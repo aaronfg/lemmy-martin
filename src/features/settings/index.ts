@@ -2,8 +2,6 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   settingsCurrentAccountChanged,
   settingsFeedPageUpdated,
-  settingsFeedSortUpdated,
-  settingsFeedTypeUpdated,
   settingsUpdateAccounts,
 } from './actions';
 import { FeedSource, ISettingsState } from './types';
@@ -17,7 +15,7 @@ export const INITIAL_SETTINGS_STATE: ISettingsState = {
     type: 'Local',
     page: 1,
   },
-  defaultInstance: 'https://lemmy.ml', // https://sopuli.xyz
+  defaultInstance: 'https://sopuli.xyz/', // https://sopuli.xyz
 };
 
 /** The reducer for the `settings` slice of our redux state */
@@ -32,16 +30,6 @@ export const settingsReducer = createReducer(
       // settingsCurrentAccountChanged
       .addCase(settingsCurrentAccountChanged, (state, action) => {
         state.currentAccount = action.payload;
-        state.feed.page = INITIAL_SETTINGS_STATE.feed.page;
-      })
-      // settingsFeedSortUpdated
-      .addCase(settingsFeedSortUpdated, (state, action) => {
-        state.feed.feedSortType = action.payload;
-        state.feed.page = INITIAL_SETTINGS_STATE.feed.page;
-      })
-      // settingsFeedTypeUpdated
-      .addCase(settingsFeedTypeUpdated, (state, action) => {
-        state.feed.type = action.payload;
         state.feed.page = INITIAL_SETTINGS_STATE.feed.page;
       })
       // settingsFeedPageUpdated

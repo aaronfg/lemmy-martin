@@ -10,7 +10,6 @@ import { lemmyLogin } from '../features/lemmy/actions';
 import { LemmyApiTagTypes, lemmyApi } from '../features/lemmy/api';
 import {
   settingsCurrentAccountChanged,
-  settingsFeedTypeUpdated,
   settingsUpdateAccounts,
 } from '../features/settings/actions';
 import {
@@ -18,6 +17,7 @@ import {
   getSettingsCurrentAccountToken,
 } from '../features/settings/selectors';
 import { IAccount } from '../features/settings/types';
+import { userUIFeedListingTypeUpdated } from '../features/user/actions';
 import { log } from '../logging/log';
 import { navigationRef } from '../navigation';
 import { LemmyUtils } from '../utils/LemmyUtils';
@@ -92,7 +92,7 @@ startAppListening({
 });
 
 startAppListening({
-  actionCreator: settingsFeedTypeUpdated,
+  actionCreator: userUIFeedListingTypeUpdated,
   effect: (action, listenerApi) => {
     listenerApi.dispatch(
       lemmyApi.util.invalidateTags([LemmyApiTagTypes.Posts]),

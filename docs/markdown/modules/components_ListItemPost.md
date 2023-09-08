@@ -14,11 +14,14 @@
 
 ▸ **ListItemPost**(`props`): `Element`
 
+List Item for a Post
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `props` | `Object` |
+| `props.onPress?` | (`post`: `PostView`) => `void` |
 | `props.onThumbnailPress` | (`url`: `string`) => `void` |
 | `props.post` | `PostView` |
 

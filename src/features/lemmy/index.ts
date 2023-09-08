@@ -17,9 +17,11 @@ export const lemmyReducer = createReducer(INITIAL_LEMMY_STATE, builder => {
       state.loginResponse = undefined;
     })
     .addCase(lemmyLogin.fulfilled, (state, action) => {
+      state.loading = false;
       state.loginResponse = action.payload;
     })
     .addCase(lemmyLogin.rejected, (state, action) => {
+      state.loading = false;
       state.loginError = action.payload ?? { message: 'Someting went wrong' };
     })
     // lemmyClearError
@@ -62,9 +64,17 @@ export const lemmyReducer = createReducer(INITIAL_LEMMY_STATE, builder => {
       },
     )
     // Actions that should reset the loading flag
-    .addMatcher(isAnyOf(lemmyLogin.rejected, lemmyLogin.fulfilled), state => {
-      state.loading = false;
-    })
+    .addMatcher(
+      isAnyOf(
+        lemmyLogin.rejected,
+        lemmyLogin.fulfilled,
+        lemmyApi.endpoints.getComments.matchRejected,
+        lemmyApi.endpoints.getPosts.matchRejected,
+      ),
+      state => {
+        state.loading = false;
+      },
+    )
     // default
     .addDefaultCase(state => state);
 });

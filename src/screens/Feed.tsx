@@ -1,3 +1,5 @@
+import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
+import { useNavigation } from '@react-navigation/native';
 import { nanoid } from '@reduxjs/toolkit';
 import { PostView } from 'lemmy-js-client';
 import React, { useCallback, useState } from 'react';
@@ -6,6 +8,7 @@ import {
   Image,
   Linking,
   ListRenderItemInfo,
+  ScaledSize,
   StatusBar,
   StyleSheet,
   TouchableOpacity,
@@ -21,16 +24,24 @@ import {
   useTheme,
 } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ErrorMsg } from '../components/ErrorMsg';
 import { ListItemPost } from '../components/ListItemPost';
 import { useGetPostsQuery } from '../features/lemmy/api';
 import { settingsFeedPageUpdated } from '../features/settings/actions';
+import { getSettingsCurrentAccountToken } from '../features/settings/selectors';
 import {
-  getSettingsCurrentAccountToken,
-  getSettingsFeedPage,
-  getSettingsFeedSortType,
-  getSettingsFeedType,
-} from '../features/settings/selectors';
+  userUIFeedCurrentPostUpdated,
+  userUIFeedPageUpdated,
+} from '../features/user/actions';
+import {
+  getUserUIFeedPage,
+  getUserUIFeedSortType,
+  getUserUIFeedType,
+} from '../features/user/selectors';
+import { log } from '../logging/log';
+import { FeedAndPostParamList } from '../navigation/types';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { MaterialIconNames, ScreenNames } from '../types';
 
 /**
  * Screen for the main feed list
@@ -40,35 +51,27 @@ export const FeedScreen = (): JSX.Element => {
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
   const [previewImgLoaded, setPreviewImgLoaded] = useState(false);
   // const [page, setPage] = useState(1);
-  const sortType = useAppSelector(getSettingsFeedSortType);
-  const feedType = useAppSelector(getSettingsFeedType);
-  const page = useAppSelector(getSettingsFeedPage);
+  const sortType = useAppSelector(getUserUIFeedSortType);
+  const feedType = useAppSelector(getUserUIFeedType);
+  const page = useAppSelector(getUserUIFeedPage);
   const authToken = useAppSelector(getSettingsCurrentAccountToken);
 
   const dispatch = useAppDispatch();
   const dimensions = useWindowDimensions();
   const theme = useTheme();
+  const navigation =
+    useNavigation<MaterialTopTabNavigationProp<FeedAndPostParamList>>();
 
-  console.log('FEED sort: ' + sortType + '\tpage: ' + page);
-  const { isLoading, error, isFetching, data } = useGetPostsQuery({
+  const { isLoading, error, isFetching, data, refetch } = useGetPostsQuery({
     sort: sortType,
     page,
     type_: feedType,
     auth: authToken,
   });
-  const styles = createStyleSheet();
+  const styles = createStyleSheet(dimensions);
 
   const onListEndReached = (info: { distanceFromEnd: number }) => {
     dispatch(settingsFeedPageUpdated(page + 1));
-  };
-
-  const onPostsPress = async () => {
-    try {
-      //
-      // const response =
-    } catch (error) {
-      //
-    }
   };
 
   const onThumbnailPress = (url: string) => {
@@ -80,12 +83,21 @@ export const FeedScreen = (): JSX.Element => {
     setPreviewImgLoaded(false);
   };
 
+  const onListItemPress = (post: PostView) => {
+    //
+    log.debug('pressed ' + post.post.name);
+    dispatch(userUIFeedCurrentPostUpdated(post));
+    log.debug('after dispatch');
+    navigation.jumpTo(ScreenNames.PostView, { post });
+  };
+
   const renderItem = useCallback((item: ListRenderItemInfo<PostView>) => {
     return (
       <ListItemPost
         key={nanoid()}
         post={item.item}
         onThumbnailPress={onThumbnailPress}
+        onPress={onListItemPress}
       />
     );
   }, []);
@@ -94,6 +106,19 @@ export const FeedScreen = (): JSX.Element => {
     <SafeAreaView style={styles.safe}>
       <StatusBar backgroundColor={theme.colors.tertiary} />
       <View style={styles.contentContainer}>
+        {/* Error */}
+        {error && !isFetching && (
+          <View style={styles.errorContainer}>
+            <ErrorMsg
+              error={{
+                message:
+                  'name' in error && error.name === 'AbortError'
+                    ? 'Failed to load posts. Please try again.'
+                    : JSON.stringify(error),
+              }}
+            />
+          </View>
+        )}
         {/* Feed loading indicator */}
         {isLoading || isFetching ? (
           <View style={styles.loadingContainer}>
@@ -104,25 +129,31 @@ export const FeedScreen = (): JSX.Element => {
           <FlatList
             data={data}
             renderItem={renderItem}
-            ListEmptyComponent={<Text>No items to show!</Text>}
-            ListFooterComponent={
-              <View style={styles.pageButtonsContainer}>
-                <Button
-                  mode="outlined"
-                  icon="arrow-left"
-                  disabled={page === 1}
-                  onPress={() =>
-                    dispatch(settingsFeedPageUpdated(page > 1 ? page - 1 : 1))
-                  }>
-                  Prev Page
-                </Button>
-                <Button
-                  mode="outlined"
-                  icon="arrow-right"
-                  onPress={() => dispatch(settingsFeedPageUpdated(page + 1))}>
-                  Next Page
-                </Button>
+            ListEmptyComponent={
+              <View style={styles.emptyContainer}>
+                {!error && !isFetching && <Text>No items to show!</Text>}
               </View>
+            }
+            ListFooterComponent={
+              !error && !isFetching ? (
+                <View style={styles.pageButtonsContainer}>
+                  <Button
+                    icon={MaterialIconNames.ArrowLeft}
+                    disabled={page === 1}
+                    onPress={() =>
+                      dispatch(userUIFeedPageUpdated(page > 1 ? page - 1 : 1))
+                    }>
+                    Prev Page
+                  </Button>
+                  <Button
+                    icon={MaterialIconNames.ArrowRight}
+                    onPress={() => dispatch(userUIFeedPageUpdated(page + 1))}>
+                    Next Page
+                  </Button>
+                </View>
+              ) : (
+                <View />
+              )
             }
             // onEndReached={onListEndReached}
             // onEndReachedThreshold={0.8}
@@ -136,14 +167,10 @@ export const FeedScreen = (): JSX.Element => {
             visible={!!previewUrl}
             onDismiss={onPreviewDismiss}
             style={styles.modal}>
-            {/* <ScrollView maximumZoomScale={3} minimumZoomScale={1}> */}
             <TouchableOpacity onPressIn={onPreviewDismiss}>
               <Image
                 source={{ uri: previewUrl }}
-                style={{
-                  width: dimensions.width,
-                  height: dimensions.height - 100,
-                }}
+                style={styles.imagePreview}
                 resizeMode="contain"
                 onLoad={() => {
                   setPreviewImgLoaded(true);
@@ -158,7 +185,7 @@ export const FeedScreen = (): JSX.Element => {
               {/* Open in Browser button */}
               <Button
                 mode="contained"
-                icon="web"
+                icon={MaterialIconNames.Web}
                 style={styles.openInBrowser}
                 onPress={() => {
                   Linking.openURL(previewUrl);
@@ -166,7 +193,6 @@ export const FeedScreen = (): JSX.Element => {
                 Open in Browser
               </Button>
             </TouchableOpacity>
-            {/* </ScrollView> */}
           </Modal>
         </Portal>
       )}
@@ -174,7 +200,7 @@ export const FeedScreen = (): JSX.Element => {
   );
 };
 
-const createStyleSheet = () => {
+const createStyleSheet = (dimensions: ScaledSize) => {
   return StyleSheet.create({
     absoluteCentered: {
       position: 'absolute',
@@ -186,12 +212,26 @@ const createStyleSheet = () => {
     contentContainer: {
       flex: 1,
     },
+    emptyContainer: {
+      flex: 1,
+    },
+    errorContainer: {
+      paddingHorizontal: 12,
+      marginTop: 12,
+    },
     footerContainer: {
       height: 50,
       position: 'absolute',
       bottom: 0,
       left: 0,
       right: 0,
+    },
+    imagePreview: {
+      width: dimensions.width,
+      height: dimensions.height - 100,
+    },
+    listContentEmpty: {
+      flex: 1,
     },
     loadingContainer: {
       flex: 1,

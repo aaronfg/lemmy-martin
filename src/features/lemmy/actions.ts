@@ -5,6 +5,10 @@ import { IError } from '../../types';
 import { LemmyUtils } from '../../utils/LemmyUtils';
 import { ILemmyLoginParams } from './types';
 
+/**
+ * Dispatched when we want to clear any error present in the `lemmy`
+ * slice of the redux store
+ */
 export const lemmyClearError = createAction('lemmy/clearError');
 
 /**

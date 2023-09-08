@@ -119,39 +119,25 @@ const createStyleSheet = (theme: MD3Theme) => {
       width: 30,
       height: 30,
       marginRight: 12,
-      // backgroundColor: 'red',
     },
     container: {
       padding: 12,
       paddingTop: 14,
       paddingRight: 120,
       flexDirection: 'row',
-      // flexWrap: 'wrap',
       flex: 1,
     },
     description: {
-      // backgroundColor: 'gray',
-      // marginRight: 16,
-      // flexShrink: 1,
-      // overflow: 'hidden',
-      // width: 300,
       flexWrap: 'wrap',
       paddingRight: 8,
     },
-    detailsContainer: {
-      // marginRight: 12,
-      // backgroundColor: 'green',
-    },
+    detailsContainer: {},
     image: {
       width: 100,
       height: 100,
     },
-    outerContainer: {
-      // backgroundColor: 'yellow',
-    },
-    subscribeIcon: {
-      // color: theme.colors.primary,
-    },
+    outerContainer: {},
+    subscribeIcon: {},
     subscribeIconBtn: {
       position: 'absolute',
       right: 12,
@@ -160,11 +146,9 @@ const createStyleSheet = (theme: MD3Theme) => {
     title: {
       fontSize: 20,
       fontWeight: 'bold',
-      // backgroundColor: 'gray',
     },
     name: {
       color: theme.colors.secondary,
-      // paddingBottom: 4,
     },
   });
 };

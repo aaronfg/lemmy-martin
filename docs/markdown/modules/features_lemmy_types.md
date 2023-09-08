@@ -13,11 +13,13 @@
 
 ### Interfaces
 
+- [ILemmyCommentItemData](../interfaces/features_lemmy_types.ILemmyCommentItemData.md)
 - [ILemmyInstance](../interfaces/features_lemmy_types.ILemmyInstance.md)
 - [ILemmyLoginError](../interfaces/features_lemmy_types.ILemmyLoginError.md)
 - [ILemmyLoginErrorResponse](../interfaces/features_lemmy_types.ILemmyLoginErrorResponse.md)
 - [ILemmyLoginParams](../interfaces/features_lemmy_types.ILemmyLoginParams.md)
 - [ILemmyState](../interfaces/features_lemmy_types.ILemmyState.md)
+- [IParsedComment](../interfaces/features_lemmy_types.IParsedComment.md)
 
 ### Type Aliases
 
@@ -26,6 +28,7 @@
 ### Variables
 
 - [LEMMY\_API\_PATH](features_lemmy_types.md#lemmy_api_path)
+- [LemmyNestedItemColors](features_lemmy_types.md#lemmynesteditemcolors)
 - [SortTypeValues](features_lemmy_types.md#sorttypevalues)
 
 ## Type Aliases
@@ -39,6 +42,12 @@
 ### LEMMY\_API\_PATH
 
 • `Const` **LEMMY\_API\_PATH**: ``"api/v3/"``
+
+___
+
+### LemmyNestedItemColors
+
+• `Const` **LemmyNestedItemColors**: `string`[]
 
 ___
 

@@ -14,8 +14,10 @@ Used in the stack navigators.
 
 - [Communities](types.ScreenNames.md#communities)
 - [Feed](types.ScreenNames.md#feed)
+- [FeedAndPostView](types.ScreenNames.md#feedandpostview)
 - [Login](types.ScreenNames.md#login)
 - [MainMenu](types.ScreenNames.md#mainmenu)
+- [PostView](types.ScreenNames.md#postview)
 
 ## Enumeration Members
 
@@ -31,6 +33,12 @@ ___
 
 ___
 
+### FeedAndPostView
+
+• **FeedAndPostView** = ``"FeedAndPostView"``
+
+___
+
 ### Login
 
 • **Login** = ``"Login"``
@@ -40,3 +48,9 @@ ___
 ### MainMenu
 
 • **MainMenu** = ``"MainMenu"``
+
+___
+
+### PostView
+
+• **PostView** = ``"PostView"``
