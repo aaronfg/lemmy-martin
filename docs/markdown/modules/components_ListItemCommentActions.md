@@ -14,6 +14,8 @@
 
 ▸ **ListItemCommentActions**(): `Element`
 
+View that contains the actions a user can take on a comment list item
+
 #### Returns
 
 `Element`

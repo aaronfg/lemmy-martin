@@ -3,6 +3,9 @@ import { StyleSheet, View } from 'react-native';
 import { MD3Theme, useTheme } from 'react-native-paper';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+/**
+ * View that contains the actions a user can take on a comment list item
+ */
 export const ListItemCommentActions = (): JSX.Element => {
   const theme = useTheme();
   const styles = createStyleSheet(theme);

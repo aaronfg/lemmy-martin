@@ -13,6 +13,8 @@ Names of icons in the Material Design icon set
 - [AccountOutline](types.MaterialIconNames.md#accountoutline)
 - [AlphaCCircleOutline](types.MaterialIconNames.md#alphaccircleoutline)
 - [ArrowDownThick](types.MaterialIconNames.md#arrowdownthick)
+- [ArrowLeft](types.MaterialIconNames.md#arrowleft)
+- [ArrowRight](types.MaterialIconNames.md#arrowright)
 - [ArrowUpThick](types.MaterialIconNames.md#arrowupthick)
 - [CheckCircleOutline](types.MaterialIconNames.md#checkcircleoutline)
 - [CloseOutline](types.MaterialIconNames.md#closeoutline)
@@ -48,6 +50,18 @@ ___
 ### ArrowDownThick
 
 • **ArrowDownThick** = ``"arrow-down-thick"``
+
+___
+
+### ArrowLeft
+
+• **ArrowLeft** = ``"arrow-left"``
+
+___
+
+### ArrowRight
+
+• **ArrowRight** = ``"arrow-right"``
 
 ___
 

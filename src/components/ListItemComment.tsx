@@ -6,6 +6,10 @@ import { UnicodeText } from '../types';
 import { DateUtils } from '../utils/DateUtils';
 import { TextMarkdown } from './TextMarkdown';
 
+/**
+ * List Item for a Comment
+ * @param props The parsed comment to display
+ */
 export const ListItemComment = (props: {
   parsedComment: IParsedComment;
 }): JSX.Element => {

@@ -14,6 +14,8 @@
 
 ▸ **ListItemPost**(`props`): `Element`
 
+List Item for a Post
+
 #### Parameters
 
 | Name | Type |

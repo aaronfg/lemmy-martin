@@ -14,12 +14,14 @@
 
 ▸ **ListItemComment**(`props`): `Element`
 
+List Item for a Comment
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `props` | `Object` |
-| `props.parsedComment` | [`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `props` | `Object` | The parsed comment to display |
+| `props.parsedComment` | [`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md) | - |
 
 #### Returns
 
