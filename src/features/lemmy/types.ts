@@ -12,6 +12,7 @@ export interface ILemmyState {
   loginResponse?: LoginResponse;
 }
 
+/** Object for a Lemmy instance */
 export interface ILemmyInstance {
   /**
    * The instance name not formatted as a url. ie `'lemmy.ml'`
@@ -34,6 +35,7 @@ export interface ILemmyCommentItemData {
   rootComment: boolean;
 }
 
+/** Object for a comment and its child comments */
 export interface IParsedComment {
   commentView: CommentView;
   children: string[];
@@ -62,22 +64,27 @@ export enum LemmyLoginErrors {
   PasswordIncorrect = 'Error: password_incorrect',
 }
 
+/** Error messages for the `lemmy` feature */
 export enum LemmyErrorMsgs {
   UserOrPassInvalid = 'There was a problem with your username or password. Please verify them and try again.',
   UnknownError = 'An unknown error occured.',
 }
 
+/** Paths for the Lemmy API */
 export enum LemmyAPIPaths {
   GetComments = 'comment/list',
   GetPosts = 'post/list',
   ListCommunities = 'community/list',
 }
+
+/** Method types for the Lemmy API calls */
 export enum LemmyAPIMethods {
   GetComments = 'GET',
   GetPosts = 'GET',
   ListCommunities = 'GET',
 }
 
+/** Colors to use on nested list items like comments */
 export const LemmyNestedItemColors: string[] = [
   '#307aba',
   '#b82cd1',
@@ -87,8 +94,10 @@ export const LemmyNestedItemColors: string[] = [
   '#f8fc0d',
 ];
 
+/** The path to the current LEmmy aPI */
 export const LEMMY_API_PATH = 'api/v3/';
 
+/** Valid sort types */
 export const SortTypeValues = [
   'Active',
   'Hot',
@@ -105,4 +114,5 @@ export const SortTypeValues = [
   'TopSixHour',
   'TopTwelveHour',
 ] as const;
+
 export type SortTypeValue = (typeof SortTypeValues)[number];

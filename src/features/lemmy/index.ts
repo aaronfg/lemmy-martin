@@ -28,8 +28,7 @@ export const lemmyReducer = createReducer(INITIAL_LEMMY_STATE, builder => {
     .addCase(lemmyClearError, state => {
       state.error = undefined;
     })
-    // communities
-
+    // loading indicator
     .addMatcher(
       isAnyOf(
         lemmyApi.endpoints.getCommunities.matchPending,
@@ -40,6 +39,7 @@ export const lemmyReducer = createReducer(INITIAL_LEMMY_STATE, builder => {
         state.loading = true;
       },
     )
+    // loading indicator clearing
     .addMatcher(
       isAnyOf(
         lemmyApi.endpoints.getCommunities.matchFulfilled,
@@ -49,6 +49,7 @@ export const lemmyReducer = createReducer(INITIAL_LEMMY_STATE, builder => {
         state.loading = false;
       },
     )
+    // lemmyApi.endpoints.getCommunities
     .addMatcher(
       lemmyApi.endpoints.getCommunities.matchRejected,
       (state, action) => {

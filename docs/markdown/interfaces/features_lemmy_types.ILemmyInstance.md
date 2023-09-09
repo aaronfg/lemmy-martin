@@ -4,6 +4,8 @@
 
 [features/lemmy/types](../modules/features_lemmy_types.md).ILemmyInstance
 
+Object for a Lemmy instance
+
 ## Table of contents
 
 ### Properties

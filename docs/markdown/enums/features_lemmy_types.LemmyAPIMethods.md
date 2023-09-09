@@ -4,6 +4,8 @@
 
 [features/lemmy/types](../modules/features_lemmy_types.md).LemmyAPIMethods
 
+Method types for the Lemmy API calls
+
 ## Table of contents
 
 ### Enumeration Members

@@ -20,6 +20,9 @@
 
 ▸ **getLemmyAPIBaseUrl**(`state`, `...params`): `URL`
 
+Returns the base url for the current instance. If no current instance
+exists, will return the default instance base url.
+
 #### Parameters
 
 | Name | Type |
@@ -37,11 +40,14 @@ ___
 
 ▸ **getLemmyAPICommentsRaw**(`state`): `undefined` \| `CommentView`[]
 
+Returns the raw response returned from the server for the current
+post's comments
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | `Object` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | `Object` | The redux state |
 
 #### Returns
 
@@ -88,6 +94,9 @@ ___
 ### getLemmyComments
 
 ▸ **getLemmyComments**(`state`, `...params`): [`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
+
+Returns the current post's comments, formatted for use in
+the list items on the Post view comments list.
 
 #### Parameters
 

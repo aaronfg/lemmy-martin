@@ -4,6 +4,8 @@
 
 [features/lemmy/types](../modules/features_lemmy_types.md).IParsedComment
 
+Object for a comment and its child comments
+
 ## Table of contents
 
 ### Properties
