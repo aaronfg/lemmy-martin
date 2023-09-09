@@ -4,14 +4,24 @@
 
 ## Table of contents
 
-### Variables
+### Functions
 
-- [communitesListenerMiddleware](features_communities_middleware.md#communiteslistenermiddleware)
+- [addCommunitesListeners](features_communities_middleware.md#addcommuniteslisteners)
 
-## Variables
+## Functions
 
-### communitesListenerMiddleware
+### addCommunitesListeners
 
-• `Const` **communitesListenerMiddleware**: `ListenerMiddlewareInstance`<`unknown`, `ThunkDispatch`<`unknown`, `unknown`, `AnyAction`\>, `unknown`\>
+▸ **addCommunitesListeners**(`startListening`): `void`
 
-Listener middleware related to the `settings` feature
+Adds the listeners related to the `communities` feature
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `startListening` | [`AppStartListening`](redux_listenerMiddleware.md#appstartlistening) |
+
+#### Returns
+
+`void`

@@ -21,6 +21,7 @@ export const addAppListener = addListener as TypedAddListener<
 /** Listener middleware related to the `settings` feature */
 export const appListenerMiddleware = createListenerMiddleware();
 
+/** Properly typed `startListening` for our listener middleware */
 export const startAppListening =
   appListenerMiddleware.startListening as AppStartListening;
 

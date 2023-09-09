@@ -193,7 +193,7 @@ ___
 
 ▸ **startAppListening**<`MA`, `LP`\>(`options`): `UnsubscribeListener`
 
-Accepts a "listener predicate" that is also a TS type predicate for the action
+Properly typed `startListening` for our listener middleware
 
 #### Type parameters
 
@@ -219,7 +219,7 @@ Accepts a "listener predicate" that is also a TS type predicate for the action
 
 ▸ **startAppListening**<`C`\>(`options`): `UnsubscribeListener`
 
-Accepts an RTK action creator, like `incrementByAmount`
+Properly typed `startListening` for our listener middleware
 
 #### Type parameters
 
@@ -244,7 +244,7 @@ Accepts an RTK action creator, like `incrementByAmount`
 
 ▸ **startAppListening**<`T`\>(`options`): `UnsubscribeListener`
 
-Accepts a specific action type string
+Properly typed `startListening` for our listener middleware
 
 #### Type parameters
 
@@ -269,7 +269,7 @@ Accepts a specific action type string
 
 ▸ **startAppListening**<`MA`, `M`\>(`options`): `UnsubscribeListener`
 
-Accepts an RTK matcher function, such as `incrementByAmount.match`
+Properly typed `startListening` for our listener middleware
 
 #### Type parameters
 
@@ -295,7 +295,7 @@ Accepts an RTK matcher function, such as `incrementByAmount.match`
 
 ▸ **startAppListening**<`LP`\>(`options`): `UnsubscribeListener`
 
-Accepts a "listener predicate" that just returns a boolean, no type assertion
+Properly typed `startListening` for our listener middleware
 
 #### Type parameters
 

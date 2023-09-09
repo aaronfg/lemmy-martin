@@ -21,7 +21,6 @@ Class with utility methods related to Lemmy API and accounts
 - [getFormattedNumber](utils_LemmyUtils.LemmyUtils.md#getformattednumber)
 - [getFriendlyErrorMsg](utils_LemmyUtils.LemmyUtils.md#getfriendlyerrormsg)
 - [getParsedComments](utils_LemmyUtils.LemmyUtils.md#getparsedcomments)
-- [getParsedCommentsOld](utils_LemmyUtils.LemmyUtils.md#getparsedcommentsold)
 - [getPostCommunityForItem](utils_LemmyUtils.LemmyUtils.md#getpostcommunityforitem)
 - [getPostUrlShort](utils_LemmyUtils.LemmyUtils.md#getposturlshort)
 - [getRootComments](utils_LemmyUtils.LemmyUtils.md#getrootcomments)
@@ -162,22 +161,6 @@ a list item
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `commentViews` | `CommentView`[] | A Post's comments |
-
-#### Returns
-
-[`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
-
-___
-
-### getParsedCommentsOld
-
-▸ `Static` **getParsedCommentsOld**(`commentViews`): [`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `commentViews` | `CommentView`[] |
 
 #### Returns
 
