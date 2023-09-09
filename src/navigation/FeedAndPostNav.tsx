@@ -19,7 +19,6 @@ export const FeedAndPostNav = (): JSX.Element => {
         // activeRoute = navigation.state.routes[navigation.state.index];
         const activeRoute =
           props.navigation.getState().routes[props.navigation.getState().index];
-        console.log('active route: ' + activeRoute.name);
         return activeRoute.name === ScreenNames.PostView ? (
           <PostHeader />
         ) : (
@@ -27,8 +26,6 @@ export const FeedAndPostNav = (): JSX.Element => {
         );
       }}
       screenOptions={props => {
-        const activeRoute =
-          props.navigation.getState().routes[props.navigation.getState().index];
         return {
           tabBarShowIcon: false,
           swipeEnabled: !!currentPost,

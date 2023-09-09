@@ -4,6 +4,8 @@
 
 [theme](../modules/theme.md).LemmyMartinBrandingColors
 
+App branding colors
+
 ## Table of contents
 
 ### Enumeration Members

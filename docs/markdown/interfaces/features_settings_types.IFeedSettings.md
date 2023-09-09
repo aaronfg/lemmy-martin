@@ -22,11 +22,15 @@ screen / data.
 
 • **feedSortType**: `SortType`
 
+The sort type for the feed
+
 ___
 
 ### page
 
 • **page**: `number`
+
+Current page of data to show
 
 ___
 
@@ -44,3 +48,5 @@ ___
 ### type
 
 • **type**: `ListingType`
+
+For filtering the feed list to just items from subscribed commnites vs all, etc

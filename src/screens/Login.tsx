@@ -143,7 +143,6 @@ export const LoginScreen = (): JSX.Element => {
 const createStyleSheet = (isLandscape: boolean) => {
   return StyleSheet.create({
     chipContainer: {
-      // marginHorizontal: ScreenMargin.Horizontal,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-start',
@@ -154,7 +153,6 @@ const createStyleSheet = (isLandscape: boolean) => {
       flex: 1,
     },
     content: {
-      // flex: 1,
       width: '100%',
       justifyContent: 'center',
       backgroundColor: 'pink',

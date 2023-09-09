@@ -4,6 +4,8 @@
 
 [hooks](../modules/hooks.md).IOrientation
 
+Landscape/Portrair state
+
 ## Table of contents
 
 ### Properties

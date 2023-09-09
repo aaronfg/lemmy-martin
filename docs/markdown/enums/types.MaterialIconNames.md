@@ -11,6 +11,7 @@ Names of icons in the Material Design icon set
 ### Enumeration Members
 
 - [AccountOutline](types.MaterialIconNames.md#accountoutline)
+- [AlphaCCircle](types.MaterialIconNames.md#alphaccircle)
 - [AlphaCCircleOutline](types.MaterialIconNames.md#alphaccircleoutline)
 - [ArrowDownThick](types.MaterialIconNames.md#arrowdownthick)
 - [ArrowLeft](types.MaterialIconNames.md#arrowleft)
@@ -38,6 +39,12 @@ Names of icons in the Material Design icon set
 ### AccountOutline
 
 • **AccountOutline** = ``"account-outline"``
+
+___
+
+### AlphaCCircle
+
+• **AlphaCCircle** = ``"alpha-c-circle"``
 
 ___
 

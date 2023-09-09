@@ -4,6 +4,8 @@
 
 [utils/APIUtils](../modules/utils_APIUtils.md).APIUtils
 
+Class with helper methods related to api usage
+
 ## Table of contents
 
 ### Constructors

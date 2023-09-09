@@ -4,6 +4,8 @@
 
 [features/user/types](../modules/features_user_types.md).IUserState
 
+State for the `user` slice of the redux store
+
 ## Table of contents
 
 ### Properties
@@ -15,3 +17,5 @@
 ### ui
 
 • **ui**: [`IUIState`](features_user_types.IUIState.md)
+
+State related to ui

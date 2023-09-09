@@ -14,6 +14,8 @@
 
 ▸ **LoginStack**(): `Element`
 
+The Stack Navigator for the Login
+
 #### Returns
 
 `Element`

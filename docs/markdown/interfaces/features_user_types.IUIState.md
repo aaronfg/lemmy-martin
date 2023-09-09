@@ -4,6 +4,8 @@
 
 [features/user/types](../modules/features_user_types.md).IUIState
 
+UI state
+
 ## Table of contents
 
 ### Properties
@@ -15,3 +17,5 @@
 ### feeds
 
 • **feeds**: [`IFeedsUI`](features_user_types.IFeedsUI.md)
+
+UI state for the Feeds screen

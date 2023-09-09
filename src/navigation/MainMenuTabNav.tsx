@@ -14,26 +14,6 @@ const Tab = createBottomTabNavigator();
 export const HomeTabNav = (): JSX.Element => {
   return (
     <Tab.Navigator>
-      {/* Feed */}
-      {/* <Tab.Screen
-        name={ScreenNames.Feed}
-        component={FeedScreen}
-        options={{
-          header: props => <FeedListHeader />,
-          tabBarIcon: props => (
-            <MaterialIcon
-              name={MaterialIconNames.Home}
-              size={TAB_ICON_SIZE}
-              color={
-                props.focused
-                  ? LemmyDarkTheme.colors.primary
-                  : LemmyDarkTheme.colors.secondary
-              }
-            />
-          ),
-          tabBarShowLabel: false,
-        }}
-      /> */}
       <Tab.Screen
         name={ScreenNames.FeedAndPostView}
         component={FeedAndPostNav}
@@ -64,7 +44,7 @@ export const HomeTabNav = (): JSX.Element => {
           header: () => <CommunityListHeader />,
           tabBarIcon: props => (
             <MaterialIcon
-              name="alpha-c-circle"
+              name={MaterialIconNames.AlphaCCircle}
               size={TAB_ICON_SIZE}
               color={
                 props.focused
