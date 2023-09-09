@@ -16,6 +16,8 @@
 
 ▸ **getCommunitesListPage**(`state`): `number`
 
+Returns page the list on the communities screen is on
+
 #### Parameters
 
 | Name | Type |

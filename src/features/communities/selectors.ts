@@ -5,6 +5,7 @@ import { LemmyUtils } from '../../utils/LemmyUtils';
 import { lemmyApi } from '../lemmy/api';
 import { ICommunityListItem } from './types';
 
+/** Returns page the list on the communities screen is on */
 export const getCommunitesListPage = (state: RootState) =>
   state.communites.listPage;
 
@@ -12,6 +13,7 @@ export const getCommunitesListPage = (state: RootState) =>
 export const getCommunityAPICommunitiesRaw = (state: RootState) =>
   lemmyApi.endpoints.getCommunities.select({})(state).data;
 
+/** Retgurns the communities for the current page of data the user is on  */
 const getLemmyAPICommunities = createSelector(
   [(state: RootState) => state, getCommunitesListPage],
   (state, page) => {

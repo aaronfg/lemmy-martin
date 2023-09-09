@@ -17,6 +17,7 @@ export const communitiesReducer = createReducer(
       .addCase(communitiesPageUpdated, (state, action) => {
         state.listPage = action.payload;
       })
+      // lemmyLogin
       .addCase(lemmyLogin.fulfilled, state => {
         state.listPage = INITIAL_COMMUNITIES_STATE.listPage;
       })

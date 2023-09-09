@@ -4,6 +4,8 @@
 
 [features/communities/types](../modules/features_communities_types.md).ICommunityListItem
 
+Descriptor for a Community list item
+
 ## Table of contents
 
 ### Properties
@@ -18,14 +20,20 @@
 
 • **communityView**: `CommunityView`
 
+The Lemmmy CommunityView for this item
+
 ___
 
 ### id
 
 • **id**: `string`
 
+Unique identifier
+
 ___
 
 ### shortDescription
 
 • **shortDescription**: `string`
+
+A shortened description of the community for this item

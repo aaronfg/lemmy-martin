@@ -4,6 +4,8 @@
 
 [features/communities/types](../modules/features_communities_types.md).ICommunitesState
 
+State for the `communities` slice of our redux store
+
 ## Table of contents
 
 ### Properties
