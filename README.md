@@ -4,12 +4,16 @@ A Lemmy client built in React Native.
 
 This is a personal project to mess around with the Lemmy API and give myself a project to work on in my spare time that seemed fun. It is a work in progress and is missing various essential things you'd want in a client.
 
-Until v1.0 is out, consider this repo very alpha and incomplete!
+Until `v1.0` is out, consider this repo **very alpha** and incomplete!
 
 Feel free to view the [current board](https://github.com/users/aaronfg/projects/1/views/1) to see what I'm working on right now.
 
 ## Screenshots
-![Alt text](docs/images/app_sshot_01.png)
+
+| Main Feed | Post / Comment View |
+| --| --|
+| ![Main Feed](docs/images/app_sshot_01.png) | ![Post View](docs/images/app_sshot_02.png)
+
 
 ## Documentation
 
