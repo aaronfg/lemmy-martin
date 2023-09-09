@@ -252,4 +252,39 @@ describe('LemmyUtils Tests', () => {
       ).toMatchInlineSnapshot(`"Music@narwhal.city"`);
     });
   });
+
+  describe('getCommentBorderColor()', () => {
+    test('getCommentBorderColor() with valid depth returns correct color', () => {
+      expect(LemmyUtils.getCommentBorderColor(0)).toMatchInlineSnapshot(
+        `"#307aba"`,
+      );
+
+      expect(LemmyUtils.getCommentBorderColor(1)).toMatchInlineSnapshot(
+        `"#b82cd1"`,
+      );
+      expect(LemmyUtils.getCommentBorderColor(2)).toMatchInlineSnapshot(
+        `"#fcba03"`,
+      );
+      expect(LemmyUtils.getCommentBorderColor(3)).toMatchInlineSnapshot(
+        `"#28c928"`,
+      );
+      expect(LemmyUtils.getCommentBorderColor(4)).toMatchInlineSnapshot(
+        `"#ba203c"`,
+      );
+      expect(LemmyUtils.getCommentBorderColor(5)).toMatchInlineSnapshot(
+        `"#f8fc0d"`,
+      );
+    });
+    test('getCommentBorderColor() with depth < 0 returns index 0 color', () => {
+      expect(LemmyUtils.getCommentBorderColor(-1)).toMatchInlineSnapshot(
+        `"#307aba"`,
+      );
+    });
+
+    test('getCommentBorderColor() with depth > LemmyNestedItemColors.length returns index 0 color', () => {
+      expect(LemmyUtils.getCommentBorderColor(1900)).toMatchInlineSnapshot(
+        `"#307aba"`,
+      );
+    });
+  });
 });
