@@ -5,8 +5,10 @@ import {
   mockTestAccount3,
 } from '../../__mocks__/accounts';
 import {
+  mockCommunityLocal,
   mockCommunityLongDescription,
   mockCommunityLongDescriptionNoNewLines,
+  mockCommunityNotLocal,
 } from '../../__mocks__/communities';
 import { LemmyLoginErrors } from '../../src/features/lemmy/types';
 import { IAccount } from '../../src/features/settings/types';
@@ -234,6 +236,20 @@ describe('LemmyUtils Tests', () => {
       expect(
         LemmyUtils.getPostUrlShort('https://www.somestuff.com'),
       ).toMatchInlineSnapshot(`"www.somestuff.com"`);
+    });
+  });
+
+  describe('getPostCommunityForItem()', () => {
+    test('getPostCommunityForItem() with local community returns just the community name', () => {
+      expect(
+        LemmyUtils.getPostCommunityForItem(mockCommunityLocal),
+      ).toMatchInlineSnapshot(`"personalfinance"`);
+    });
+
+    test('getPostCommunityForItem() with non-local community returns the fully qualified community name', () => {
+      expect(
+        LemmyUtils.getPostCommunityForItem(mockCommunityNotLocal),
+      ).toMatchInlineSnapshot(`"Music@narwhal.city"`);
     });
   });
 });
