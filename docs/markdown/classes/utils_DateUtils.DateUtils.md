@@ -4,6 +4,8 @@
 
 [utils/DateUtils](../modules/utils_DateUtils.md).DateUtils
 
+Class with static helper methods for Date-related logic
+
 ## Table of contents
 
 ### Constructors

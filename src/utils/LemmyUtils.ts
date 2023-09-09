@@ -236,9 +236,9 @@ export class LemmyUtils {
   };
 
   /**
-   *
-   * @param commentViews
-   * @returns
+   * Returns comments for a Post that have been parsed for use in
+   * a list item
+   * @param commentViews - A Post's comments
    */
   static getParsedComments = (commentViews: CommentView[]) => {
     const rootComments = this.getRootComments(commentViews);
@@ -287,6 +287,11 @@ export class LemmyUtils {
     return rootComments;
   };
 
+  /**
+   *
+   * @param commentViews
+   * @returns
+   */
   static getRootComments = (commentViews: CommentView[]): IParsedComment[] => {
     const rootComments: IParsedComment[] = [];
     commentViews.forEach(cv => {

@@ -8,6 +8,7 @@ import {
   mockCommunityLongDescription,
   mockCommunityLongDescriptionNoNewLines,
 } from '../../__mocks__/communities';
+import { LemmyLoginErrors } from '../../src/features/lemmy/types';
 import { IAccount } from '../../src/features/settings/types';
 import { LemmyUtils } from '../../src/utils/LemmyUtils';
 
@@ -191,6 +192,48 @@ describe('LemmyUtils Tests', () => {
       expect(LemmyUtils.getFormattedNumber(1200000)).toMatchInlineSnapshot(
         `"1.2M"`,
       );
+    });
+  });
+
+  describe('createILemmyInstance()', () => {
+    test('createILemmyInstance() with valid instance url returns properly', () => {
+      expect(LemmyUtils.createILemmyInstance('https://testInstance.com'))
+        .toMatchInlineSnapshot(`
+        {
+          "href": "https://testinstance.com/",
+          "name": "testinstance.com",
+        }
+      `);
+    });
+  });
+
+  describe('getFriendlyErrorMsg()', () => {
+    test('getFriendlyErrorMsg() with known error msgs returns correctly', () => {
+      expect(
+        LemmyUtils.getFriendlyErrorMsg(LemmyLoginErrors.PasswordIncorrect),
+      ).toMatchInlineSnapshot(`"Incorrect Password"`);
+
+      expect(
+        LemmyUtils.getFriendlyErrorMsg(LemmyLoginErrors.UserOrPassInvalid),
+      ).toMatchInlineSnapshot(
+        `"There was a problem with your username or password. Please verify them and try again."`,
+      );
+    });
+
+    test('getFriendlyErrorMsg() with unknown error message returns the same error', () => {
+      expect(
+        LemmyUtils.getFriendlyErrorMsg(
+          'This should be exactly what is returned',
+        ),
+      ).toMatchInlineSnapshot(`"This should be exactly what is returned"`);
+    });
+  });
+
+  describe('getPostUrlShort()', () => {
+    test('getPostUrlShort() returns proper hostname', () => {
+      expect(
+        LemmyUtils.getPostUrlShort('https://www.somestuff.com'),
+      ).toMatchInlineSnapshot(`"www.somestuff.com"`);
     });
   });
 });

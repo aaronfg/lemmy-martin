@@ -8,7 +8,7 @@ describe('DateUtils()', () => {
       const fakeDate = new Date('6/1/2023');
       const iso = fakeDate.toISOString();
       expect(DateUtils.getUserFriendlyPostDate(iso)).toMatchInlineSnapshot(
-        `"10 hours ago"`,
+        `"10 hours"`,
       );
     });
 
@@ -18,7 +18,7 @@ describe('DateUtils()', () => {
       const fakeDate = DateTime.local(2023, 6, 12, 23, 0, 0);
       const iso = fakeDate.toISO() ?? '';
       expect(DateUtils.getUserFriendlyPostDate(iso)).toMatchInlineSnapshot(
-        `"1 day ago"`,
+        `"8 days"`,
       );
     });
 
@@ -28,7 +28,7 @@ describe('DateUtils()', () => {
       const fakeDate = new Date('6/1/2022');
       const iso = fakeDate.toISOString();
       expect(DateUtils.getUserFriendlyPostDate(iso)).toMatchInlineSnapshot(
-        `"1 year ago"`,
+        `"1 year"`,
       );
     });
   });

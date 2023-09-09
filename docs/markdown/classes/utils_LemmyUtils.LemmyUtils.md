@@ -154,11 +154,14 @@ ___
 
 ▸ `Static` **getParsedComments**(`commentViews`): [`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
 
+Returns comments for a Post that have been parsed for use in
+a list item
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `commentViews` | `CommentView`[] |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `commentViews` | `CommentView`[] | A Post's comments |
 
 #### Returns
 
