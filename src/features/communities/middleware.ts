@@ -1,27 +1,22 @@
-import {
-  TypedAddListener,
-  addListener,
-  createListenerMiddleware,
-} from '@reduxjs/toolkit';
 import { AppStartListening } from '../../redux/listenerMiddleware';
-import { AppDispatch, RootState } from '../../redux/store';
+import { lemmyApi } from '../lemmy/api';
+import { getSettingsCurrentAccountToken } from '../settings/selectors';
+import { communitiesPageUpdated } from './actions';
 
-/** Listener middleware related to the `settings` feature */
-export const communitesListenerMiddleware = createListenerMiddleware();
-
-const startAppListening =
-  communitesListenerMiddleware.startListening as AppStartListening;
-
-const addAppListener = addListener as TypedAddListener<RootState, AppDispatch>;
-
-// startAppListening({
-//   matcher: isAnyOf(communitiesPageUpdated),
-//   effect: async (action, listenerApi) => {
-//     // grab new communites list data based on the new page
-//     log.debug('dispatching page ' + action.payload);
-//     listenerApi.dispatch(communitiesTest());
-//     // listenerApi.dispatch(
-//     // communityApi.endpoints.getCommunities.initiate({ page: action.payload });
-//     // );
-//   },
-// });
+/** Adds the listeners related to the `communities` feature */
+export const addCommunitesListeners = (startListening: AppStartListening) => {
+  startListening({
+    actionCreator: communitiesPageUpdated,
+    effect: async (action, listenerApi) => {
+      // grab new communites list data based on the new page
+      const authToken = getSettingsCurrentAccountToken(listenerApi.getState());
+      listenerApi.dispatch(
+        lemmyApi.endpoints.getCommunities.initiate({
+          page: action.payload,
+          auth: authToken,
+          sort: 'Active',
+        }),
+      );
+    },
+  });
+};
