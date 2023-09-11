@@ -190,11 +190,31 @@ export class LemmyUtils {
       : rawNumber.toString();
   };
 
+  /**
+   * Creates a shortened url from the (possibly) longer `fullUrl`
+   * that is passed in
+   * @param fullUrl - The URL to shorten
+   * @returns The hostname of the url passed in
+   */
   static getPostUrlShort = (fullUrl: string): string => {
     const url = new URL(fullUrl);
     return url.hostname;
   };
 
+  /**
+   * Returns the community name formatted in different ways if
+   * the community is on the same instance as the user or not.
+   *
+   * **Local Community Example:**
+   *
+   * `"games"`
+   *
+   * **Non-Local Community Example:**
+   *
+   * `"games@some-instance-name.xyz"`
+
+   * @param community - The `Community` to get the name from
+   */
   static getPostCommunityForItem = (community: Community): string => {
     if (community.local) {
       return community.name;
@@ -204,12 +224,29 @@ export class LemmyUtils {
     }
   };
 
+  /**
+   * Returns a color to be used as the border color on a comment list
+   * item to denote depth.
+   * @param commentDepth - The depth of the comment
+   */
   static getCommentBorderColor = (commentDepth: number) => {
-    const isLast = commentDepth === LemmyNestedItemColors.length;
-    const ind = commentDepth === 0 || isLast ? 0 : commentDepth;
+    // guard against passing in a number too small or too large
+    const safeDepth =
+      commentDepth < 0
+        ? 0
+        : commentDepth > LemmyNestedItemColors.length
+        ? LemmyNestedItemColors.length
+        : commentDepth;
+    const isLast = safeDepth === LemmyNestedItemColors.length;
+    const ind = safeDepth === 0 || isLast ? 0 : safeDepth;
     return LemmyNestedItemColors[ind];
   };
 
+  /**
+   * Returns comments for a Post that have been parsed for use in
+   * a list item
+   * @param commentViews - A Post's comments
+   */
   static getParsedComments = (commentViews: CommentView[]) => {
     const rootComments = this.getRootComments(commentViews);
 
@@ -225,38 +262,27 @@ export class LemmyUtils {
             cv !== rpcv.commentView &&
             cv.comment.path.includes(rpcv.commentView.comment.id.toString()),
         );
-        console.log(
-          `${rpcv.commentView.comment.id} has ${allChildren.length} children`,
-        );
         allChildren.forEach((child, index) => {
-          console.log('-- child: ' + child.comment.id);
           // slice the path to remove the root currentCVId and this child
           // comment's id
           const pathParts = child.comment.path.split('.');
-          const thisChildId = child.comment.id.toString();
-
           const rid = pathParts.indexOf(currentCVId.toString());
-          console.log(`\tindex of the root id (${currentCVId}): ` + rid);
-          // pathParts.shift();
           const leftover = pathParts.slice(rid + 1);
-          console.log('\tparts after shift:', leftover);
           leftover.pop();
-          console.log(
-            '\tfinal pathParts after removing root id and this one:',
-            leftover,
-          );
-
           if (leftover.length === 0) {
             rpcv.children.push(child.comment.id.toString());
           }
         });
       }
     });
-
-    console.log('final: ', JSON.stringify(rootComments));
     return rootComments;
   };
 
+  /**
+   *
+   * @param commentViews
+   * @returns
+   */
   static getRootComments = (commentViews: CommentView[]): IParsedComment[] => {
     const rootComments: IParsedComment[] = [];
     commentViews.forEach(cv => {
@@ -274,63 +300,5 @@ export class LemmyUtils {
       }
     });
     return rootComments;
-  };
-
-  static getParsedCommentsOld = (commentViews: CommentView[]) => {
-    const allParsed: IParsedComment[] = [];
-
-    commentViews.forEach(cv => {
-      const parts = cv.comment.path.split('.');
-      // remove the "0"
-      parts.shift();
-      // remove the id for parent of all comments
-      const rootCommentID = parts.shift();
-      const children: string[] = [];
-      if (rootCommentID) {
-        console.log('rootCommentID:', rootCommentID);
-        console.log('leftover parts:', parts);
-        // if there are children comment ids left,
-        // add them to the children array
-        if (parts.length > 0) {
-          console.log(
-            'adding ' + parts.length + ' child comment ids to ' + rootCommentID,
-          );
-          children.push(...parts);
-          // get the root CommentView
-          const rootComment = commentViews.find(val => {
-            return val.comment.id.toString() === rootCommentID;
-          });
-          console.log('rootComment:' + rootComment?.comment.content);
-          if (rootComment) {
-            // if we don't already have it, add it
-            const existing = allParsed.find(pc => {
-              return pc.commentView.comment.id === rootComment.comment.id;
-            });
-            // console.log('exists?' + existing);
-            if (existing === undefined) {
-              console.log('adding ' + rootComment.comment.id);
-              allParsed.push({
-                commentView: rootComment,
-                children,
-              });
-            }
-          }
-        } else {
-          // if we don't already have it, add it
-          const existing = allParsed.find(pc => {
-            return pc.commentView.comment.id === cv.comment.id;
-          });
-          if (!existing) {
-            allParsed.push({
-              commentView: cv,
-              children,
-            });
-          }
-        }
-      }
-    });
-
-    console.log('final: ', allParsed);
-    return allParsed;
   };
 }

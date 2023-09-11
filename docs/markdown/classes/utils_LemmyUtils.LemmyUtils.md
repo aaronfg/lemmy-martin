@@ -21,7 +21,6 @@ Class with utility methods related to Lemmy API and accounts
 - [getFormattedNumber](utils_LemmyUtils.LemmyUtils.md#getformattednumber)
 - [getFriendlyErrorMsg](utils_LemmyUtils.LemmyUtils.md#getfriendlyerrormsg)
 - [getParsedComments](utils_LemmyUtils.LemmyUtils.md#getparsedcomments)
-- [getParsedCommentsOld](utils_LemmyUtils.LemmyUtils.md#getparsedcommentsold)
 - [getPostCommunityForItem](utils_LemmyUtils.LemmyUtils.md#getpostcommunityforitem)
 - [getPostUrlShort](utils_LemmyUtils.LemmyUtils.md#getposturlshort)
 - [getRootComments](utils_LemmyUtils.LemmyUtils.md#getrootcomments)
@@ -61,11 +60,14 @@ ___
 
 ▸ `Static` **getCommentBorderColor**(`commentDepth`): `string`
 
+Returns a color to be used as the border color on a comment list
+item to denote depth.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `commentDepth` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `commentDepth` | `number` | The depth of the comment |
 
 #### Returns
 
@@ -151,27 +153,14 @@ ___
 
 ▸ `Static` **getParsedComments**(`commentViews`): [`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
 
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `commentViews` | `CommentView`[] |
-
-#### Returns
-
-[`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
-
-___
-
-### getParsedCommentsOld
-
-▸ `Static` **getParsedCommentsOld**(`commentViews`): [`IParsedComment`](../interfaces/features_lemmy_types.IParsedComment.md)[]
+Returns comments for a Post that have been parsed for use in
+a list item
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `commentViews` | `CommentView`[] |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `commentViews` | `CommentView`[] | A Post's comments |
 
 #### Returns
 
@@ -183,11 +172,22 @@ ___
 
 ▸ `Static` **getPostCommunityForItem**(`community`): `string`
 
+Returns the community name formatted in different ways if
+the community is on the same instance as the user or not.
+
+**Local Community Example:**
+
+`"games"`
+
+**Non-Local Community Example:**
+
+`"games@some-instance-name.xyz"`
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `community` | `Community` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `community` | `Community` | The `Community` to get the name from |
 
 #### Returns
 
@@ -199,15 +199,20 @@ ___
 
 ▸ `Static` **getPostUrlShort**(`fullUrl`): `string`
 
+Creates a shortened url from the (possibly) longer `fullUrl`
+that is passed in
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `fullUrl` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `fullUrl` | `string` | The URL to shorten |
 
 #### Returns
 
 `string`
+
+The hostname of the url passed in
 
 ___
 

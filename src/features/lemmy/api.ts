@@ -25,6 +25,7 @@ import {
 } from '../settings/selectors';
 import { LemmyAPIMethods, LemmyAPIPaths } from './types';
 
+/** RTK Query tags for the Lemmy API */
 export enum LemmyApiTagTypes {
   Comments = 'Comments',
   Community = 'Community',
@@ -114,28 +115,6 @@ export const lemmyApi = createApi({
       }),
       providesTags: [LemmyApiTagTypes.Posts],
       transformResponse: (response: GetPostsResponse) => response.posts,
-      // serializeQueryArgs: ({ endpointName }) => {
-      //   return endpointName;
-      // },
-      // // Always merge incoming data to the cache entry
-      // merge: (currentCache, newItems, otherArgs) => {
-      //   console.log('=== merge: ', otherArgs.arg);
-      //   if (otherArgs.arg.page === 1) {
-      //     console.log('\tcurrentCache items: ' + currentCache.length);
-      //     console.log('\nnewItems: ' + newItems.length);
-      //     currentCache = newItems;
-      //   } else {
-      //     currentCache.push(...newItems);
-      //   }
-      // },
-      // // Refetch when the page arg changes
-      // forceRefetch({ currentArg, previousArg }) {
-      //   console.log(
-      //     'forceRefetch? currentArg !== previousArg: ' +
-      //       (currentArg !== previousArg),
-      //   );
-      //   return currentArg !== previousArg;
-      // },
     }),
   }),
 });

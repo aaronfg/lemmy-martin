@@ -4,6 +4,8 @@
 
 [features/lemmy/types](../modules/features_lemmy_types.md).LemmyErrorMsgs
 
+Error messages for the `lemmy` feature
+
 ## Table of contents
 
 ### Enumeration Members

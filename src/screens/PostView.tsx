@@ -48,13 +48,6 @@ export const PostView = (): JSX.Element => {
     );
   };
 
-  // const renderHiddenItem = (
-  //   rowData: ListRenderItemInfo<null>,
-  //   rowMap: RowMap<null>,
-  // ) => {
-  //   return <ListItemCommentActions />;
-  // };
-
   const onThumbnailPress = (url: string) => {
     //
   };

@@ -1,3 +1,4 @@
+/** Class with helper methods related to api usage */
 export class APIUtils {
   static getQueryParamsFromObj = (obj: object) => {
     const params = new URLSearchParams();

@@ -4,11 +4,13 @@ import { lemmyApi } from '../lemmy/api';
 import { communitiesPageUpdated } from './actions';
 import { ICommunitesState } from './types';
 
+/** The initial state for the `communites` slice of our redux store */
 export const INITIAL_COMMUNITIES_STATE: ICommunitesState = {
   /** Get the first page of results by default */
   listPage: 1,
 };
 
+/** Reducer for the `communities` slice of the redux store */
 export const communitiesReducer = createReducer(
   INITIAL_COMMUNITIES_STATE,
   builder => {
@@ -17,6 +19,7 @@ export const communitiesReducer = createReducer(
       .addCase(communitiesPageUpdated, (state, action) => {
         state.listPage = action.payload;
       })
+      // lemmyLogin
       .addCase(lemmyLogin.fulfilled, state => {
         state.listPage = INITIAL_COMMUNITIES_STATE.listPage;
       })

@@ -23,6 +23,7 @@ export enum ScreenNames {
 /** Names of icons in the Material Design icon set */
 export enum MaterialIconNames {
   AccountOutline = 'account-outline',
+  AlphaCCircle = 'alpha-c-circle',
   AlphaCCircleOutline = 'alpha-c-circle-outline',
   ArrowLeft = 'arrow-left',
   ArrowRight = 'arrow-right',
@@ -46,9 +47,11 @@ export enum MaterialIconNames {
   Web = 'web',
 }
 
+/** Common unicode characters */
 export enum UnicodeText {
   Bullet = '\u2022',
 }
+
 
 export enum ScreenMargin {
   Horizontal = 20,

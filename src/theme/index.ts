@@ -8,6 +8,7 @@ import {
   adaptNavigationTheme,
 } from 'react-native-paper';
 
+/** App branding colors */
 export enum LemmyMartinBrandingColors {
   primary = '#63da9e',
   secondaryDark = '#797979',

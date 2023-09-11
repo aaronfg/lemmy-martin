@@ -43,14 +43,20 @@
 
 • `Const` **LEMMY\_API\_PATH**: ``"api/v3/"``
 
+The path to the current LEmmy aPI
+
 ___
 
 ### LemmyNestedItemColors
 
 • `Const` **LemmyNestedItemColors**: `string`[]
 
+Colors to use on nested list items like comments
+
 ___
 
 ### SortTypeValues
 
 • `Const` **SortTypeValues**: readonly [``"Active"``, ``"Hot"``, ``"New"``, ``"Old"``, ``"TopDay"``, ``"TopWeek"``, ``"TopMonth"``, ``"TopYear"``, ``"TopAll"``, ``"MostComments"``, ``"NewComments"``, ``"TopHour"``, ``"TopSixHour"``, ``"TopTwelveHour"``]
+
+Valid sort types

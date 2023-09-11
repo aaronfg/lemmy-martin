@@ -55,7 +55,6 @@ export const CommunitiesScreen = (): JSX.Element => {
   const renderItem = useCallback(
     (item: ListRenderItemInfo<ICommunityListItem>) => {
       return <ListItemCommunity item={item.item} />;
-      // return <Text>ite</Text>;
     },
     [],
   );
@@ -75,20 +74,14 @@ export const CommunitiesScreen = (): JSX.Element => {
         onEndReachedThreshold={0.2}
         onEndReached={onListEndReached}
         refreshing={isLoading}
-        ListEmptyComponent={
-          () => (
-            // loading ? (
-            <View style={styles.loadingContainer}>
-              <Text>Loading Communities...</Text>
-              <ActivityIndicator />
-            </View>
-          )
-          // ) : (
-          //   <View />
-          // )
-        }
+        ListEmptyComponent={() => (
+          // loading ? (
+          <View style={styles.loadingContainer}>
+            <Text>Loading Communities...</Text>
+            <ActivityIndicator />
+          </View>
+        )}
         renderItem={renderItem}
-        // ListHeaderComponent={() => <CommunityListHeader />}
         ItemSeparatorComponent={() => <Divider />}
         ListFooterComponent={() => <ListFooterLoading />}
       />
@@ -109,7 +102,6 @@ const createStyleSheet = () => {
     },
     safe: {
       flex: 1,
-      // backgroundColor: 'green',
     },
   });
 };

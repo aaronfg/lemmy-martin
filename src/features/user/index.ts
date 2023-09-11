@@ -8,6 +8,7 @@ import {
 } from './actions';
 import { IUserState } from './types';
 
+/** The initial state for the `user` slice of our redux store */
 export const INITIAL_USER_STATE: IUserState = {
   ui: {
     feeds: {
@@ -18,6 +19,7 @@ export const INITIAL_USER_STATE: IUserState = {
   },
 };
 
+/** Reducer for the `user` slice of the redux store */
 export const userReducer = createReducer(INITIAL_USER_STATE, builder => {
   builder
     // userUIFeedPageUpdated

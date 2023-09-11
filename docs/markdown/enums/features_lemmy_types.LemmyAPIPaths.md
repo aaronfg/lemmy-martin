@@ -4,6 +4,8 @@
 
 [features/lemmy/types](../modules/features_lemmy_types.md).LemmyAPIPaths
 
+Paths for the Lemmy API
+
 ## Table of contents
 
 ### Enumeration Members

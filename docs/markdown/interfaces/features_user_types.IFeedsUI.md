@@ -4,6 +4,8 @@
 
 [features/user/types](../modules/features_user_types.md).IFeedsUI
 
+UI state for the Feeds screen
+
 ## Table of contents
 
 ### Properties
@@ -19,11 +21,15 @@
 
 • `Optional` **currentPost**: `PostView`
 
+The current post the user is looking at
+
 ___
 
 ### feedSortType
 
 • **feedSortType**: `SortType`
+
+The sort type for the feed
 
 ___
 
@@ -31,8 +37,12 @@ ___
 
 • **page**: `number`
 
+Current page of data to show
+
 ___
 
 ### type
 
 • **type**: `ListingType`
+
+For filtering the feed list to just items from subscribed commnites vs all, etc

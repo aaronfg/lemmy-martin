@@ -18,6 +18,8 @@
 
 ▸ **useOrientation**(): [`IOrientation`](../interfaces/hooks.IOrientation.md)
 
+Convenience hook for handling orientation changes
+
 #### Returns
 
 [`IOrientation`](../interfaces/hooks.IOrientation.md)

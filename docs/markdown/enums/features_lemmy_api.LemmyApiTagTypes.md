@@ -4,6 +4,8 @@
 
 [features/lemmy/api](../modules/features_lemmy_api.md).LemmyApiTagTypes
 
+RTK Query tags for the Lemmy API
+
 ## Table of contents
 
 ### Enumeration Members

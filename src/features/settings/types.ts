@@ -37,8 +37,11 @@ export interface IFeedSettings {
    * all Lemmy instances
    */
   source: FeedSource;
+  /** The sort type for the feed */
   feedSortType: SortType;
+  /** For filtering the feed list to just items from subscribed commnites vs all, etc */
   type: ListingType;
+  /** Current page of data to show */
   page: number;
 }
 

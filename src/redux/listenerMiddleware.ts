@@ -5,22 +5,10 @@ import {
   addListener,
   createListenerMiddleware,
 } from '@reduxjs/toolkit';
-import { communitiesPageUpdated } from '../features/communities/actions';
-import { lemmyLogin } from '../features/lemmy/actions';
-import { LemmyApiTagTypes, lemmyApi } from '../features/lemmy/api';
-import {
-  settingsCurrentAccountChanged,
-  settingsUpdateAccounts,
-} from '../features/settings/actions';
-import {
-  getAccounts,
-  getSettingsCurrentAccountToken,
-} from '../features/settings/selectors';
-import { IAccount } from '../features/settings/types';
-import { userUIFeedListingTypeUpdated } from '../features/user/actions';
-import { log } from '../logging/log';
-import { navigationRef } from '../navigation';
-import { LemmyUtils } from '../utils/LemmyUtils';
+import { addCommunitesListeners } from '../features/communities/middleware';
+import { addLemmyListeners } from '../features/lemmy/middleware';
+import { addSettingsListeners } from '../features/settings/middleware';
+import { addUserListeners } from '../features/user/middleware';
 import type { AppDispatch, RootState } from './store';
 
 export type AppStartListening = TypedStartListening<RootState, AppDispatch>;
@@ -33,69 +21,18 @@ export const addAppListener = addListener as TypedAddListener<
 /** Listener middleware related to the `settings` feature */
 export const appListenerMiddleware = createListenerMiddleware();
 
+/** Properly typed `startListening` for our listener middleware */
 export const startAppListening =
   appListenerMiddleware.startListening as AppStartListening;
 
-startAppListening({
-  actionCreator: lemmyLogin.fulfilled,
-  effect: async (action, listenerApi) => {
-    // login was successful. save this account
-    const newAccount: IAccount = {
-      username: action.meta.arg.loginForm.username_or_email,
-      password: action.meta.arg.loginForm.password,
-      instance: action.meta.arg.instanceUrl,
-      token: action.payload.jwt,
-    };
+/** Add the middleware for the `lemmy` feature */
+addLemmyListeners(startAppListening);
 
-    const accounts = getAccounts(listenerApi.getState());
+/** Add the middleware for the `communites` feature */
+addCommunitesListeners(startAppListening);
 
-    const updatedAccounts = LemmyUtils.getUpdatedAccounts(newAccount, accounts);
-    listenerApi.dispatch(settingsUpdateAccounts(updatedAccounts));
-    listenerApi.dispatch(settingsCurrentAccountChanged(newAccount));
-    navigationRef.goBack();
-  },
-});
+/** Add the middleware for the `settings` feature */
+addSettingsListeners(startAppListening);
 
-startAppListening({
-  actionCreator: communitiesPageUpdated,
-  effect: async (action, listenerApi) => {
-    // grab new communites list data based on the new page
-    const authToken = getSettingsCurrentAccountToken(listenerApi.getState());
-    log.debug('dispatching page ' + action.payload + '\tauth: ' + authToken);
-    listenerApi.dispatch(
-      lemmyApi.endpoints.getCommunities.initiate({
-        page: action.payload,
-        auth: authToken,
-        sort: 'Active',
-      }),
-    );
-  },
-});
-
-startAppListening({
-  actionCreator: settingsCurrentAccountChanged,
-  effect: (action, listenerApi) => {
-    const authToken = getSettingsCurrentAccountToken(listenerApi.getState());
-    log.debug('settingsUpdateAccounts listener \tauth: ' + authToken);
-    // re-fetch communities
-    listenerApi.dispatch(
-      lemmyApi.endpoints.getCommunities.initiate(
-        {
-          page: 1,
-          auth: authToken,
-          sort: 'Active',
-        },
-        { forceRefetch: true },
-      ),
-    );
-  },
-});
-
-startAppListening({
-  actionCreator: userUIFeedListingTypeUpdated,
-  effect: (action, listenerApi) => {
-    listenerApi.dispatch(
-      lemmyApi.util.invalidateTags([LemmyApiTagTypes.Posts]),
-    );
-  },
-});
+/** Add the middleware for the `user` feature */
+addUserListeners(startAppListening);

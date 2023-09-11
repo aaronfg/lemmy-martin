@@ -40,6 +40,10 @@ export const getLemmyLoginError = (state: RootState) => state.lemmy.loginError;
  */
 export const getLemmyAPIError = (state: RootState) => state.lemmy.error;
 
+/**
+ * Returns the base url for the current instance. If no current instance
+ * exists, will return the default instance base url.
+ */
 export const getLemmyAPIBaseUrl = createSelector(
   getSettingsDefaultInstance,
   getSettingsCurrentAccount,
@@ -52,17 +56,12 @@ export const getLemmyAPIBaseUrl = createSelector(
   },
 );
 
-// export const bb = createSelector(
-//   getLemmyJWT,
-//   getUserUIFeedCurrentPost,
-//   (token, post) => {
-//     return lemmyApi.endpoints.getComments.select({})(state).data;
-//   },
-// );
-
+/**
+ * Returns the raw response returned from the server for the current
+ * post's comments
+ * @param state - The redux state
+ */
 export const getLemmyAPICommentsRaw = (state: RootState) => {
-  // const postId = getUserUIFeedCurrentPost(state)?.post.id;
-  // console.log('getLemmyAPICommentsRaw() postId: ' + postId);
   return lemmyApi.endpoints.getComments.select({
     auth: getLemmyJWT(state),
     post_id: getUserUIFeedCurrentPost(state)?.post.id,
@@ -70,6 +69,10 @@ export const getLemmyAPICommentsRaw = (state: RootState) => {
   })(state).data;
 };
 
+/**
+ * Returns the current post's comments, formatted for use in
+ * the list items on the Post view comments list.
+ */
 export const getLemmyComments = createSelector(
   getLemmyAPICommentsRaw,
   comments => {

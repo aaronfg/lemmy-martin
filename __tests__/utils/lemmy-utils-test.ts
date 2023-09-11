@@ -5,9 +5,12 @@ import {
   mockTestAccount3,
 } from '../../__mocks__/accounts';
 import {
+  mockCommunityLocal,
   mockCommunityLongDescription,
   mockCommunityLongDescriptionNoNewLines,
+  mockCommunityNotLocal,
 } from '../../__mocks__/communities';
+import { LemmyLoginErrors } from '../../src/features/lemmy/types';
 import { IAccount } from '../../src/features/settings/types';
 import { LemmyUtils } from '../../src/utils/LemmyUtils';
 
@@ -190,6 +193,97 @@ describe('LemmyUtils Tests', () => {
     test('getFormattedNumber() with number over a million returns correct string', () => {
       expect(LemmyUtils.getFormattedNumber(1200000)).toMatchInlineSnapshot(
         `"1.2M"`,
+      );
+    });
+  });
+
+  describe('createILemmyInstance()', () => {
+    test('createILemmyInstance() with valid instance url returns properly', () => {
+      expect(LemmyUtils.createILemmyInstance('https://testInstance.com'))
+        .toMatchInlineSnapshot(`
+        {
+          "href": "https://testinstance.com/",
+          "name": "testinstance.com",
+        }
+      `);
+    });
+  });
+
+  describe('getFriendlyErrorMsg()', () => {
+    test('getFriendlyErrorMsg() with known error msgs returns correctly', () => {
+      expect(
+        LemmyUtils.getFriendlyErrorMsg(LemmyLoginErrors.PasswordIncorrect),
+      ).toMatchInlineSnapshot(`"Incorrect Password"`);
+
+      expect(
+        LemmyUtils.getFriendlyErrorMsg(LemmyLoginErrors.UserOrPassInvalid),
+      ).toMatchInlineSnapshot(
+        `"There was a problem with your username or password. Please verify them and try again."`,
+      );
+    });
+
+    test('getFriendlyErrorMsg() with unknown error message returns the same error', () => {
+      expect(
+        LemmyUtils.getFriendlyErrorMsg(
+          'This should be exactly what is returned',
+        ),
+      ).toMatchInlineSnapshot(`"This should be exactly what is returned"`);
+    });
+  });
+
+  describe('getPostUrlShort()', () => {
+    test('getPostUrlShort() returns proper hostname', () => {
+      expect(
+        LemmyUtils.getPostUrlShort('https://www.somestuff.com'),
+      ).toMatchInlineSnapshot(`"www.somestuff.com"`);
+    });
+  });
+
+  describe('getPostCommunityForItem()', () => {
+    test('getPostCommunityForItem() with local community returns just the community name', () => {
+      expect(
+        LemmyUtils.getPostCommunityForItem(mockCommunityLocal),
+      ).toMatchInlineSnapshot(`"personalfinance"`);
+    });
+
+    test('getPostCommunityForItem() with non-local community returns the fully qualified community name', () => {
+      expect(
+        LemmyUtils.getPostCommunityForItem(mockCommunityNotLocal),
+      ).toMatchInlineSnapshot(`"Music@narwhal.city"`);
+    });
+  });
+
+  describe('getCommentBorderColor()', () => {
+    test('getCommentBorderColor() with valid depth returns correct color', () => {
+      expect(LemmyUtils.getCommentBorderColor(0)).toMatchInlineSnapshot(
+        `"#307aba"`,
+      );
+
+      expect(LemmyUtils.getCommentBorderColor(1)).toMatchInlineSnapshot(
+        `"#b82cd1"`,
+      );
+      expect(LemmyUtils.getCommentBorderColor(2)).toMatchInlineSnapshot(
+        `"#fcba03"`,
+      );
+      expect(LemmyUtils.getCommentBorderColor(3)).toMatchInlineSnapshot(
+        `"#28c928"`,
+      );
+      expect(LemmyUtils.getCommentBorderColor(4)).toMatchInlineSnapshot(
+        `"#ba203c"`,
+      );
+      expect(LemmyUtils.getCommentBorderColor(5)).toMatchInlineSnapshot(
+        `"#f8fc0d"`,
+      );
+    });
+    test('getCommentBorderColor() with depth < 0 returns index 0 color', () => {
+      expect(LemmyUtils.getCommentBorderColor(-1)).toMatchInlineSnapshot(
+        `"#307aba"`,
+      );
+    });
+
+    test('getCommentBorderColor() with depth > LemmyNestedItemColors.length returns index 0 color', () => {
+      expect(LemmyUtils.getCommentBorderColor(1900)).toMatchInlineSnapshot(
+        `"#307aba"`,
       );
     });
   });
