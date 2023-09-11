@@ -4,6 +4,8 @@
 
 [types](../modules/types.md).UnicodeText
 
+Common unicode characters
+
 ## Table of contents
 
 ### Enumeration Members

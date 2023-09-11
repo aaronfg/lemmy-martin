@@ -47,9 +47,11 @@ export enum MaterialIconNames {
   Web = 'web',
 }
 
+/** Common unicode characters */
 export enum UnicodeText {
   Bullet = '\u2022',
 }
+
 
 export enum ScreenMargin {
   Horizontal = 20,
