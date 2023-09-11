@@ -5,6 +5,7 @@ import { communitiesPageUpdated } from './actions';
 
 /** Adds the listeners related to the `communities` feature */
 export const addCommunitesListeners = (startListening: AppStartListening) => {
+  /** Grab next page of communities when the page updates */
   startListening({
     actionCreator: communitiesPageUpdated,
     effect: async (action, listenerApi) => {

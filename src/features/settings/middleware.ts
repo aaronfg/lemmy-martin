@@ -6,11 +6,11 @@ import { getSettingsCurrentAccountToken } from './selectors';
 
 /** Adds the listeners related to the `communities` feature */
 export const addSettingsListeners = (startListening: AppStartListening) => {
+  /** If the current account changes, grab the communities again */
   startListening({
     actionCreator: settingsCurrentAccountChanged,
     effect: (action, listenerApi) => {
       const authToken = getSettingsCurrentAccountToken(listenerApi.getState());
-      log.debug('settingsUpdateAccounts listener \tauth: ' + authToken);
       // re-fetch communities
       listenerApi.dispatch(
         lemmyApi.endpoints.getCommunities.initiate(
