@@ -17,11 +17,13 @@
 
 ▸ **getUserUIFeedCurrentPost**(`state`): `undefined` \| `PostView`
 
+Returns the currently selected post on the Feeds screen
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | `Object` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | `Object` | The redux state |
 
 #### Returns
 
@@ -33,11 +35,13 @@ ___
 
 ▸ **getUserUIFeedPage**(`state`): `number`
 
+Returns the page of paginated data for the Feeds screen
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | `Object` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | `Object` | The redux state |
 
 #### Returns
 
@@ -49,11 +53,13 @@ ___
 
 ▸ **getUserUIFeedSortType**(`state`): `SortType`
 
+Returns the current sort type for the Feeds screen
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | `Object` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | `Object` | The redux state |
 
 #### Returns
 
@@ -65,11 +71,13 @@ ___
 
 ▸ **getUserUIFeedType**(`state`): `ListingType`
 
+Returns the current feed list type for the Feeds screen
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | `Object` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | `Object` | The redux state |
 
 #### Returns
 
