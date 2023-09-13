@@ -11,6 +11,7 @@ import {
 import { MD3Theme, Text, useTheme } from 'react-native-paper';
 import { DateUtils } from '../utils/DateUtils';
 import { LemmyUtils } from '../utils/LemmyUtils';
+import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 /**
  * List Item for a Post
@@ -64,10 +65,16 @@ export const ListItemPost = (props: {
               <Text style={styles.title}>{post.post.name}</Text>
               {/* Details */}
               <View style={styles.detailsContainer}>
-                {/* Comments */}
-                <Text style={styles.comments}>
-                  {post.counts.comments} Comments
-                </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <MaterialIcon
+                    name="message-outline"
+                    color={Color(theme.colors.onSurface).darken(0.3).hex()}
+                    style={{ paddingRight: 4, marginBottom: 4 }}
+                    size={14}
+                  />
+                  {/* Comments */}
+                  <Text style={styles.comments}>{post.counts.comments}</Text>
+                </View>
 
                 {/* url */}
                 {post.post.url && (

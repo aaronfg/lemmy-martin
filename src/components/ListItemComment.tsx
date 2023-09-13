@@ -51,11 +51,12 @@ const createStyleSheet = (theme: MD3Theme) => {
       fontWeight: 'bold',
       color: Color(theme.colors.primary).lighten(0.1).hex(),
       marginRight: 4,
+      // marginBottom: 12,
     },
     creatorContainr: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: -5,
+      // marginBottom: 10,
     },
   });
 };
