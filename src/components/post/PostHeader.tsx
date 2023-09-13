@@ -5,6 +5,7 @@ import { IconButton, MD3Theme, Menu, useTheme } from 'react-native-paper';
 import { getUserUIFeedCurrentPost } from '../../features/user/selectors';
 import { useAppSelector } from '../../redux/hooks';
 import { MaterialIconNames } from '../../types';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 /**
  * Header component for a Post with actionable icons for
@@ -74,7 +75,7 @@ export const PostHeader = (): JSX.Element => {
     //
   }, []);
   return (
-    <View>
+    <SafeAreaView>
       <View style={styles.container}>
         {/* UpVote */}
         <IconButton
@@ -161,7 +162,7 @@ export const PostHeader = (): JSX.Element => {
           </View>
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
