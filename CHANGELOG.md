@@ -6,3 +6,4 @@
 - #13: Add Login Screen/Form
 - #26: Load Post View
 - #30: Finish documentation for existing codebase
+- #37: Fix iOS Fonts
