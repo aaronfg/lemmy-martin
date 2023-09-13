@@ -67,7 +67,6 @@ export const CommunitiesScreen = (): JSX.Element => {
   return (
     <SafeAreaView style={styles.safe}>
       {error && <ErrorMsg error={error} />}
-
       <FlatList
         style={styles.list}
         data={communities}
@@ -75,7 +74,6 @@ export const CommunitiesScreen = (): JSX.Element => {
         onEndReached={onListEndReached}
         refreshing={isLoading}
         ListEmptyComponent={() => (
-          // loading ? (
           <View style={styles.loadingContainer}>
             <Text>Loading Communities...</Text>
             <ActivityIndicator />
