@@ -23,6 +23,7 @@ import {
   getUserUIFeedType,
 } from '../../features/user/selectors';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 /**
  * Header for the Feed screen
@@ -83,7 +84,7 @@ export const FeedListHeader = (): JSX.Element => {
   };
 
   return (
-    <View>
+    <SafeAreaView>
       <View style={styles.container}>
         <Menu
           visible={showMenuType}
@@ -121,7 +122,7 @@ export const FeedListHeader = (): JSX.Element => {
         </Menu>
       </View>
       {loading && <ProgressBar indeterminate={true} />}
-    </View>
+    </SafeAreaView>
   );
 };
 

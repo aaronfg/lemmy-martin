@@ -6,6 +6,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { ExpandableView, ExpandableViewType } from '../ExpandableView';
 import { CurrentAccountHeader } from './CurrentAccountHeader';
 import { ProfileChooser } from './ProfileChooser';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 /**
  * Allows the user to Add a new Account or switch between
@@ -23,13 +24,13 @@ export const AccountSwitcher = (): JSX.Element => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ExpandableView
         ref={exp}
         headerView={<CurrentAccountHeader currentAccount={currentAccount} />}
         contentView={<ProfileChooser onItemClicked={onAccountItemClick} />}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

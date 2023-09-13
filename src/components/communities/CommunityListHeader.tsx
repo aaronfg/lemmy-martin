@@ -4,6 +4,7 @@ import { MD3Theme, ProgressBar, Text, useTheme } from 'react-native-paper';
 import { getLemmyAPILoading } from '../../features/lemmy/selectors';
 import { getCurrentInstance } from '../../features/settings/selectors';
 import { useAppSelector } from '../../redux/hooks';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 /**
  * Header for the Communities screen
@@ -14,7 +15,7 @@ export const CommunityListHeader = (): JSX.Element => {
   const theme = useTheme();
   const styles = createStyleSheet(theme);
   return (
-    <View>
+    <SafeAreaView>
       <View style={styles.container}>
         <Text style={styles.title}>Communities</Text>
         {currentInstance && (
@@ -22,7 +23,7 @@ export const CommunityListHeader = (): JSX.Element => {
         )}
       </View>
       {loading && <ProgressBar indeterminate={true} />}
-    </View>
+    </SafeAreaView>
   );
 };
 
