@@ -62,6 +62,7 @@ export enum LemmyLoginErrors {
   /** A possible response if the user/pass is wrong. */
   UserOrPassInvalid = 'Error: couldnt_find_that_username_or_email',
   PasswordIncorrect = 'Error: password_incorrect',
+  TwoFactorTokenMissing = 'missing_totp_token'
 }
 
 /** Error messages for the `lemmy` feature */
